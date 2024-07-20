@@ -1,7 +1,7 @@
 import './style.css'
 import ReactDOM from 'react-dom/client'
 import { Canvas } from '@react-three/fiber'
-import Experience from './Experience.jsx'
+import Header from './Header.jsx'
 
 const root = ReactDOM.createRoot(document.querySelector('#root'))
 
@@ -14,6 +14,6 @@ root.render(
             position: [ -3, 1.5, 4 ]
         } }
     >
-        <Experience />
+        <Header />
     </Canvas>
 )
