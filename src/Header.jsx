@@ -81,26 +81,38 @@ export default function Header() {
                     </div>
                 </div>
                 <nav className="flex flex-ai-c">
-                
-                <a href="/" className="header__logo">
-                    <img src="images/logo_inline_black.svg" alt="Cafè y Vino"/>
-                </a>
+                    <a
+                        href="/"
+                        className="header__logo"
+                    >
+                        <img
+                            src="images/logo_inline_black.svg"
+                            alt="Cafè y Vino"
+                        />
+                    </a>
 
-                <div id="btnHamburger" className="header__toggle hide-for-desktop">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                    <div
+                        id="btnHamburger"
+                        className="header__toggle hide-for-desktop"
+                    >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
 
-                <div className="header__links hide-for-mobile">
-                    
-                    <a href="horarios/">Horarios & Ubicación</a>
-                    <a href="carta/">Carta</a>
-                    <a href="reservaciones/">Reservaciones</a>
-                    
-                </div>
-
-            </nav>
+                    <div className="header__links hide-for-mobile">
+                        <a href="horarios/">Horarios & Ubicación</a>
+                        <a href="carta/">Carta</a>
+                        <a
+                            style={{
+                                fontSize: '62px',
+                            }}
+                            href="reservaciones/"
+                        >
+                            Reservaciones
+                        </a>
+                    </div>
+                </nav>
             </header>
         </>
     )
