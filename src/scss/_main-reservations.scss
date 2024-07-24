@@ -1,0 +1,211 @@
+.main-reservations {
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    .reserv-text {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 640px;
+        padding: 3rem 2rem;
+
+        h2 {
+        
+            @include breakpoint-down(tablet) {
+                font-size: 35px;
+                letter-spacing: 3px;
+            }
+            @include breakpoint-down(mobile) {
+                font-size: 27px;
+            }
+        }
+
+        p {
+            @include breakpoint-down(mobile) {
+                font-size: $font_small;
+            }
+        }
+    }
+
+    form {
+        padding: 0 1rem;
+
+        #pax-display {
+            margin: 0 auto;
+            text-align: start;
+            padding-left: 0;
+            font-size: 1rem;
+            max-width: 640px;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+            border: 0px;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            background-color: $nav_links; /* Change the color of the thumb */
+            width: 20px; /* Change the size of the thumb */
+            height: 20px;
+            border: 0.2px solid $overlay;
+            box-shadow: 1px 1px 1px $overlay, 0px 0px 1px $overlay;
+            margin-top: -10px;
+          }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: .3rem;
+            background-color: $overlay;
+            border: 1px solid $nav_links;
+        }
+
+        input[type=range]::-moz-range-thumb {
+            background: $nav_links; /* Change the color of the thumb */
+            width: 20px; /* Change the size of the thumb */
+            height: 20px;
+            border: 1px solid $overlay;
+            // border-radius: 50%; /* Make the thumb circular */
+          }
+        input[type=range]::-moz-range-progress {
+            background-color: $nav_links; 
+            border: 1px solid $overlay;
+        }
+        input[type=range]::-moz-range-track {  
+            background-color: $overlay;
+            border: 1px solid $nav_links;
+        }
+
+        
+    }
+
+    
+    .calendar {
+
+        position: relative;
+        width: 100%;
+        max-width: 640px;
+        margin-left: auto;
+        margin-right: auto;
+
+        &-header {
+
+            width: 100%;
+            max-width: 640px;
+            color: $nav_links;
+            margin-bottom: 1rem;
+            background-color: $overlay;
+            border: 1px solid; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            transition: all 300ms ease-in-out;
+
+            .mth {
+                cursor: default;
+            }
+
+            .arrows {
+                font-size: 22px;
+                font-weight: normal;
+                cursor: pointer;
+
+                &:hover {
+                    scale: 110%;
+                }
+
+                &:active {
+                    scale: 95%;
+                }
+            }
+
+        }
+        
+        #calendar-body {
+            width: 100%;
+
+            .week-day {
+                padding-bottom: 1rem;
+                cursor: default;
+                font-family: Futura;
+                font-weight: normal;
+            }  
+            
+            .day {
+                padding: 1rem;
+                font-family: 'Saveur Sans';
+                font-weight: 500;
+                cursor: pointer;
+
+                @include breakpoint-down(mobile) {
+                    padding: .5rem;
+                }
+            }
+
+            .day-selected {
+                border: 1px solid;
+                border-radius: 100% 50%;
+            }
+
+            .day-blocked {
+                color: grey;
+                text-decoration: line-through;
+                cursor: default;
+            }
+            
+        }
+    }
+
+    .time {
+        margin-bottom: 3rem;
+
+        p {
+            margin-bottom: .5rem;
+            font-size: 1rem;
+        }
+
+        
+    }
+
+    .button-control {
+        display: block;
+        padding: 1rem;
+        width: 100%;
+        max-width: 640px;
+        margin: 0 auto;
+        font-weight: 900;
+        margin-bottom: 6rem;
+        background: transparent;
+        color: $nav_links;
+        border: 1px solid $nav_links;
+        font-family: 'Saveur Sans';
+        font-size: 18px;
+        letter-spacing: 5px;
+        transition: all 300ms ease-in-out;
+
+        &:hover {
+            background-color: $nav_links;
+            color: $overlay;
+        }
+
+        &:active {
+            transform: scale(95%);
+        }
+    }
+
+    #loader {
+        transform: translateY(-20px);
+        margin-bottom: 2.3rem;
+    }
+
+    .bottom-image {
+        background-image: url(/images/bottom/reservas.jpg);
+
+        @include breakpoint-up(laptop) {
+            background-image: url(/images/bottom/reservas-wide.jpg);
+            
+        }
+    }
+}

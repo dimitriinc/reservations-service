@@ -59,7 +59,7 @@ export default function Header() {
                             target="_blank"
                         >
                             <img
-                                src="/images/facebook_icon_regal.png"
+                                src="./images/facebook_icon_regal.png"
                                 className="slider-links"
                                 alt="facebook_logo"
                                 heigth="26px"
@@ -86,7 +86,7 @@ export default function Header() {
                         className="header__logo"
                     >
                         <img
-                            src="images/logo_inline_black.svg"
+                            src="/images/logo_inline_black.svg"
                             alt="Cafè y Vino"
                         />
                     </a>
@@ -103,14 +103,7 @@ export default function Header() {
                     <div className="header__links hide-for-mobile">
                         <a href="horarios/">Horarios & Ubicación</a>
                         <a href="carta/">Carta</a>
-                        <a
-                            style={{
-                                fontSize: '62px',
-                            }}
-                            href="reservaciones/"
-                        >
-                            Reservaciones
-                        </a>
+                        <a href="reservaciones/">Reservaciones</a>
                     </div>
                 </nav>
             </header>

@@ -1,0 +1,172 @@
+
+main {
+
+    text-align: center;
+
+    .hero {
+        
+        @include breakpoint-down(tablet) {
+            height: calc(100vh - 100px);
+            min-height: calc(100vh - 100px);
+            max-height: calc(100vh - 100px);
+            display: flex;
+            align-items: center;
+        }
+
+        @include breakpoint-up(laptop) {
+            height: calc(100vh - 166px);
+        }
+
+        &__image {
+            background-image: url(/images/throwaway_image.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            min-height: 75%;
+            width: 100%;
+
+            @include breakpoint-up(laptop) {
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+                margin-bottom: .6rem;
+                width: 80%;
+                min-height: 100%;
+            }
+        }
+    }
+
+    .main-text {
+        text-align: center;
+        border: 2rem solid #fff;
+        border-image: url(/images/border-deco.png);
+        border-image-repeat: round;
+        border-image-slice: 88;
+        margin: 1rem;        
+
+        @include breakpoint-up(laptop) {
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        p.main-message {
+            @include breakpoint-up(laptop) {
+                max-width: 640px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        h2 {
+            text-transform: uppercase;
+            font-family: 'Saveur Sans';
+        }
+
+        button {
+            margin: 3rem 0;
+            font-size: 1rem;
+            cursor: pointer;
+            color: $nav_links;
+            font-family: 'Saveur Sans Regular';
+            transition: all 300ms ease-in-out;
+
+            @include breakpoint-down(tablet) {
+                &:active {
+                    transform: scale(90%);
+                }
+            }
+            
+            @include breakpoint-up(laptop) {
+                &:hover {
+                    background-color: $nav_links;
+                    color: $overlay;
+                }
+                &:active {
+                    transform: scale(90%);
+                }
+            }
+        }
+    }
+
+    .points {
+
+        width: 100%;
+        margin: 3rem auto;
+
+        @include breakpoint-up(laptop) {
+            width: 80%;
+
+            p {
+                width: 50%;
+            }
+        }
+
+        .point {
+
+            @include breakpoint-up(laptop) {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                &:not(:last-child) {
+                    margin-bottom: 3rem;
+                }
+            }
+
+            @include breakpoint-down(tablet) {
+                line-height: 1.2;
+
+                .point-text {
+                    max-width: 80%;
+                }
+
+                &:not(:last-child) {
+                    margin-bottom: 3rem;
+                }
+            }
+            
+        }
+
+        .point-two {
+            flex-direction: row-reverse;
+        }
+
+        
+    }
+    
+    .bottom-image {
+        background-image: url(/images/bottom/main.jpg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        @include breakpoint-up(laptop) {
+            background-image: url(/images/bottom/main-wide.jpg);
+        }
+
+        #to-reserva-btn {
+            
+            font-family: 'Saveur Sans Regular';
+            text-decoration: none;
+            font-weight: normal;
+            white-space: nowrap;
+            border: 1px solid;
+            color: $overlay;
+            width: fit-content;
+            letter-spacing: 2px;
+            background-color: rgba(22, 11, 23, .5);
+            padding: 1rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            transition: all 300ms ease-in-out;
+
+            &:active {
+                transform: scale(90%);
+            }
+        }
+    }
+}
+

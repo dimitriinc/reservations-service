@@ -1,0 +1,122 @@
+$carousel-height: 400px !default;
+$carousel-item-height: 300px !default;
+$carousel-item-width: 300px !default;
+
+.carousel {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: $carousel-height;
+  perspective: 500px;
+  transform-style: preserve-3d;
+  transform-origin: 0% 50%;
+  opacity: 0;
+  transition: all 500ms ease-in-out;
+}
+
+.carousel-item {
+  visibility: hidden;
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  transition: scale 500ms ease-in-out;
+
+  .item-title-container {
+    width: 100%;
+    height: 0;
+    position: relative;
+
+    .item-title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      margin: auto;
+      padding: 5px;
+      width: fit-content;
+      transform: translateY(-20px);
+      background-color: $overlay;
+      border: 1px solid;
+      border-radius: 5px;
+      font-family: 'Saveur Sans';
+      z-index: 999;
+    }
+  }
+
+  & > img {
+    width: 100%;
+    border: 1px solid;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+}
+
+.item-focus {
+  z-index: 998 ;
+  cursor: default;
+  position: fixed;
+  opacity: 0; 
+  transform: translateY(-100%);
+  left: 0;
+  width: 400px;
+  height: 400px;
+  right: 0;
+  margin: 0 auto;
+  top: 14%;
+  transition: all 500ms ease-in-out;
+
+  @include breakpoint-down(mobile) {
+    width: 300px;
+    height: 300px;
+  }
+
+  img {
+    cursor: default !important;
+  }
+}
+.item-in-focus {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.description-focus {
+  z-index: 999;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 8%;
+  margin: 0 auto;
+  border: 1px solid $nav_links;
+  border-radius: 5px;
+  opacity: 0;
+  padding: 10px;
+  background-color: $overlay;
+  font-size: 18px;
+  transform: translateY(100%);
+  cursor: default;
+  transition: all 500ms ease-in-out 300ms;
+  max-width: 600px;
+
+  @include breakpoint-down(tablet) {
+    max-width: 400px;
+    font-size: 16px;
+  }
+  @include breakpoint-down(mobile) {
+    font-size: 14px;
+    max-width: 300px;
+  }
+
+  @media (max-height: 730px) {
+    bottom: 4%;
+    font-size: 14px;
+    padding: 5px;
+  }
+}
+
+.description-in-focus {
+  transform: translateY(0);
+  opacity: 1;
+}

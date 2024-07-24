@@ -1,0 +1,40 @@
+.main-signup {
+
+    min-height: 100vh;
+
+    h2 {
+        margin-top: 5rem;
+        @include breakpoint-down(tablet) {
+            font-size: 35px;
+        }
+        @include breakpoint-down(mobile) {
+            font-size: 30px;
+        }
+    }
+
+    p {
+        margin-bottom: 3rem;
+        
+        @include breakpoint-down(mobile) {
+            font-size: $font_small;
+        }
+    }
+
+    form {
+        padding-bottom: 4rem;
+
+        #loader {
+            margin-bottom: 2.3rem;
+        }
+    }
+
+    .bottom-image {
+        background-image: url(/images/bottom/signup.jpg);
+
+        @include breakpoint-up(laptop) {
+            background-image: url(/images/bottom/signup-wide.jpg);
+            
+        }
+    }
+
+}
