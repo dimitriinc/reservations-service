@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from 'react'
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false)
     const [headerScrolling, setHeaderScrolling] = useState(false)
+    const [activeLink, setActiveLink] = useState(0)
+
     const headerSlicer = useRef()
     const headerSpacer = useRef()
 
@@ -37,6 +39,10 @@ export default function Header() {
     }, [])
 
     const onHamburgerClick = () => setMenuOpen((value) => !value)
+    const onLinkClick = (index) => {
+        setMenuOpen(false)
+        setActiveLink(index)
+    }
 
     return (
         <>
@@ -60,54 +66,47 @@ export default function Header() {
                     }`}
                 >
                     <div className="slider-links mobile-links-canvas">
-                        <a
-                            href="horarios/"
-                            className={`slider-links ${
+                        <div
+                            className={`mobile-link slider-links ${
                                 menuOpen ? 'fade-in' : 'fade-out'
-                            }`}
+                            } ${activeLink === 1 ? 'is-active' : ''}`}
+                            onClick={onLinkClick.bind(null, 1)}
                         >
                             horarios & ubicación
-                        </a>
-                        <a
-                            href="carta/"
-                            className={`slider-links ${
+                        </div>
+                        <div
+                            className={`mobile-link slider-links ${
                                 menuOpen ? 'fade-in' : 'fade-out'
-                            }`}
+                            } ${activeLink === 2 ? 'is-active' : ''}`}
+                            onClick={onLinkClick.bind(null, 2)}
                         >
                             carta
-                        </a>
-                        <a
-                            href="reservaciones/"
-                            className={`slider-links ${
+                        </div>
+                        <div
+                            className={`mobile-link slider-links ${
                                 menuOpen ? 'fade-in' : 'fade-out'
-                            }`}
+                            } ${activeLink === 3 ? 'is-active' : ''}`}
+                            onClick={onLinkClick.bind(null, 3)}
                         >
                             reservaciones
-                        </a>
-                        <a
-                            href="historia/"
-                            className={`slider-links ${
+                        </div>
+
+                        <div
+                            className={`mobile-link slider-links ${
                                 menuOpen ? 'fade-in' : 'fade-out'
-                            }`}
-                        >
-                            nuestra historia
-                        </a>
-                        <a
-                            href="carreras/"
-                            className={`slider-links ${
-                                menuOpen ? 'fade-in' : 'fade-out'
-                            }`}
+                            } ${activeLink === 4 ? 'is-active' : ''}`}
+                            onClick={onLinkClick.bind(null, 4)}
                         >
                             carreras
-                        </a>
-                        <a
-                            href="contacto/"
-                            className={`slider-links ${
+                        </div>
+                        <div
+                            className={`mobile-link slider-links ${
                                 menuOpen ? 'fade-in' : 'fade-out'
-                            }`}
+                            } ${activeLink === 5 ? 'is-active' : ''}`}
+                            onClick={onLinkClick.bind(null, 5   )}
                         >
                             contacto
-                        </a>
+                        </div>
                     </div>
                     <div
                         className={`slider-links social-links ${
@@ -133,7 +132,7 @@ export default function Header() {
                             target="_blank"
                         >
                             <img
-                                src="./images/facebook_icon_regal.png"
+                                src="/images/facebook_icon_regal.png"
                                 className={`slider-links ${
                                     menuOpen ? 'fade-in' : 'fade-out'
                                 }`}
@@ -184,9 +183,30 @@ export default function Header() {
                     </div>
 
                     <div className="header__links hide-for-mobile">
-                        <a href="horarios/">Horarios & Ubicación</a>
-                        <a href="carta/">Carta</a>
-                        <a href="reservaciones/">Reservaciones</a>
+                        <div
+                            onClick={onLinkClick.bind(null, 1)}
+                            className={`nav-link ${
+                                activeLink === 1 ? 'is-active' : ''
+                            }`}
+                        >
+                            Horarios & Ubicación
+                        </div>
+                        <div
+                            onClick={onLinkClick.bind(null, 2)}
+                            className={`nav-link ${
+                                activeLink === 2 ? 'is-active' : ''
+                            }`}
+                        >
+                            Carta
+                        </div>
+                        <div
+                            onClick={onLinkClick.bind(null, 3)}
+                            className={`nav-link ${
+                                activeLink === 3 ? 'is-active' : ''
+                            }`}
+                        >
+                            Reservaciones
+                        </div>
                     </div>
                 </nav>
             </header>

@@ -10,8 +10,6 @@ const root = ReactDOM.createRoot(document.querySelector('#root'))
 
 root.render(
     <>
-        <div className="header-slicer hide-for-desktop"></div>
-        <div className="header-spacer"></div>
         <Header />
         <Main />
         <Footer />
