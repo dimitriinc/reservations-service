@@ -1,4 +1,32 @@
+import { useState, useEffect } from 'react'
+
 export default function Footer() {
+    const [corporateVisibility, setVisibility] = useState({
+        titleVisible: false,
+        emailVisible: false,
+    })
+
+    useEffect(() => {
+        setVisibility({
+            titleVisible: true,
+            emailVisible: false,
+        })
+    }, [])
+
+    const onTitleClick = () => {
+        setVisibility({
+            titleVisible: false,
+            emailVisible: true,
+        })
+    }
+
+    const onEmailClick = () => {
+        setVisibility({
+            titleVisible: true,
+            emailVisible: false,
+        })
+    }
+
     return (
         <>
             <footer>
@@ -52,8 +80,28 @@ export default function Footer() {
 
                 <div className="corporate-area">
                     <div className="corporate-container">
-                        <p id="dimitriinc">powered by DimitriInc.</p>
-                        <p id="dimi_email">dimitriinc@proton.me</p>
+                        <p
+                            onClick={onTitleClick}
+                            className={
+                                corporateVisibility.titleVisible
+                                    ? 'emerged'
+                                    : 'submerged'
+                            }
+                            id="dimitriinc"
+                        >
+                            powered by DimitriInc.
+                        </p>
+                        <p
+                            onClick={onEmailClick}
+                            className={
+                                corporateVisibility.emailVisible
+                                    ? 'emerged'
+                                    : 'submerged'
+                            }
+                            id="dimi_email"
+                        >
+                            dimitriinc@proton.me
+                        </p>
                     </div>
                 </div>
             </footer>
