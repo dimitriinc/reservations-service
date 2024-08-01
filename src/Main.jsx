@@ -1,21 +1,33 @@
-import useIntersectionObserver from './customHooks/useIntersectionObserver'
+// import useIntersectionObserver from './customHooks/useIntersectionObserver'
 import { useState, useEffect, useRef } from 'react'
 
-const Section = ({ children, isFirst, uniqueClass }) => {
-    const [ref, isIntersecting] = useIntersectionObserver(
-        {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.15,
-        },
-        isFirst
-    )
+// const Section = ({ children, isFirst, uniqueClass }) => {
+//     const [ref, isIntersecting] = useIntersectionObserver(
+//         {
+//             root: null,
+//             rootMargin: '0px',
+//             threshold: 0.15,
+//         },
+//         isFirst
+//     )
+//     return (
+//         <section
+//             ref={ref}
+//             className={`revealable ${
+//                 isIntersecting ? 'revealed' : ''
+//             } ${uniqueClass}`}
+//         >
+//             {children}
+//         </section>
+//     )
+// }
+
+const Section = ({ children, reference, isfirst = '0', uniqueClass }) => {
     return (
         <section
-            ref={ref}
-            className={`revealable ${
-                isIntersecting ? 'revealed' : ''
-            } ${uniqueClass}`}
+            ref={reference}
+            className={`revealable  ${uniqueClass}`}
+            isfirst={isfirst}
         >
             {children}
         </section>
@@ -23,7 +35,47 @@ const Section = ({ children, isFirst, uniqueClass }) => {
 }
 
 export default function Main({ activateLink }) {
+    // Sections refs
+    const heroRef = useRef()
     const textRef = useRef()
+    const point1Ref = useRef()
+    const point2Ref = useRef()
+    const point3Ref = useRef()
+    const bottomImgRef = useRef()
+
+    // Assign intersection observer to every section on the first render
+    useEffect(() => {
+        const reveal = function (entries, observer) {
+            const [entry] = entries
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed')
+                observer.unobserve(entry.target)
+            }
+        }
+        const revealOptions = {
+            root: null,
+            threshold: 0.15,
+        }
+        const revealObserver = new IntersectionObserver(reveal, revealOptions)
+
+        Array.of(
+            heroRef.current,
+            textRef.current,
+            point1Ref.current,
+            point2Ref.current,
+            point3Ref.current,
+            bottomImgRef.current
+        ).forEach((section) => {
+            if (section.getAttribute('isfirst') === '1') {
+                setTimeout(() => {
+                    revealObserver.observe(section)
+                }, 500)
+            } else {
+                revealObserver.observe(section)
+            }
+        })
+    }, [])
+
     const onImageClick = () => {
         if (scrollY === 0) {
             if (document.documentElement.clientWidth > 769) {
@@ -41,6 +93,7 @@ export default function Main({ activateLink }) {
             }
         }
     }
+
     const onLinkClick = (index) => {
         activateLink(index)
     }
@@ -48,8 +101,9 @@ export default function Main({ activateLink }) {
         <>
             <main>
                 <Section
-                    isFirst={true}
+                    isfirst="1"
                     uniqueClass="hero"
+                    reference={heroRef}
                 >
                     <div
                         onClick={onImageClick}
@@ -57,9 +111,12 @@ export default function Main({ activateLink }) {
                     ></div>
                 </Section>
 
-                <Section uniqueClass="main-text">
+                <Section
+                    uniqueClass="main-text"
+                    reference={textRef}
+                >
                     <h2
-                        ref={textRef}
+                        // ref={textRef}
                         className="fade-in"
                     >
                         Café francés de nueva generación
@@ -78,7 +135,10 @@ export default function Main({ activateLink }) {
                 </Section>
 
                 <div className="points">
-                    <Section uniqueClass="point point-one">
+                    <Section
+                        uniqueClass="point point-one"
+                        reference={point1Ref}
+                    >
                         <img
                             className="centered round-image"
                             src="images/points/img1.jpeg"
@@ -95,7 +155,10 @@ export default function Main({ activateLink }) {
                         </p>
                     </Section>
 
-                    <Section uniqueClass="point point-two">
+                    <Section
+                        uniqueClass="point point-two"
+                        reference={point2Ref}
+                    >
                         <img
                             src="images/points/img2.jpg"
                             alt="point-two"
@@ -107,7 +170,10 @@ export default function Main({ activateLink }) {
                         </p>
                     </Section>
 
-                    <Section uniqueClass="point point-three">
+                    <Section
+                        uniqueClass="point point-three"
+                        reference={point3Ref}
+                    >
                         <img
                             src="images/points/img3.jpg"
                             alt="point-three"
@@ -121,7 +187,10 @@ export default function Main({ activateLink }) {
                     </Section>
                 </div>
 
-                <Section uniqueClass="bottom-image">
+                <Section
+                    uniqueClass="bottom-image"
+                    reference={bottomImgRef}
+                >
                     <div
                         onClick={onLinkClick.bind(null, 3)}
                         id="to-reserva-btn"
