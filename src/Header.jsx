@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
 
-export default function Header() {
+export default function Header({ activeLink, activateLink }) {
     const [menuOpen, setMenuOpen] = useState(false)
     const [headerScrolling, setHeaderScrolling] = useState(false)
-    const [activeLink, setActiveLink] = useState(0)
+    // const [activeLink, setActiveLink] = useState(0)
 
     const headerSlicer = useRef()
     const headerSpacer = useRef()
@@ -41,7 +41,7 @@ export default function Header() {
     const onHamburgerClick = () => setMenuOpen((value) => !value)
     const onLinkClick = (index) => {
         setMenuOpen(false)
-        setActiveLink(index)
+        activateLink(index)
     }
 
     return (

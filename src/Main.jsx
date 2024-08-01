@@ -1,13 +1,67 @@
-export default function Main() {
+import useIntersectionObserver from './customHooks/useIntersectionObserver'
+import { useState, useEffect, useRef } from 'react'
+
+const Section = ({ children, isFirst, uniqueClass }) => {
+    const [ref, isIntersecting] = useIntersectionObserver(
+        {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15,
+        },
+        isFirst
+    )
+    return (
+        <section
+            ref={ref}
+            className={`revealable ${
+                isIntersecting ? 'revealed' : ''
+            } ${uniqueClass}`}
+        >
+            {children}
+        </section>
+    )
+}
+
+export default function Main({ activateLink }) {
+    const textRef = useRef()
+    const onImageClick = () => {
+        if (scrollY === 0) {
+            if (document.documentElement.clientWidth > 769) {
+                textRef.current.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center',
+                })
+            } else {
+                const coords = textRef.current.getBoundingClientRect()
+                window.scrollTo({
+                    left: coords.left + window.scrollX,
+                    top: coords.top + window.scrollY - 160,
+                    behavior: 'smooth',
+                })
+            }
+        }
+    }
+    const onLinkClick = (index) => {
+        activateLink(index)
+    }
     return (
         <>
             <main>
-                <section className="hero">
-                    <div className="hero__image"></div>
-                </section>
+                <Section
+                    isFirst={true}
+                    uniqueClass="hero"
+                >
+                    <div
+                        onClick={onImageClick}
+                        className="hero__image"
+                    ></div>
+                </Section>
 
-                <section className="main-text">
-                    <h2 className="fade-in">
+                <Section uniqueClass="main-text">
+                    <h2
+                        ref={textRef}
+                        className="fade-in"
+                    >
                         Café francés de nueva generación
                     </h2>
                     <p className="main-message">
@@ -18,13 +72,13 @@ export default function Main() {
                     <p className="pretencious-slogan">
                         <em>Audaces fortuna juvat.</em>
                     </p>
-                    <a href="carta/">
+                    <div onClick={onLinkClick.bind(null, 2)}>
                         <button>Ver carta</button>
-                    </a>
-                </section>
+                    </div>
+                </Section>
 
                 <div className="points">
-                    <section className="point point-one">
+                    <Section uniqueClass="point point-one">
                         <img
                             className="centered round-image"
                             src="images/points/img1.jpeg"
@@ -39,9 +93,9 @@ export default function Main() {
                             neque ornare aenean euismod elementum nisi quis
                             eleifend quam.
                         </p>
-                    </section>
+                    </Section>
 
-                    <section className="point point-two">
+                    <Section uniqueClass="point point-two">
                         <img
                             src="images/points/img2.jpg"
                             alt="point-two"
@@ -51,9 +105,9 @@ export default function Main() {
                             In ante metus dictum at. Quis commodo odio aenean
                             sed adipiscing.
                         </p>
-                    </section>
+                    </Section>
 
-                    <section className="point point-three">
+                    <Section uniqueClass="point point-three">
                         <img
                             src="images/points/img3.jpg"
                             alt="point-three"
@@ -64,18 +118,18 @@ export default function Main() {
                             Consectetur a erat nam at lectus urna duis convallis
                             convallis.
                         </p>
-                    </section>
+                    </Section>
                 </div>
 
-                <section className="bottom-image">
-                    <a
-                        href="reservaciones/"
+                <Section uniqueClass="bottom-image">
+                    <div
+                        onClick={onLinkClick.bind(null, 3)}
                         id="to-reserva-btn"
                         className="hide-for-desktop"
                     >
                         Reservar mesa
-                    </a>
-                </section>
+                    </div>
+                </Section>
             </main>
         </>
     )
