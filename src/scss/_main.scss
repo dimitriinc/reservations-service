@@ -18,8 +18,8 @@ main {
         }
 
         &__image {
-            background-image: url(/images/throwaway_image.png);
-            background-size: cover;
+            background-image: url(/images/cactus.png);
+            background-size:contain;
             background-repeat: no-repeat;
             background-position: center;
             min-height: 75%;
