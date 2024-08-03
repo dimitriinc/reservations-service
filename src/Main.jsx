@@ -108,7 +108,10 @@ export default function Main({ activateLink }) {
                     <div
                         onClick={onImageClick}
                         className="hero__image"
-                    ></div>
+                    >
+                        <div className='filler' id='filler-left'></div>
+                        <div className='filler' id='filler-right'></div>
+                    </div>
                 </Section>
 
                 <Section
