@@ -1,5 +1,6 @@
 // import useIntersectionObserver from './customHooks/useIntersectionObserver'
 import { useState, useEffect, useRef } from 'react'
+import { NavLink } from 'react-router-dom'
 
 // const Section = ({ children, isFirst, uniqueClass }) => {
 //     const [ref, isIntersecting] = useIntersectionObserver(
@@ -109,8 +110,14 @@ export default function Main({ activateLink }) {
                         onClick={onImageClick}
                         className="hero__image"
                     >
-                        <div className='filler' id='filler-left'></div>
-                        <div className='filler' id='filler-right'></div>
+                        <div
+                            className="filler"
+                            id="filler-left"
+                        ></div>
+                        <div
+                            className="filler"
+                            id="filler-right"
+                        ></div>
                     </div>
                 </Section>
 
@@ -132,9 +139,12 @@ export default function Main({ activateLink }) {
                     <p className="pretencious-slogan">
                         <em>Audaces fortuna juvat.</em>
                     </p>
-                    <div onClick={onLinkClick.bind(null, 2)}>
+                    <NavLink
+                        to="/carta"
+                        // onClick={onLinkClick.bind(null, 2)}
+                    >
                         <button>Ver carta</button>
-                    </div>
+                    </NavLink>
                 </Section>
 
                 <div className="points">

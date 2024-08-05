@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { NavLink } from 'react-router-dom'
 
 export default function Header({ activeLink, activateLink }) {
     const [menuOpen, setMenuOpen] = useState(false)
@@ -103,7 +104,7 @@ export default function Header({ activeLink, activateLink }) {
                             className={`mobile-link slider-links ${
                                 menuOpen ? 'fade-in' : 'fade-out'
                             } ${activeLink === 5 ? 'is-active' : ''}`}
-                            onClick={onLinkClick.bind(null, 5   )}
+                            onClick={onLinkClick.bind(null, 5)}
                         >
                             contacto
                         </div>
@@ -183,14 +184,14 @@ export default function Header({ activeLink, activateLink }) {
                     </div>
 
                     <div className="header__links hide-for-mobile">
-                        <div
+                        <NavLink
+                            to="/horarios"
                             onClick={onLinkClick.bind(null, 1)}
-                            className={`nav-link ${
-                                activeLink === 1 ? 'is-active' : ''
-                            }`}
+                            className={`nav-link ${({ isActive }) =>
+                                isActive ? 'is-active' : ''}`}
                         >
                             Horarios & Ubicación
-                        </div>
+                        </NavLink>
                         <div
                             onClick={onLinkClick.bind(null, 2)}
                             className={`nav-link ${

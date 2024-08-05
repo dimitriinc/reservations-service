@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export default function Footer() {
+export default function Footer({activeLink}) {
     const [corporateVisibility, setVisibility] = useState({
         titleVisible: false,
         emailVisible: false,
