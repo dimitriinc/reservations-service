@@ -1,6 +1,6 @@
 // import useIntersectionObserver from './customHooks/useIntersectionObserver'
 import { useState, useEffect, useRef } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 // const Section = ({ children, isFirst, uniqueClass }) => {
 //     const [ref, isIntersecting] = useIntersectionObserver(
@@ -35,7 +35,7 @@ const Section = ({ children, reference, isfirst = '0', uniqueClass }) => {
     )
 }
 
-export default function Main({ activateLink }) {
+export default function Home({ activateLink }) {
     // Sections refs
     const heroRef = useRef()
     const textRef = useRef()
@@ -100,7 +100,7 @@ export default function Main({ activateLink }) {
     }
     return (
         <>
-            <main>
+            <div>
                 <Section
                     isfirst="1"
                     uniqueClass="hero"
@@ -139,12 +139,12 @@ export default function Main({ activateLink }) {
                     <p className="pretencious-slogan">
                         <em>Audaces fortuna juvat.</em>
                     </p>
-                    <NavLink
+                    <Link
                         to="/carta"
-                        // onClick={onLinkClick.bind(null, 2)}
+                        onClick={onLinkClick.bind(null, 2)}
                     >
                         <button>Ver carta</button>
-                    </NavLink>
+                    </Link>
                 </Section>
 
                 <div className="points">
@@ -204,15 +204,16 @@ export default function Main({ activateLink }) {
                     uniqueClass="bottom-image"
                     reference={bottomImgRef}
                 >
-                    <div
+                    <Link
+                        to="/reservas"
                         onClick={onLinkClick.bind(null, 3)}
                         id="to-reserva-btn"
                         className="hide-for-desktop"
                     >
                         Reservar mesa
-                    </div>
+                    </Link>
                 </Section>
-            </main>
+            </div>
         </>
     )
 }

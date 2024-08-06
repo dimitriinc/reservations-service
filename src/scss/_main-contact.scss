@@ -1,7 +1,4 @@
 .main-contact {
-
-    min-height: 100vh;
-
     h2 {
         margin-top: 5rem;
         padding: 0 1rem;
@@ -18,7 +15,6 @@
         @include breakpoint-down(mobile) {
             font-size: $font_small;
         }
-        
     }
 
     .bottom-image {
@@ -26,7 +22,6 @@
 
         @include breakpoint-up(laptop) {
             background-image: url(/images/bottom/contact-wide.jpg);
-            
         }
     }
 
@@ -41,11 +36,10 @@
             #contact-submit {
                 margin-bottom: 3.1rem;
             }
-            
+
             #loader {
                 transform: translateY(-20px);
             }
         }
     }
-    
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
-export default function Footer({activeLink}) {
+export default function Footer({ activeLink, activateLink }) {
     const [corporateVisibility, setVisibility] = useState({
         titleVisible: false,
         emailVisible: false,
@@ -36,13 +37,43 @@ export default function Footer({activeLink}) {
                     </p>
                     <div className="bottom-navigation hide-for-mobile">
                         <span>
-                            <a href="carreras/">carreras</a>
+                            <Link
+                                className="footer-link"
+                                to="/carreras"
+                                onClick={activateLink.bind(null, 4)}
+                                style={
+                                    activeLink === 4
+                                        ? {
+                                              pointerEvents: 'none',
+                                              cursor: 'default',
+                                              color: '#7a5e5d',
+                                          }
+                                        : null
+                                }
+                            >
+                                carreras
+                            </Link>
                         </span>
                         <span>
                             <p>mercaderes 142, arequipa</p>
                         </span>
                         <span>
-                            <a href="contacto/">contacto</a>
+                            <Link
+                                className="footer-link"
+                                to="/contacto"
+                                onClick={activateLink.bind(null, 5)}
+                                style={
+                                    activeLink === 5
+                                        ? {
+                                              pointerEvents: 'none',
+                                              cursor: 'default',
+                                              color: '#7a5e5d',
+                                          }
+                                        : null
+                                }
+                            >
+                                contacto
+                            </Link>
                         </span>
                     </div>
 
@@ -58,12 +89,22 @@ export default function Footer({activeLink}) {
                             />
                         </a>
 
-                        <a
+                        <Link
                             className="signup-cta"
-                            href="signup/"
+                            to="/signup"
+                            onClick={activateLink.bind(null, 6)}
+                            style={
+                                activeLink === 6
+                                    ? {
+                                          opacity: 0.2,
+                                          pointerEvents: 'none',
+                                          cursor: 'default',
+                                      }
+                                    : null
+                            }
                         >
                             inscribirse
-                        </a>
+                        </Link>
 
                         <a
                             className="hide-for-mobile"

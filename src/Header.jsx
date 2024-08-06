@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 export default function Header({ activeLink, activateLink }) {
     const [menuOpen, setMenuOpen] = useState(false)
@@ -67,47 +67,52 @@ export default function Header({ activeLink, activateLink }) {
                     }`}
                 >
                     <div className="slider-links mobile-links-canvas">
-                        <div
+                        <Link
+                            to="/horarios"
                             className={`mobile-link slider-links ${
                                 menuOpen ? 'fade-in' : 'fade-out'
                             } ${activeLink === 1 ? 'is-active' : ''}`}
                             onClick={onLinkClick.bind(null, 1)}
                         >
                             horarios & ubicación
-                        </div>
-                        <div
+                        </Link>
+                        <Link
+                            to="/carta"
                             className={`mobile-link slider-links ${
                                 menuOpen ? 'fade-in' : 'fade-out'
                             } ${activeLink === 2 ? 'is-active' : ''}`}
                             onClick={onLinkClick.bind(null, 2)}
                         >
                             carta
-                        </div>
-                        <div
+                        </Link>
+                        <Link
+                            to="/reservas"
                             className={`mobile-link slider-links ${
                                 menuOpen ? 'fade-in' : 'fade-out'
                             } ${activeLink === 3 ? 'is-active' : ''}`}
                             onClick={onLinkClick.bind(null, 3)}
                         >
                             reservaciones
-                        </div>
+                        </Link>
 
-                        <div
+                        <Link
+                            to="/carreras"
                             className={`mobile-link slider-links ${
                                 menuOpen ? 'fade-in' : 'fade-out'
                             } ${activeLink === 4 ? 'is-active' : ''}`}
                             onClick={onLinkClick.bind(null, 4)}
                         >
                             carreras
-                        </div>
-                        <div
+                        </Link>
+                        <Link
+                            to="/contacto"
                             className={`mobile-link slider-links ${
                                 menuOpen ? 'fade-in' : 'fade-out'
                             } ${activeLink === 5 ? 'is-active' : ''}`}
                             onClick={onLinkClick.bind(null, 5)}
                         >
                             contacto
-                        </div>
+                        </Link>
                     </div>
                     <div
                         className={`slider-links social-links ${
@@ -184,30 +189,33 @@ export default function Header({ activeLink, activateLink }) {
                     </div>
 
                     <div className="header__links hide-for-mobile">
-                        <NavLink
+                        <Link
                             to="/horarios"
                             onClick={onLinkClick.bind(null, 1)}
-                            className={`nav-link ${({ isActive }) =>
-                                isActive ? 'is-active' : ''}`}
+                            className={`nav-link ${
+                                activeLink === 1 ? 'is-active' : ''
+                            }`}
                         >
                             Horarios & Ubicación
-                        </NavLink>
-                        <div
+                        </Link>
+                        <Link
+                            to="/carta"
                             onClick={onLinkClick.bind(null, 2)}
                             className={`nav-link ${
                                 activeLink === 2 ? 'is-active' : ''
                             }`}
                         >
                             Carta
-                        </div>
-                        <div
+                        </Link>
+                        <Link
+                            to="/reservas"
                             onClick={onLinkClick.bind(null, 3)}
                             className={`nav-link ${
                                 activeLink === 3 ? 'is-active' : ''
                             }`}
                         >
                             Reservaciones
-                        </div>
+                        </Link>
                     </div>
                 </nav>
             </header>

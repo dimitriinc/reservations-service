@@ -2,7 +2,7 @@ import LeafletMap from "../auxiliaryComponents/LeafletMap"
 
 function Horario() {
     return (
-        <main className="main-hours">
+        <div className="main-hours">
             <section>
                 <div className="horas">
                     <h2 className="aux_title">Horarios &amp; Ubicación</h2>
@@ -36,7 +36,7 @@ function Horario() {
             </section>
 
             <section className="bottom-image revealable"></section>
-        </main>
+        </div>
     )
 }
 
