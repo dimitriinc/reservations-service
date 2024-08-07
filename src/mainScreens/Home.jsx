@@ -100,7 +100,7 @@ export default function Home({ activateLink }) {
     }
     return (
         <>
-            <div>
+            <div className='main-home'>
                 <Section
                     isfirst="1"
                     uniqueClass="hero"
@@ -154,7 +154,7 @@ export default function Home({ activateLink }) {
                     >
                         <img
                             className="centered round-image"
-                            src="images/points/img1.jpeg"
+                            src="images/cornerScene.png"
                             alt="point-one"
                             id="img-point-one"
                         />
@@ -173,7 +173,7 @@ export default function Home({ activateLink }) {
                         reference={point2Ref}
                     >
                         <img
-                            src="images/points/img2.jpg"
+                            src="images/barScene.png"
                             alt="point-two"
                             className="round-image centered"
                         />
@@ -188,7 +188,7 @@ export default function Home({ activateLink }) {
                         reference={point3Ref}
                     >
                         <img
-                            src="images/points/img3.jpg"
+                            src="images/metalFrameScene.png"
                             alt="point-three"
                             className="round-image centered"
                         />

@@ -240,18 +240,6 @@ input::-webkit-progress-value {
     margin-right: auto;
 }
 
-.round-image {
-    display: block;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    border: 1px solid $nav_links;
-    overflow: hidden;
-    padding: 5px;
-    margin-bottom: 2rem;
-    position: relative;
-}
-
 .invisible {
     visibility: hidden;
     opacity: 0;

@@ -168,15 +168,16 @@ export default function Header({ activeLink, activateLink }) {
                         headerScrolling ? 'sticky' : ''
                     }`}
                 >
-                    <a
-                        href="/"
+                    <Link
+                        to="/"
                         className="header__logo"
+                        onClick={onLinkClick.bind(null, 0)}
                     >
                         <img
                             src="/images/logo_inline_black.svg"
                             alt="Cafè y Vino"
                         />
-                    </a>
+                    </Link>
 
                     <div
                         onClick={onHamburgerClick}
