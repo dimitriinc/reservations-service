@@ -1,7 +1,5 @@
 .main-signup {
 
-    min-height: 100vh;
-
     h2 {
         margin-top: 5rem;
         @include breakpoint-down(tablet) {
@@ -21,7 +19,7 @@
     }
 
     form {
-        padding-bottom: 4rem;
+        padding-bottom: 1rem;
 
         #loader {
             margin-bottom: 2.3rem;

@@ -222,7 +222,7 @@ input::-webkit-progress-value {
 .bottom-image {
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center center;
+    background-position: center;
     z-index: 0;
     min-height: 100vw;
     color: $overlay;
@@ -248,4 +248,28 @@ input::-webkit-progress-value {
 .visible {
     visibility: visible;
     opacity: 1;
+}
+
+.overlay {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+
+    .dialog {
+        border: 1px, solid, $nav_links;
+        border-radius: 5px;
+        width: 50%;
+        height: 30%;
+        position: absolute;
+        top: 30%;
+        left: 0;
+        right: 0;
+        background-color: $overlay;
+        opacity: 1;
+    }
 }

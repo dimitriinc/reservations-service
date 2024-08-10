@@ -84,7 +84,7 @@ export default function Footer({ activeLink, activateLink }) {
                             target="_blank"
                         >
                             <img
-                                src="/images/instagram-logo-overlay.png"
+                                src="/images/socials/instagram-logo-overlay.png"
                                 alt="instagram_logo"
                             />
                         </a>
@@ -112,7 +112,7 @@ export default function Footer({ activeLink, activateLink }) {
                             target="_blank"
                         >
                             <img
-                                src="/images/facebook_icon_overlay.png"
+                                src="/images/socials/facebook_icon_overlay.png"
                                 alt="facebook_logo"
                             />
                         </a>

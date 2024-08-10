@@ -9,6 +9,7 @@ import Carreras from './mainScreens/Carreras'
 import Contacto from './mainScreens/Contacto'
 import Carta from './mainScreens/Carta'
 import Reservas from './mainScreens/Reservas'
+import ScrollToTop from './custom/ScrollToTop'
 
 function App() {
     const [activeLink, setActiveLink] = useState(0)
@@ -17,6 +18,7 @@ function App() {
     }
     return (
         <Router>
+            <ScrollToTop />
             <Header
                 activeLink={activeLink}
                 activateLink={activateLink}

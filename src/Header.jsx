@@ -124,7 +124,7 @@ export default function Header({ activeLink, activateLink }) {
                             target="_blank"
                         >
                             <img
-                                src="/images/instagram-logo-regal.png"
+                                src="/images/socials/instagram-logo-regal.png"
                                 className={`slider-links ${
                                     menuOpen ? 'fade-in' : 'fade-out'
                                 }`}
@@ -138,7 +138,7 @@ export default function Header({ activeLink, activateLink }) {
                             target="_blank"
                         >
                             <img
-                                src="/images/facebook_icon_regal.png"
+                                src="/images/socials/facebook_icon_regal.png"
                                 className={`slider-links ${
                                     menuOpen ? 'fade-in' : 'fade-out'
                                 }`}
@@ -152,7 +152,7 @@ export default function Header({ activeLink, activateLink }) {
                             target="_blank"
                         >
                             <img
-                                src="/images/android-logo-regal.png"
+                                src="/images/socials/android-logo-regal.png"
                                 className={`slider-links ${
                                     menuOpen ? 'fade-in' : 'fade-out'
                                 }`}

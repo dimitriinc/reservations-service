@@ -1,9 +1,47 @@
-import LeafletMap from "../auxiliaryComponents/LeafletMap"
+import LeafletMap from '../auxiliaryComponents/LeafletMap'
+import { useRef, useEffect } from 'react'
 
 function Horario() {
+    const mainSection = useRef()
+    const bottomSection = useRef()
+    const scetchSection = useRef()
+
+    useEffect(() => {
+        const reveal = function (entries, observer) {
+            const [entry] = entries
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed')
+                observer.unobserve(entry.target)
+            }
+        }
+        const revealOptions = {
+            root: null,
+            threshold: 0.15,
+        }
+        const revealObserver = new IntersectionObserver(reveal, revealOptions)
+
+        Array.of(
+            mainSection.current,
+            bottomSection.current,
+            scetchSection.current
+        ).forEach((section) => {
+            if (section.dataset.first === '1') {
+                setTimeout(() => {
+                    revealObserver.observe(section)
+                }, 500)
+            } else {
+                revealObserver.observe(section)
+            }
+        })
+    }, [])
+
     return (
         <div className="main-hours">
-            <section>
+            <section
+                ref={mainSection}
+                className="revealable"
+                data-first="1"
+            >
                 <div className="horas">
                     <h2 className="aux_title">Horarios &amp; Ubicación</h2>
 
@@ -35,7 +73,25 @@ function Horario() {
                 <LeafletMap />
             </section>
 
-            <section className="bottom-image revealable"></section>
+            <section
+                ref={scetchSection}
+                className="revealable centered"
+            >
+                <img
+                    src="/images/scetches/bureau.png"
+                    style={{
+                        width: '300px',
+                        height: '200px',
+                        marginBottom: '2rem',
+                        marginTop: '3rem'
+                    }}
+                />
+            </section>
+
+            <section
+                ref={bottomSection}
+                className="bottom-image revealable"
+            ></section>
         </div>
     )
 }

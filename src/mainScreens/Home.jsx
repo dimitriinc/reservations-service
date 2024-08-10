@@ -36,6 +36,7 @@ const Section = ({ children, reference, isfirst = '0', uniqueClass }) => {
 }
 
 export default function Home({ activateLink }) {
+    const mainRef = useRef()
     // Sections refs
     const heroRef = useRef()
     const textRef = useRef()
@@ -75,6 +76,10 @@ export default function Home({ activateLink }) {
                 revealObserver.observe(section)
             }
         })
+
+        return () => {
+            // console.log('exit')
+        }
     }, [])
 
     const onImageClick = () => {
@@ -100,7 +105,10 @@ export default function Home({ activateLink }) {
     }
     return (
         <>
-            <div className='main-home'>
+            <div
+                className="main-home"
+                ref={mainRef}
+            >
                 <Section
                     isfirst="1"
                     uniqueClass="hero"
@@ -154,7 +162,7 @@ export default function Home({ activateLink }) {
                     >
                         <img
                             className="centered round-image"
-                            src="images/cornerScene.png"
+                            src="images/scetches/cornerScene.png"
                             alt="point-one"
                             id="img-point-one"
                         />
@@ -173,7 +181,7 @@ export default function Home({ activateLink }) {
                         reference={point2Ref}
                     >
                         <img
-                            src="images/barScene.png"
+                            src="images/scetches/barScene.png"
                             alt="point-two"
                             className="round-image centered"
                         />
@@ -188,7 +196,7 @@ export default function Home({ activateLink }) {
                         reference={point3Ref}
                     >
                         <img
-                            src="images/metalFrameScene.png"
+                            src="images/scetches/metalFrameScene.png"
                             alt="point-three"
                             className="round-image centered"
                         />
