@@ -251,25 +251,35 @@ input::-webkit-progress-value {
 }
 
 .overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100vw;
     height: 100vh;
-    background-color: black;
-    opacity: 0.4;
+    background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 1000;
 
     .dialog {
-        border: 1px, solid, $nav_links;
-        border-radius: 5px;
-        width: 50%;
-        height: 30%;
-        position: absolute;
-        top: 30%;
-        left: 0;
-        right: 0;
+        border-radius: 8px;
+        padding: 20px;
+        width: 400px;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 1);
         background-color: $overlay;
-        opacity: 1;
+
+        @include breakpoint-down(tablet) {
+            width: 300px;
+        }
+
+        @include breakpoint-down(mobile) {
+            width: 200px;
+        }
+
+        .alertMessage {
+            font-size: 1rem;
+            padding: 0;
+        }
     }
 }

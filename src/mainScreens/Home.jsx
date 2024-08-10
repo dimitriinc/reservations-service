@@ -47,6 +47,7 @@ export default function Home({ activateLink }) {
 
     // Assign intersection observer to every section on the first render
     useEffect(() => {
+        activateLink(0)
         const reveal = function (entries, observer) {
             const [entry] = entries
             if (entry.isIntersecting) {
@@ -76,10 +77,6 @@ export default function Home({ activateLink }) {
                 revealObserver.observe(section)
             }
         })
-
-        return () => {
-            // console.log('exit')
-        }
     }, [])
 
     const onImageClick = () => {

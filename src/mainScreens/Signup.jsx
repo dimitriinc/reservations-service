@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
+import AlertDialog from '../custom/AlertDialog'
 
-function Signup() {
+function Signup({ activateLink }) {
     const mainSection = useRef()
     const bottomSection = useRef()
     const scetchSection = useRef()
@@ -9,9 +11,12 @@ function Signup() {
         name: '',
         email: '',
     })
-    const [errorMsg, setErrorMsg] = useState('')
+    const [alertMsg, setAlertMsg] = useState('')
     const [sending, setSending] = useState(false)
     const [alerting, setAlerting] = useState(false)
+    const [signupSuccess, setSignupSuccess] = useState(false)
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (alerting) document.body.classList.add('noscroll')
@@ -19,6 +24,8 @@ function Signup() {
     }, [alerting])
 
     useEffect(() => {
+        activateLink(6)
+
         const reveal = function (entries, observer) {
             const [entry] = entries
             if (entry.isIntersecting) {
@@ -52,7 +59,7 @@ function Signup() {
         setSending(true)
         try {
             const response = await fetch(
-                'https://15e9-190-238-135-197.ngrok-free.app/signup',
+                'https://non-existent-url.net/signup',
                 {
                     method: 'POST',
                     headers: {
@@ -65,24 +72,26 @@ function Signup() {
             const text = await response.text()
 
             if (response.status === 201) {
-                alert(text)
-                setSending(!sending)
+                setSending(false)
+                setAlertMsg(text)
+                setAlerting(true)
             } else {
-                alert(text)
-                window.location.href = '/'
+                setSending(false)
+                setSignupSuccess(true)
+                setAlertMsg(text)
+                setAlerting(true)
             }
         } catch (_) {
+            // Dummy response, change when at production
             setTimeout(() => {
                 setSending(false)
-                setErrorMsg(
-                    'Lo sentimos, ha ocurrido un error al procesar su solicitud.\nPor favor, inténtelo de nuevo más tarde.'
-                )
+                setAlertMsg('La inscripción exitosa!')
                 setAlerting(true)
             }, 2000)
         }
     }
 
-    const handleChange = (e) => {
+    const handleInputChange = (e) => {
         const { name, value } = e.target
         setFormData({
             ...formData,
@@ -92,28 +101,19 @@ function Signup() {
 
     const exitDialog = () => {
         setAlerting(false)
+        document.body.classList.remove('noscroll')
+        // if (signupSuccess) navigate('/')
+        navigate('/')
     }
 
     return (
         <div className="main-signup">
-            <div
-                className="overlay"
-                style={
-                    alerting
-                        ? null
-                        : {
-                              display: 'none',
-                          }
-                }
-            >
-                <div className='centered dialog'>
-                    <p style={{
-                        padding: '2rem'
-                    }}>{errorMsg}</p>
-                    <button onClick={exitDialog}>OK</button>
-                </div>
-            </div>
-
+            {alerting ? (
+                <AlertDialog
+                    message={alertMsg}
+                    onClose={exitDialog}
+                />
+            ) : null}
             <section
                 className="revealable"
                 data-first="1"
@@ -137,7 +137,7 @@ function Signup() {
                         className="input-control-round"
                         name="name"
                         placeholder="Nombre"
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                         required
                     />
                     <input
@@ -146,7 +146,7 @@ function Signup() {
                         className="input-control-round"
                         name="email"
                         placeholder="Email"
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                         required
                     />
                     <input
