@@ -61,6 +61,20 @@
         }
     }
 
+    section {
+        img {
+            width: 400px;
+            height: 232px;
+            margin-bottom: 2rem;
+            margin-top: 3rem;
+            
+            @include breakpoint-down(mobile) {
+                width: 300px;
+                height: 174px;
+            }
+        }
+    }
+
     .bottom-image {
         display: block;
         background-image: url(/images/bottom/ubicacion.jpg);

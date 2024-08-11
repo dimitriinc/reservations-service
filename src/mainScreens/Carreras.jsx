@@ -268,7 +268,7 @@ function Carreras({ activateLink }) {
                     src="/images/scetches/bureau.png"
                     className="centered"
                     style={{
-                        height: '220px',
+                        height: '210px',
                         width: '300px',
                         marginBottom: '2rem',
                     }}

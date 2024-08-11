@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 
 export default function Header({ activeLink, activateLink }) {
     const [menuOpen, setMenuOpen] = useState(false)
     const [headerScrolling, setHeaderScrolling] = useState(false)
-    // const [activeLink, setActiveLink] = useState(0)
 
     const headerSlicer = useRef()
     const headerSpacer = useRef()
+
+    const location = useLocation()
 
     useEffect(() => {
         if (menuOpen) document.body.classList.add('noscroll')
@@ -41,7 +42,15 @@ export default function Header({ activeLink, activateLink }) {
 
     const onHamburgerClick = () => setMenuOpen((value) => !value)
     const onLinkClick = (index) => {
+        // Close the sliding menu in the mobile mode
         setMenuOpen(false)
+
+        // If we are on the Home screen and the Link clicked is the logo, we just reload the page
+        if (location.pathname === '/' && index === 0) {
+            window.location.reload()
+        }
+
+        // Update the active link according to the Link clicked
         activateLink(index)
     }
 

@@ -171,7 +171,7 @@ function Signup({ activateLink }) {
                     src="/images/scetches/hangingChair.png"
                     className="centered"
                     style={{
-                        height: '300px',
+                        height: '310px',
                         width: '200px',
                         marginBottom: '2rem',
                     }}

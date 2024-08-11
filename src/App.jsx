@@ -31,27 +31,27 @@ function App() {
                     />
                     <Route
                         path="/carta"
-                        element={<Carta />}
+                        element={<Carta activateLink={activateLink} />}
                     />
                     <Route
                         path="/reservas"
-                        element={<Reservas />}
+                        element={<Reservas activateLink={activateLink} />}
                     />
                     <Route
                         path="/horarios"
-                        element={<Horario />}
+                        element={<Horario activateLink={activateLink} />}
                     />
                     <Route
                         path="/signup"
-                        element={<Signup activateLink={activateLink}/>}
+                        element={<Signup activateLink={activateLink} />}
                     />
                     <Route
                         path="/carreras"
-                        element={<Carreras activateLink={activateLink}/>}
+                        element={<Carreras activateLink={activateLink} />}
                     />
                     <Route
                         path="/contacto"
-                        element={<Contacto />}
+                        element={<Contacto activateLink={activateLink} />}
                     />
                 </Routes>
             </main>

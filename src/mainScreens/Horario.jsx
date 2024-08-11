@@ -1,12 +1,14 @@
 import LeafletMap from '../auxiliaryComponents/LeafletMap'
 import { useRef, useEffect } from 'react'
 
-function Horario() {
+function Horario({ activateLink }) {
     const mainSection = useRef()
     const bottomSection = useRef()
     const scetchSection = useRef()
 
     useEffect(() => {
+        activateLink(1)
+
         const reveal = function (entries, observer) {
             const [entry] = entries
             if (entry.isIntersecting) {
@@ -75,17 +77,9 @@ function Horario() {
 
             <section
                 ref={scetchSection}
-                className="revealable centered"
+                className="revealable"
             >
-                <img
-                    src="/images/scetches/bureau.png"
-                    style={{
-                        width: '300px',
-                        height: '200px',
-                        marginBottom: '2rem',
-                        marginTop: '3rem'
-                    }}
-                />
+                <img src="/images/scetches/chairs.png" />
             </section>
 
             <section

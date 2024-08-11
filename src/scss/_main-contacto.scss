@@ -12,6 +12,11 @@
         margin-bottom: 3rem;
         padding: 0 1rem;
 
+        @include breakpoint-up(tablet) {
+            margin-left: 3rem;
+            margin-right: 3rem;
+        }
+
         @include breakpoint-down(mobile) {
             font-size: $font_small;
         }
