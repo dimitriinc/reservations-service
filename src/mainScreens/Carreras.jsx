@@ -103,8 +103,8 @@ function Carreras({ activateLink }) {
     const sendForm = async (e) => {
         e.preventDefault()
 
-        if (!fileInputDisplay) {
-            setFileInputDisplay('El archivo no está seleccionado')
+        if (!fileInput.current.value) {
+            setFileInputDisplay('El archivo no está seleccionado \u2757')
             return
         }
 

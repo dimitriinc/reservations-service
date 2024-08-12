@@ -9,7 +9,7 @@
             max-height: calc(100vh - 100px);
             display: flex;
             align-items: center;
-            margin-top: 1rem;
+            margin: 1rem;
         }
 
         @include breakpoint-up(laptop) {
@@ -18,16 +18,21 @@
 
         &__image {
             position: relative;
-            background-image: url(/images/cathedralScene.png);
-            background-size:cover;
+            background-image: url(/images/hero-mobile.png);
+            background-size:contain;
             background-repeat: no-repeat;
             background-position: center;
             min-height: 100%;
             width: 100%;
             margin-bottom: .6rem;
 
+            @include breakpoint-up(tablet) {
+                background-image: url(/images/hero-tablet.png);
+            }
+
             @include breakpoint-up(laptop) {
-                background-image: url(/images/metalContourWhole.png);
+                background-image: url(/images/hero_noise.png);
+                background-size:contain;
                 top: auto;
                 bottom: 0;
                 left: 0;
@@ -41,7 +46,7 @@
             .filler {
                 position: absolute;
                 height: 100%;
-                width: 25px;
+                width: 40px;
                 top: 0;
                 z-index: 100;
 
