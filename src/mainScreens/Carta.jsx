@@ -154,10 +154,9 @@ function Carta({ activateLink }) {
                 className="revealable"
             >
                 <img
-                    src="/images/scetches/barScene.png"
+                    id='carta-scetch'
+                    src="/images/scetches/plants.png"
                     style={{
-                        height: '210px',
-                        width: '300px',
                         marginBottom: '2rem',
                     }}
                 />
