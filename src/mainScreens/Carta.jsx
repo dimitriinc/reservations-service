@@ -1,3 +1,5 @@
+import { useState, useEffect, useRef } from 'react'
+
 function Carta() {
     return (
         <div className="main-carta">
