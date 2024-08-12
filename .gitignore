@@ -52,5 +52,5 @@ Thumbs.db
 *.key
 *.pem
 
-api-key.js
+.env
 package-lock.json
