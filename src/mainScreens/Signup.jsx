@@ -168,7 +168,7 @@ function Signup({ activateLink }) {
                 ref={scetchSection}
             >
                 <img
-                    src="/images/scetches/hangingChair.png"
+                    src="/images/scetches/hangingChair_noise.png"
                     className="centered"
                     style={{
                         height: '310px',

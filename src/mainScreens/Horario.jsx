@@ -79,7 +79,7 @@ function Horario({ activateLink }) {
                 ref={scetchSection}
                 className="revealable"
             >
-                <img src="/images/scetches/chairs.png" />
+                <img src="/images/scetches/chairs_noise.png" />
             </section>
 
             <section

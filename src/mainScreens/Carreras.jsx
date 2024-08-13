@@ -265,7 +265,7 @@ function Carreras({ activateLink }) {
                 ref={scetchSection}
             >
                 <img
-                    src="/images/scetches/bureau.png"
+                    src="/images/scetches/bureau_noise.png"
                     className="centered"
                     style={{
                         height: '210px',

@@ -159,7 +159,7 @@ export default function Home({ activateLink }) {
                     >
                         <img
                             className="centered round-image"
-                            src="images/scetches/cornerScene.png"
+                            src="images/scetches/cornerScene_noise.png"
                             alt="point-one"
                             id="img-point-one"
                         />
@@ -178,7 +178,7 @@ export default function Home({ activateLink }) {
                         reference={point2Ref}
                     >
                         <img
-                            src="images/scetches/barScene.png"
+                            src="images/scetches/barScene_noise.png"
                             alt="point-two"
                             className="round-image centered"
                         />
@@ -193,7 +193,7 @@ export default function Home({ activateLink }) {
                         reference={point3Ref}
                     >
                         <img
-                            src="images/scetches/metalFrameScene.png"
+                            src="images/scetches/metalFrameScene_noise.png"
                             alt="point-three"
                             className="round-image centered"
                         />

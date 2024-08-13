@@ -177,7 +177,7 @@ function Contacto({ activateLink }) {
                 ref={scetchSection}
             >
                 <img
-                    src="/images/scetches/chairInCorner.png"
+                    src="/images/scetches/chairInCorner_noise.png"
                     style={{
                         width: '300px',
                         height: '265px',
