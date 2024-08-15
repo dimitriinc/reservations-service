@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, query, where, orderBy } from 'firebase/firestore'
 import { db } from '../firebase'
 import MenuCarousel from '../custom/MenuCarousel'
 
@@ -7,28 +7,39 @@ function Carta({ activateLink }) {
     const mainSection = useRef()
     const scetchSection = useRef()
 
-    const [collectionName, setCollectionName] = useState(
+    const [collectionPath, setCollectionPath] = useState(
         'menu/01.platos/platos'
     )
     const [activeCategory, setActiveCategory] = useState('platos')
+    const [activeWineCategory, setActiveWineCategory] = useState('')
     const [menuCollection, setMenuCollection] = useState([])
     const [fetchingMenuCollection, setFetchingMenuCollection] = useState(true)
     const [vinosVisible, setVinosVisible] = useState(false)
     const [menuReady, setMenuReady] = useState(false)
 
     const fetchMenuCollection = async () => {
+        console.log('fetching starts...')
         setFetchingMenuCollection(true)
+        console.log(`Collection path: ${collectionPath}`)
+        const q = query(
+            collection(db, collectionPath),
+            where('isPresent', '==', true),
+            orderBy('nombre')
+        )
         try {
-            const snapshot = await getDocs(collection(db, collectionName))
-            const plates = snapshot.docs.map((doc) => doc.data())
-            setMenuCollection(plates)
+            const snapshot = await getDocs(q)
+            const plates = snapshot.docs.map((doc) => {
+                // console.log(doc.data().nombre)
+                return doc.data().nombre
+            })
+            setMenuCollection([...plates])
+            setFetchingMenuCollection(false)
+
+            // Temporal
+            menuCollection.forEach((document) => console.log(document))
         } catch (error) {
             console.log(error)
         }
-        setFetchingMenuCollection(false)
-
-        // Temporal
-        menuCollection.forEach((document) => console.log(document.nombre))
     }
 
     useEffect(() => {
@@ -62,9 +73,11 @@ function Carta({ activateLink }) {
         )
     }, [])
 
+    useEffect(() => fetchMenuCollection, [collectionPath])
+
     const activateCategory = (event) => {
         const category = event.target.dataset.id
-        if (activateCategory === category) return
+        if (activeCategory === category) return
 
         setActiveCategory(category)
         if (category === 'vinos') {
@@ -72,9 +85,15 @@ function Carta({ activateLink }) {
         } else {
             setVinosVisible(false)
             const dbPath = event.target.dataset.dbPath
-            setCollectionName(dbPath)
-            fetchMenuCollection()
+            setCollectionPath(dbPath)
         }
+    }
+
+    const activateWineCategory = (event) => {
+        const category = event.target.dataset.id
+        setActiveWineCategory(category)
+        const dbPath = event.target.dataset.dbPath
+        setCollectionPath(dbPath)
     }
 
     return (
@@ -179,32 +198,52 @@ function Carta({ activateLink }) {
                     }`}
                 >
                     <div
-                        className="vino-category category wine"
                         data-db-path="menu/03.vinos/vinos/Vinos tintos/vinos"
+                        className={`vino-category category wine ${
+                            activeWineCategory === 'tintos' ? 'active' : ''
+                        }`}
+                        data-id="tintos"
+                        onClick={activateWineCategory}
                     >
                         Tintos
                     </div>
                     <div
-                        className="vino-category category wine"
                         data-db-path="menu/03.vinos/vinos/Vinos blancos/vinos"
+                        className={`vino-category category wine ${
+                            activeWineCategory === 'blancos' ? 'active' : ''
+                        }`}
+                        data-id="blancos"
+                        onClick={activateWineCategory}
                     >
                         Blancos
                     </div>
                     <div
-                        className="vino-category category wine"
                         data-db-path="menu/03.vinos/vinos/Vinos rose/vinos"
+                        className={`vino-category category wine ${
+                            activeWineCategory === 'rose' ? 'active' : ''
+                        }`}
+                        data-id="rose"
+                        onClick={activateWineCategory}
                     >
                         Rosé
                     </div>
                     <div
-                        className="vino-category category wine"
                         data-db-path="menu/03.vinos/vinos/Vinos de postre/vinos"
+                        className={`vino-category category wine ${
+                            activeWineCategory === 'postre' ? 'active' : ''
+                        }`}
+                        data-id="postre"
+                        onClick={activateWineCategory}
                     >
                         Postre
                     </div>
                     <div
-                        className="vino-category category wine"
                         data-db-path="menu/03.vinos/vinos/Vinos por copa/vinos"
+                        className={`vino-category category wine ${
+                            activeWineCategory === 'copas' ? 'active' : ''
+                        }`}
+                        data-id="copas"
+                        onClick={activateWineCategory}
                     >
                         Copas
                     </div>
@@ -233,7 +272,12 @@ function Carta({ activateLink }) {
                                 : { opacity: '1' }
                         }
                     >
-                        {menuReady ? <MenuCarousel setMenuReady={ setMenuReady }/> : null}
+                        {menuReady ? (
+                            <MenuCarousel
+                                setMenuReady={setMenuReady}
+                                menuCollection={menuCollection}
+                            />
+                        ) : null}
                     </div>
                 </div>
             </section>
