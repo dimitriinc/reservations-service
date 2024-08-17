@@ -1,48 +1,25 @@
-import {
-    PresentationControls,
-    Float,
-    Environment,
-    useGLTF,
-    ContactShadows,
-    Html,
-    Text,
-} from '@react-three/drei'
-
+import { useGLTF, OrbitControls, Environment } from '@react-three/drei'
+import { useRef } from 'react'
+import { useFrame } from '@react-three/fiber'
 
 export default function Experience() {
-    const { scene } = useGLTF('/models/cactus.glb')
-
+    const cactusRef = useRef()
+    const { scene } = useGLTF('/models/barScene.glb')
+    useFrame((state, delta) => {
+        // cactusRef.current.rotation.y += delta
+    })
     return (
         <>
-            {/* <Environment preset="city" /> */}
-
-            <color
-                args={['#241a1a']}
-                attach="background"
+            {/* <Environment
+                background
+                files={'/textures/EveningSky.exr'}
+            /> */}
+            <OrbitControls />
+            <primitive
+                ref={cactusRef}
+                object={scene}
+                // position={ [0, -2, 0] }
             />
-
-            <primitive object={scene} />
-
-
-            {/* <PresentationControls
-                rotation={[0.13, 0.1, 0]}
-                global
-                polar={[-0.4, 0.2]}
-                azimuth={[-1, 0.75]}
-                config={{ mass: 4, tension: 400 }}
-                snap={{ mass: 4, tension: 400 }}
-            >
-                <Float rotationIntensity={0.4}>
-            //         {/* <primitive object={computer.scene}></primitive> */}
-            {/* //     </Float> */}
-            {/* // </PresentationControls> */}
-
-            {/* // <ContactShadows */}
-            {/* //     position-y={-1.4}
-            //     opacity={0.5}
-            //     scale={5}
-            //     blur={2.4}
-            // /> */}
         </>
     )
 }

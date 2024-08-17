@@ -10,10 +10,10 @@ function Reservas({ activateLink }) {
 
     const [webglEnabled, setWebglEnabled] = useState(false)
 
-    // useEffect(() => {
-    //     if (webglEnabled) document.body.classList.add('noscroll')
-    //     else document.body.classList.remove('noscroll')
-    // }, [webglEnabled])
+    useEffect(() => {
+        if (webglEnabled) document.body.classList.add('noscroll')
+        else document.body.classList.remove('noscroll')
+    }, [webglEnabled])
 
     useEffect(() => {
         activateLink(3)
