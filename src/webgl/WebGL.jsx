@@ -2,9 +2,12 @@ import { Canvas } from '@react-three/fiber'
 import Experience from './Experience'
 import * as THREE from 'three'
 
-function WebGL() {
+function WebGL({ disableWebgl }) {
     return (
-        <div className="overlay">
+        <div
+            className="overlay"
+            onClick={disableWebgl}
+        >
             <div className="webgl-screen">
                 <Canvas
                     gl={{

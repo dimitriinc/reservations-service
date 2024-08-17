@@ -18,45 +18,48 @@ function Reservas({ activateLink }) {
     useEffect(() => {
         activateLink(3)
 
-        const reveal = function (entries, observer) {
-            const [entry] = entries
-            if (entry.isIntersecting) {
-                entry.target.classList.add('revealed')
-                observer.unobserve(entry.target)
-            }
-        }
-        const revealOptions = {
-            root: null,
-            threshold: 0.15,
-        }
-        const revealObserver = new IntersectionObserver(reveal, revealOptions)
+        // const reveal = function (entries, observer) {
+        //     const [entry] = entries
+        //     if (entry.isIntersecting) {
+        //         entry.target.classList.add('revealed')
+        //         observer.unobserve(entry.target)
+        //     }
+        // }
+        // const revealOptions = {
+        //     root: null,
+        //     threshold: 0.15,
+        // }
+        // const revealObserver = new IntersectionObserver(reveal, revealOptions)
 
-        Array.of(
-            titleSection.current,
-            formSection.current,
-            webglSection.current,
-            scetchSection.current,
-            bottomSection.current
-        ).forEach((section) => {
-            if (section.dataset.first === '1') {
-                setTimeout(() => {
-                    revealObserver.observe(section)
-                }, 500)
-            } else {
-                revealObserver.observe(section)
-            }
-        })
+        // Array.of(
+        //     titleSection.current,
+        //     formSection.current,
+        //     webglSection.current,
+        //     scetchSection.current,
+        //     bottomSection.current
+        // ).forEach((section) => {
+        //     if (section.dataset.first === '1') {
+        //         setTimeout(() => {
+        //             revealObserver.observe(section)
+        //         }, 500)
+        //     } else {
+        //         revealObserver.observe(section)
+        //     }
+        // })
     }, [])
 
     const enableWebgl = () => {
         setWebglEnabled(true)
     }
+    const disableWebgl = (e) => {
+        if (e.target.classList.contains('overlay')) setWebglEnabled(false)
+    }
 
     return (
         <div className="main-reservas">
-            {webglEnabled ? <WebGL /> : null}
+            {webglEnabled ? <WebGL disableWebgl={disableWebgl} /> : null}
             <section
-                className="revealable"
+                className=""
                 ref={titleSection}
             >
                 <div className="reserv-text">
@@ -71,14 +74,14 @@ function Reservas({ activateLink }) {
                 </div>
             </section>
             <section
-                className="revealable"
+                className=""
                 ref={webglSection}
                 onClick={enableWebgl}
             >
                 <button className="button-control-round">To WebGL</button>
             </section>
             <section
-                className="revealable"
+                className=""
                 ref={formSection}
             >
                 <form id="reserv-form">
@@ -208,7 +211,7 @@ function Reservas({ activateLink }) {
             </section>
 
             <section
-                className="revealable"
+                className=""
                 ref={scetchSection}
             >
                 <img
@@ -222,7 +225,7 @@ function Reservas({ activateLink }) {
             </section>
 
             <section
-                className="bottom-image revealable"
+                className="bottom-image "
                 ref={bottomSection}
             ></section>
         </div>
