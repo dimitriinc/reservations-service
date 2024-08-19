@@ -1,12 +1,24 @@
-import { useGLTF, OrbitControls, Environment } from '@react-three/drei'
-import { useRef } from 'react'
+import {
+    useGLTF,
+    OrbitControls,
+    Environment,
+    useTexture,
+} from '@react-three/drei'
+import { useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 
 export default function Experience() {
-    const cactusRef = useRef()
-    const { scene } = useGLTF('/models/barScene.glb')
+    const tableRef = useRef()
+    const { nodes } = useGLTF('/models/table.glb')
+
+    const bakedTexture = useTexture('./textures/table.jpg')
+    bakedTexture.flipY = false
+
+    useEffect(() => {
+        // console.log(nodes)
+    }, [])
     useFrame((state, delta) => {
-        // cactusRef.current.rotation.y += delta
+        tableRef.current.rotation.y += delta
     })
     return (
         <>
@@ -15,11 +27,12 @@ export default function Experience() {
                 files={'/textures/EveningSky.exr'}
             /> */}
             <OrbitControls />
-            <primitive
-                ref={cactusRef}
-                object={scene}
-                // position={ [0, -2, 0] }
-            />
+           
+            <mesh geometry={nodes.table.geometry} ref={tableRef}>
+                {/* <meshStandardMaterial color={'#ff00aa'} /> */}
+                <meshBasicMaterial map={bakedTexture} />
+            </mesh>
+     
         </>
     )
 }
