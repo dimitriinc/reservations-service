@@ -8,17 +8,21 @@ import { useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 
 export default function Experience() {
-    const tableRef = useRef()
+    const sceneRef = useRef()
     const { nodes } = useGLTF('/models/table.glb')
 
-    const bakedTexture = useTexture('./textures/table.jpg')
-    bakedTexture.flipY = false
+    const tableTexture = useTexture('./textures/table.jpg')
+    tableTexture.flipY = false
+    const treeTexture = useTexture('./textures/moneyTree.jpg')
+    treeTexture.flipY = false
+    const chairsTexture = useTexture('./textures/chairs.jpg')
+    chairsTexture.flipY = false
 
     useEffect(() => {
-        // console.log(nodes)
+        console.log(nodes)
     }, [])
     useFrame((state, delta) => {
-        tableRef.current.rotation.y += delta
+        sceneRef.current.rotation.y += delta / 4
     })
     return (
         <>
@@ -27,12 +31,18 @@ export default function Experience() {
                 files={'/textures/EveningSky.exr'}
             /> */}
             <OrbitControls />
-           
-            <mesh geometry={nodes.table.geometry} ref={tableRef}>
-                {/* <meshStandardMaterial color={'#ff00aa'} /> */}
-                <meshBasicMaterial map={bakedTexture} />
-            </mesh>
-     
+
+            <group ref={sceneRef}>
+                <mesh geometry={nodes.table.geometry} position={nodes.table.position}>
+                    <meshBasicMaterial map={tableTexture} />
+                </mesh>
+                <mesh geometry={nodes.moneyTree.geometry} position={nodes.moneyTree.position}>
+                    <meshBasicMaterial map={treeTexture} />
+                </mesh>
+                {/* <mesh geometry={nodes.chairs.geometry} position={nodes.chairs.position}>
+                    <meshBasicMaterial map={chairsTexture} />
+                </mesh> */}
+            </group>
         </>
     )
 }
