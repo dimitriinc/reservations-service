@@ -8,6 +8,16 @@ function Reservas({ activateLink }) {
     const bottomSection = useRef()
     const webglSection = useRef()
 
+    const [formData, setFormData] = useState({ 
+        name: '',
+        phone: '',
+        email: '',
+        pax: 2,
+        comment: '',
+        date: '',
+        hour: ''
+     })
+
     const [webglEnabled, setWebglEnabled] = useState(false)
 
     useEffect(() => {
@@ -55,6 +65,15 @@ function Reservas({ activateLink }) {
         if (e.target.classList.contains('overlay')) setWebglEnabled(false)
     }
 
+    const handleInputChange = (e) => {
+        const { name, value } = e.target
+        setFormData({
+            ...formData,
+            [name]: value,
+        })
+    }
+
+
     return (
         <div className="main-reservas">
             {webglEnabled ? <WebGL disableWebgl={disableWebgl} /> : null}
@@ -93,6 +112,7 @@ function Reservas({ activateLink }) {
                             type="text"
                             placeholder="Nombre"
                             name="name"
+                            onChange={handleInputChange}
                         />
 
                         <input
@@ -102,6 +122,7 @@ function Reservas({ activateLink }) {
                             type="tel"
                             placeholder="Número de teléfono"
                             name="phone"
+                            onChange={handleInputChange}
                         />
 
                         <input
@@ -111,11 +132,12 @@ function Reservas({ activateLink }) {
                             type="email"
                             className="input-control"
                             placeholder="Email"
+                            onChange={handleInputChange}
                         />
 
                         <p id="pax-display">
                             Cantidad de personas:{' '}
-                            <span className="pax-value"></span>
+                            <span className="pax-value">{ formData.pax }</span>
                         </p>
 
                         <input
@@ -127,6 +149,9 @@ function Reservas({ activateLink }) {
                             placeholder="Cantidad de personas"
                             name="pax"
                             step="1"
+                            // onChange={handleInputChange}
+                            value={2}
+                            onInput={handleInputChange}
                         />
 
                         <textarea
@@ -135,6 +160,7 @@ function Reservas({ activateLink }) {
                             rows="5"
                             className="input-control"
                             placeholder="Información adicional"
+                            onChange={handleInputChange}
                         ></textarea>
                     </div>
 
@@ -175,6 +201,7 @@ function Reservas({ activateLink }) {
                             type="hidden"
                             name="date"
                             id="reserv-date"
+                            onChange={handleInputChange}
                         />
                     </div>
 
@@ -190,6 +217,7 @@ function Reservas({ activateLink }) {
                             type="time"
                             name="hour"
                             className="input-control"
+                            onChange={handleInputChange}
                         />
                     </div>
 
