@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import WebGL from '../webgl/WebGL'
+import DatePicker from '../custom/DatePicker'
 
 function Reservas({ activateLink }) {
     const titleSection = useRef()
@@ -8,15 +9,15 @@ function Reservas({ activateLink }) {
     const bottomSection = useRef()
     const webglSection = useRef()
 
-    const [formData, setFormData] = useState({ 
+    const [formData, setFormData] = useState({
         name: '',
         phone: '',
         email: '',
         pax: 2,
         comment: '',
         date: '',
-        hour: ''
-     })
+        hour: '',
+    })
 
     const [webglEnabled, setWebglEnabled] = useState(false)
 
@@ -73,6 +74,9 @@ function Reservas({ activateLink }) {
         })
     }
 
+    const setChosenDate = (dateString) => {
+        setFormData({ ...formData, date: dateString })
+    }
 
     return (
         <div className="main-reservas">
@@ -137,7 +141,7 @@ function Reservas({ activateLink }) {
 
                         <p id="pax-display">
                             Cantidad de personas:{' '}
-                            <span className="pax-value">{ formData.pax }</span>
+                            <span className="pax-value">{formData.pax}</span>
                         </p>
 
                         <input
@@ -149,9 +153,8 @@ function Reservas({ activateLink }) {
                             placeholder="Cantidad de personas"
                             name="pax"
                             step="1"
-                            // onChange={handleInputChange}
-                            value={2}
-                            onInput={handleInputChange}
+                            value={formData.pax}
+                            onChange={handleInputChange}
                         />
 
                         <textarea
@@ -164,46 +167,7 @@ function Reservas({ activateLink }) {
                         ></textarea>
                     </div>
 
-                    <div className="calendar">
-                        <div className="calendar-header">
-                            <div
-                                className="arrows prev-mth"
-                                style={{ fontFamily: 'Futura' }}
-                            >
-                                &lt;
-                            </div>
-                            <div className="mth"></div>
-                            <div
-                                className="arrows next-mth"
-                                style={{ fontFamily: 'Futura' }}
-                            >
-                                &gt;
-                            </div>
-                        </div>
-
-                        <table id="calendar-body">
-                            <thead>
-                                <tr>
-                                    <th className="week-day">Lun</th>
-                                    <th className="week-day">Mar</th>
-                                    <th className="week-day">Mie</th>
-                                    <th className="week-day">Jue</th>
-                                    <th className="week-day">Vie</th>
-                                    <th className="week-day">Sab</th>
-                                    <th className="week-day">Dom</th>
-                                </tr>
-                            </thead>
-
-                            <tbody id="calendar-dates"></tbody>
-                        </table>
-
-                        <input
-                            type="hidden"
-                            name="date"
-                            id="reserv-date"
-                            onChange={handleInputChange}
-                        />
-                    </div>
+                    <DatePicker setChosenDate={setChosenDate} />
 
                     <div className="time">
                         <p>
