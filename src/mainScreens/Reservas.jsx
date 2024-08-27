@@ -9,6 +9,8 @@ function Reservas({ activateLink }) {
     const bottomSection = useRef()
     const webglSection = useRef()
 
+    const timeInput = useRef()
+
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
@@ -20,6 +22,7 @@ function Reservas({ activateLink }) {
     })
 
     const [webglEnabled, setWebglEnabled] = useState(false)
+    const [secondPartVisible, setSecondPartVisible] = useState(false)
 
     useEffect(() => {
         if (webglEnabled) document.body.classList.add('noscroll')
@@ -78,6 +81,28 @@ function Reservas({ activateLink }) {
         setFormData({ ...formData, date: dateString })
     }
 
+    const handleTimeInput = (e) => {
+        if (e.target.value < '14:00' || e.target.value > '21:00') {
+            timeInput.current.setCustomValidity(
+                'Por favor ingresa la hora entre 14:00 y 21:00'
+            )
+        } else {
+            timeInput.current.setCustomValidity('')
+            setFormData({
+                ...formData,
+                hour: e.target.value,
+            })
+        }
+    }
+
+    const openSecondPart = () => {
+        setSecondPartVisible(!secondPartVisible)
+    }
+
+    const sendForm = (e) => {
+        e.preventDefault()
+    }
+
     return (
         <div className="main-reservas">
             {webglEnabled ? <WebGL disableWebgl={disableWebgl} /> : null}
@@ -96,18 +121,15 @@ function Reservas({ activateLink }) {
                     </p>
                 </div>
             </section>
-            <section
-                className=""
-                ref={webglSection}
-                onClick={enableWebgl}
-            >
-                <button className="button-control-round">To WebGL</button>
-            </section>
+
             <section
                 className=""
                 ref={formSection}
             >
-                <form id="reserv-form">
+                <form
+                    id="reserv-form"
+                    onSubmit={sendForm}
+                >
                     <div className="reserv-form">
                         <input
                             required
@@ -139,65 +161,92 @@ function Reservas({ activateLink }) {
                             onChange={handleInputChange}
                         />
 
-                        <p id="pax-display">
-                            Cantidad de personas:{' '}
-                            <span className="pax-value">{formData.pax}</span>
-                        </p>
+                        <DatePicker setChosenDate={setChosenDate} />
 
-                        <input
-                            id="reserv-pax"
-                            type="range"
-                            className="input-control "
-                            min="1"
-                            max="15"
-                            placeholder="Cantidad de personas"
-                            name="pax"
-                            step="1"
-                            value={formData.pax}
-                            onChange={handleInputChange}
-                        />
+                        <div className="time">
+                            <p>
+                                La hora de llegada
+                                <br />
+                                14:00 &#8212; 21:00
+                            </p>
+                            <input
+                                required
+                                id="reserv-hour"
+                                type="time"
+                                name="hour"
+                                className="input-control"
+                                onInput={handleTimeInput}
+                                ref={timeInput}
+                            />
+                        </div>
 
-                        <textarea
-                            id="reserv-comment"
-                            name="comment"
-                            rows="5"
-                            className="input-control"
-                            placeholder="Información adicional"
-                            onChange={handleInputChange}
-                        ></textarea>
-                    </div>
+                        <section ref={webglSection}>
+                            <button
+                                className="button-control-round"
+                                style={{ marginBottom: '3rem' }}
+                                type="button"
+                                onClick={enableWebgl}
+                            >
+                                Escoger mesa
+                            </button>
+                            <button
+                                className="button-control-round"
+                                onClick={openSecondPart}
+                                type="button"
+                            >
+                                Seguir sin escoger mesa
+                            </button>
+                        </section>
 
-                    <DatePicker setChosenDate={setChosenDate} />
+                        <div
+                            className={`second-part ${
+                                secondPartVisible ? 'part-visible' : ''
+                            }`}
+                        >
+                            <p id="pax-display">
+                                Cantidad de personas:{' '}
+                                <span className="pax-value">
+                                    {formData.pax}
+                                </span>
+                            </p>
 
-                    <div className="time">
-                        <p>
-                            La hora de llegada
-                            <br />
-                            14:00 &#8212; 21:00
-                        </p>
-                        <input
-                            required
-                            id="reserv-hour"
-                            type="time"
-                            name="hour"
-                            className="input-control"
-                            onChange={handleInputChange}
-                        />
-                    </div>
+                            <input
+                                id="reserv-pax"
+                                type="range"
+                                className="input-control "
+                                min="1"
+                                max="15"
+                                placeholder="Cantidad de personas"
+                                name="pax"
+                                step="1"
+                                value={formData.pax}
+                                onChange={handleInputChange}
+                            />
 
-                    <div className="reserv-button">
-                        <input
-                            id="reserv-btn"
-                            type="submit"
-                            className="button-control-round"
-                            value="ENVIAR"
-                        />
+                            <textarea
+                                id="reserv-comment"
+                                name="comment"
+                                rows="5"
+                                className="input-control"
+                                placeholder="Información adicional"
+                                onChange={handleInputChange}
+                            ></textarea>
 
-                        <img
-                            src="/images/loaders/broadcaster.svg"
-                            id="loader"
-                            style={{ display: 'none' }}
-                        />
+                            <div className="reserv-button">
+                                <input
+                                    id="reserv-btn"
+                                    type="submit"
+                                    className="button-control-round"
+                                    value="ENVIAR"
+                                />
+
+                                <img
+                                    src="/images/loaders/broadcaster.svg"
+                                    id="loader"
+                                    style={{ display: 'none' }}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </form>
             </section>
@@ -212,6 +261,7 @@ function Reservas({ activateLink }) {
                         width: '300px',
                         height: '265px',
                         marginBottom: '2rem',
+                        transition: 'all 300ms ease-in-out'
                     }}
                 />
             </section>
@@ -219,6 +269,7 @@ function Reservas({ activateLink }) {
             <section
                 className="bottom-image "
                 ref={bottomSection}
+                style={{ transition: 'all 300ms ease-in-out' }}
             ></section>
         </div>
     )

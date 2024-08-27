@@ -13,10 +13,10 @@ export default function Experience() {
 
     const tableTexture = useTexture('./textures/table.jpg')
     tableTexture.flipY = false
-    const treeTexture = useTexture('./textures/moneyTree.jpg')
-    treeTexture.flipY = false
-    const chairsTexture = useTexture('./textures/chairs.jpg')
-    chairsTexture.flipY = false
+    // const treeTexture = useTexture('./textures/moneyTree.jpg')
+    // treeTexture.flipY = false
+    // const chairsTexture = useTexture('./textures/chairs.jpg')
+    // chairsTexture.flipY = false
 
     useEffect(() => {
         console.log(nodes)
@@ -36,9 +36,9 @@ export default function Experience() {
                 <mesh geometry={nodes.table.geometry} position={nodes.table.position}>
                     <meshBasicMaterial map={tableTexture} />
                 </mesh>
-                <mesh geometry={nodes.moneyTree.geometry} position={nodes.moneyTree.position}>
+                {/* <mesh geometry={nodes.moneyTree.geometry} position={nodes.moneyTree.position}>
                     <meshBasicMaterial map={treeTexture} />
-                </mesh>
+                </mesh> */}
                 {/* <mesh geometry={nodes.chairs.geometry} position={nodes.chairs.position}>
                     <meshBasicMaterial map={chairsTexture} />
                 </mesh> */}

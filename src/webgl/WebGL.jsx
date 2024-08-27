@@ -27,7 +27,7 @@ function WebGL({ disableWebgl }) {
                 >
                     <primitive
                         object={
-                            new THREE.GridHelper(100, 100, 0xffffff, 0xffffff)
+                            new THREE.GridHelper(10, 10, 0xffffff, 0xffffff)
                         }
                     />
                     <color

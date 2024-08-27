@@ -28,6 +28,19 @@
     form {
         padding: 0 1rem;
 
+        .second-part {
+            visibility: hidden;
+            opacity: 0;
+            transition: all 300ms ease-in-out;
+            height: 0;
+        }
+
+        .part-visible {
+            visibility: visible;
+            opacity: 1;
+            height: auto;
+        }
+
         #pax-display {
             margin: 0 auto;
             text-align: start;
@@ -87,6 +100,7 @@
         max-width: 640px;
         margin-left: auto;
         margin-right: auto;
+        margin-bottom: 1rem;
 
         &-header {
 
