@@ -88,12 +88,12 @@ function DatePicker({ setChosenDate }) {
                             className={`day ${isBlocked ? 'day-blocked' : ''} ${
                                 isSelected ? 'day-selected' : ''
                             }`}
-                            onClick={() => {
+                            onClick={(e) => {
                                 if (!isBlocked) {
-                                    setSelectedDay(day)
+                                    setSelectedDay(e.target.innerHTML)
                                     setSelectedMonth(currentMonth)
                                     setSelectedYear(currentYear)
-                                    sessionStorage.setItem('day', day)
+                                    sessionStorage.setItem('day', e.target.innerHTML)
                                     sessionStorage.setItem(
                                         'month',
                                         currentMonth
@@ -105,7 +105,7 @@ function DatePicker({ setChosenDate }) {
                                             new Date(
                                                 currentYear,
                                                 currentMonth,
-                                                day
+                                                e.target.innerHTML
                                             )
                                         )
                                         setChosenDate(

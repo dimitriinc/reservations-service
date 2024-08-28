@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react'
 import WebGL from '../webgl/WebGL'
 import DatePicker from '../custom/DatePicker'
+import AlertDialog from '../custom/AlertDialog'
+import { useNavigate } from 'react-router-dom'
 
 function Reservas({ activateLink }) {
     const titleSection = useRef()
@@ -12,22 +14,29 @@ function Reservas({ activateLink }) {
     const timeInput = useRef()
 
     const [formData, setFormData] = useState({
-        name: '',
-        phone: '',
-        email: '',
-        pax: 2,
-        comment: '',
-        date: '',
-        hour: '',
+        name: sessionStorage.getItem('name') || '',
+        phone: sessionStorage.getItem('phone') || '',
+        email: sessionStorage.getItem('email') || '',
+        pax: sessionStorage.getItem('pax') || 2,
+        comment: sessionStorage.getItem('comment') || '',
+        date: sessionStorage.getItem('date') || '',
+        hour: sessionStorage.getItem('hour') || '',
     })
 
     const [webglEnabled, setWebglEnabled] = useState(false)
     const [secondPartVisible, setSecondPartVisible] = useState(false)
+    const [alerting, setAlerting] = useState(false)
+    const [alertMsg, setAlertMsg] = useState('')
+    const [sending, setSending] = useState(false)
+    const [reservationSent, setReservationSent] = useState(false)
+
+    const navigate = useNavigate()
+
 
     useEffect(() => {
-        if (webglEnabled) document.body.classList.add('noscroll')
+        if (webglEnabled || alerting) document.body.classList.add('noscroll')
         else document.body.classList.remove('noscroll')
-    }, [webglEnabled])
+    }, [webglEnabled, alerting])
 
     useEffect(() => {
         activateLink(3)
@@ -71,6 +80,7 @@ function Reservas({ activateLink }) {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
+        sessionStorage.setItem(name, value)
         setFormData({
             ...formData,
             [name]: value,
@@ -78,6 +88,8 @@ function Reservas({ activateLink }) {
     }
 
     const setChosenDate = (dateString) => {
+        console.log(dateString)
+        sessionStorage.setItem('date', dateString)
         setFormData({ ...formData, date: dateString })
     }
 
@@ -88,6 +100,7 @@ function Reservas({ activateLink }) {
             )
         } else {
             timeInput.current.setCustomValidity('')
+            sessionStorage.setItem('hour', e.target.value)
             setFormData({
                 ...formData,
                 hour: e.target.value,
@@ -99,13 +112,50 @@ function Reservas({ activateLink }) {
         setSecondPartVisible(!secondPartVisible)
     }
 
-    const sendForm = (e) => {
+    const sendForm = async (e) => {
         e.preventDefault()
+        setSending(true)
+        try {
+            const response = await fetch('https://non-existent-url.net/make-reservation', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            setReservationSent(true)
+            setAlertMsg('Gracias por la solicitud!')
+            setSending(false)
+            setAlerting(true)
+            navigate('/')
+        } catch (_) {
+            // Dummy response, change when at production
+            setTimeout(() => {
+                setReservationSent(true)
+                setAlertMsg('Gracias por la solicitud!')
+                setSending(false)
+                setAlerting(true)
+            }, 2000)
+        }
+    }
+
+    const exitDialog = () => {
+        setAlerting(false)
+        sessionStorage.clear()
+        document.body.classList.remove('noscroll')
+        // if (reservationSent) navigate('/)
+        navigate('/')
     }
 
     return (
         <div className="main-reservas">
             {webglEnabled ? <WebGL disableWebgl={disableWebgl} /> : null}
+            {alerting ? (
+                <AlertDialog
+                    message={alertMsg}
+                    onClose={exitDialog}
+                />
+            ) : null}
             <section
                 className=""
                 ref={titleSection}
@@ -139,6 +189,7 @@ function Reservas({ activateLink }) {
                             placeholder="Nombre"
                             name="name"
                             onChange={handleInputChange}
+                            value={formData.name}
                         />
 
                         <input
@@ -149,6 +200,7 @@ function Reservas({ activateLink }) {
                             placeholder="Número de teléfono"
                             name="phone"
                             onChange={handleInputChange}
+                            value={formData.phone}
                         />
 
                         <input
@@ -159,6 +211,7 @@ function Reservas({ activateLink }) {
                             className="input-control"
                             placeholder="Email"
                             onChange={handleInputChange}
+                            value={formData.email}
                         />
 
                         <DatePicker setChosenDate={setChosenDate} />
@@ -177,6 +230,7 @@ function Reservas({ activateLink }) {
                                 className="input-control"
                                 onInput={handleTimeInput}
                                 ref={timeInput}
+                                value={formData.hour}
                             />
                         </div>
 
@@ -230,6 +284,7 @@ function Reservas({ activateLink }) {
                                 className="input-control"
                                 placeholder="Información adicional"
                                 onChange={handleInputChange}
+                                value={formData.comment}
                             ></textarea>
 
                             <div className="reserv-button">
@@ -238,12 +293,13 @@ function Reservas({ activateLink }) {
                                     type="submit"
                                     className="button-control-round"
                                     value="ENVIAR"
+                                    style={sending ? { display: 'none' } : null}
                                 />
 
                                 <img
                                     src="/images/loaders/broadcaster.svg"
                                     id="loader"
-                                    style={{ display: 'none' }}
+                                    style={sending ? null : { display: 'none' }}
                                 />
                             </div>
                         </div>

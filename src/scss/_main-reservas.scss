@@ -8,7 +8,6 @@
         padding: 3rem 2rem;
 
         h2 {
-        
             @include breakpoint-down(tablet) {
                 font-size: 35px;
                 letter-spacing: 3px;
@@ -31,7 +30,7 @@
         .second-part {
             visibility: hidden;
             opacity: 0;
-            transition: all 300ms ease-in-out;
+            transition: all 500ms ease-in-out;
             height: 0;
         }
 
@@ -49,7 +48,7 @@
             max-width: 640px;
         }
 
-        input[type=range] {
+        input[type='range'] {
             -webkit-appearance: none;
             width: 100%;
             background: transparent;
@@ -57,7 +56,7 @@
             padding-left: 0;
             padding-right: 0;
         }
-        input[type=range]::-webkit-slider-thumb {
+        input[type='range']::-webkit-slider-thumb {
             -webkit-appearance: none;
             background-color: $nav_links; /* Change the color of the thumb */
             width: 20px; /* Change the size of the thumb */
@@ -65,36 +64,32 @@
             border: 0.2px solid $overlay;
             box-shadow: 1px 1px 1px $overlay, 0px 0px 1px $overlay;
             margin-top: -10px;
-          }
-        input[type=range]::-webkit-slider-runnable-track {
+        }
+        input[type='range']::-webkit-slider-runnable-track {
             width: 100%;
-            height: .3rem;
+            height: 0.3rem;
             background-color: $overlay;
             border: 1px solid $nav_links;
         }
 
-        input[type=range]::-moz-range-thumb {
+        input[type='range']::-moz-range-thumb {
             background: $nav_links; /* Change the color of the thumb */
             width: 20px; /* Change the size of the thumb */
             height: 20px;
             border: 1px solid $overlay;
             // border-radius: 50%; /* Make the thumb circular */
-          }
-        input[type=range]::-moz-range-progress {
-            background-color: $nav_links; 
+        }
+        input[type='range']::-moz-range-progress {
+            background-color: $nav_links;
             border: 1px solid $overlay;
         }
-        input[type=range]::-moz-range-track {  
+        input[type='range']::-moz-range-track {
             background-color: $overlay;
             border: 1px solid $nav_links;
         }
-
-        
     }
 
-    
     .calendar {
-
         position: relative;
         width: 100%;
         max-width: 640px;
@@ -103,13 +98,12 @@
         margin-bottom: 1rem;
 
         &-header {
-
             width: 100%;
             max-width: 640px;
             color: $nav_links;
             margin-bottom: 1rem;
             background-color: $overlay;
-            border: 1px solid; 
+            border: 1px solid;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -133,9 +127,8 @@
                     scale: 95%;
                 }
             }
-
         }
-        
+
         #calendar-body {
             width: 100%;
 
@@ -144,8 +137,8 @@
                 cursor: default;
                 font-family: Futura;
                 font-weight: normal;
-            }  
-            
+            }
+
             .day {
                 padding: 1rem;
                 font-family: 'Saveur Sans';
@@ -153,7 +146,7 @@
                 cursor: pointer;
 
                 @include breakpoint-down(mobile) {
-                    padding: .5rem;
+                    padding: 0.5rem;
                 }
             }
 
@@ -167,7 +160,6 @@
                 text-decoration: line-through;
                 cursor: default;
             }
-            
         }
     }
 
@@ -175,11 +167,13 @@
         margin-bottom: 3rem;
 
         p {
-            margin-bottom: .5rem;
+            margin-bottom: 0.5rem;
             font-size: 1rem;
         }
+    }
 
-        
+    #reserv-comment {
+        margin-bottom: 3rem;
     }
 
     .button-control {
@@ -218,7 +212,6 @@
 
         @include breakpoint-up(laptop) {
             background-image: url(/images/bottom/reservas-wide.jpg);
-            
         }
     }
 }
