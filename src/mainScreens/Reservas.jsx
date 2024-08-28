@@ -94,18 +94,24 @@ function Reservas({ activateLink }) {
     }
 
     const handleTimeInput = (e) => {
-        if (e.target.value < '14:00' || e.target.value > '21:00') {
-            timeInput.current.setCustomValidity(
-                'Por favor ingresa la hora entre 14:00 y 21:00'
-            )
-        } else {
-            timeInput.current.setCustomValidity('')
-            sessionStorage.setItem('hour', e.target.value)
+        // if (e.target.value < '14:00' || e.target.value > '21:00') {
+        //     timeInput.current.setCustomValidity(
+        //         'Por favor ingresa la hora entre 14:00 y 21:00'
+        //     )
+        // } else {
+        //     timeInput.current.setCustomValidity('')
+        //     sessionStorage.setItem('hour', e.target.value)
+        //     setFormData({
+        //         ...formData,
+        //         hour: e.target.value,
+        //     })
+        // }
+
+        sessionStorage.setItem('hour', e.target.value)
             setFormData({
                 ...formData,
                 hour: e.target.value,
             })
-        }
     }
 
     const openSecondPart = () => {
@@ -228,9 +234,11 @@ function Reservas({ activateLink }) {
                                 type="time"
                                 name="hour"
                                 className="input-control"
-                                onInput={handleTimeInput}
+                                onChange={handleTimeInput}
                                 ref={timeInput}
                                 value={formData.hour}
+                                min='14:00'
+                                max='21:00'
                             />
                         </div>
 
