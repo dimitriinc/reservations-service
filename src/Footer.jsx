@@ -38,18 +38,18 @@ export default function Footer({ activeLink, activateLink }) {
                     <div className="bottom-navigation hide-for-mobile">
                         <span>
                             <Link
-                                className="footer-link"
+                                className={`footer-link ${activeLink === 4 ? 'is-active': ''}`}
                                 to="/carreras"
                                 onClick={activateLink.bind(null, 4)}
-                                style={
-                                    activeLink === 4
-                                        ? {
-                                              pointerEvents: 'none',
-                                              cursor: 'default',
-                                              color: '#7a5e5d',
-                                          }
-                                        : null
-                                }
+                                // style={
+                                //     activeLink === 4
+                                //         ? {
+                                //               pointerEvents: 'none',
+                                //               cursor: 'default',
+                                //               color: '#7a5e5d',
+                                //           }
+                                //         : null
+                                // }
                             >
                                 carreras
                             </Link>
@@ -59,18 +59,18 @@ export default function Footer({ activeLink, activateLink }) {
                         </span>
                         <span>
                             <Link
-                                className="footer-link"
+                                className={`footer-link ${activeLink === 5 ? 'is-active': ''}`}
                                 to="/contacto"
                                 onClick={activateLink.bind(null, 5)}
-                                style={
-                                    activeLink === 5
-                                        ? {
-                                              pointerEvents: 'none',
-                                              cursor: 'default',
-                                              color: '#7a5e5d',
-                                          }
-                                        : null
-                                }
+                                // style={
+                                //     activeLink === 5
+                                //         ? {
+                                //               pointerEvents: 'none',
+                                //               cursor: 'default',
+                                //               color: '#7a5e5d',
+                                //           }
+                                //         : null
+                                // }
                             >
                                 contacto
                             </Link>

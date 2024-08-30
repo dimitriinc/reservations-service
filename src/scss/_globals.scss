@@ -233,6 +233,15 @@ input::-webkit-progress-value {
     @include breakpoint-up(laptop) {
         min-height: 33rem;
     }
+
+    &::before {
+        content: '';
+        display: block;
+        width: 80%;
+        height: 80%;
+        z-index: 1000;
+        border: 2px solid $overlay;
+    }
 }
 
 .centered {

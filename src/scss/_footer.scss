@@ -74,6 +74,7 @@ footer {
         
 
         .footer-link {
+            position: relative;
             letter-spacing: 2px;
             color: $overlay;
             display: inline-block;
@@ -81,11 +82,43 @@ footer {
             margin: 0 1rem;
             transition: all 300ms ease-in-out;
 
+            &:not(.is-active)::after {
+                content: '';
+                background-color: $overlay;
+                height: 1px;
+                width: 0%;
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: -3px;
+                margin: 0 auto;
+                display: block;
+                transition: all 300ms ease-in-out;
+            }
+
             &:hover {
-                color: $hamburger_menu;
+                &::after {
+                    width: 100%;
+                }
             }
             &:active {
                 scale: 80%;
+            }
+        }
+
+        .is-active {
+            cursor: default;
+            pointer-events: none;
+            &::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: -3px;
+                display: block;
+                height: 1px;
+                background-color: $overlay;
+                width: 100%;
             }
         }
     }
@@ -108,11 +141,9 @@ footer {
                 transition: all 300ms ease-in-out;
 
                 &:hover {
-                    scale: 110%;
+                    scale: 105%;
                 }
-                &:active {
-                    scale: 90%;
-                }
+               
             }
         }
 
@@ -122,8 +153,11 @@ footer {
             margin: 0 1rem;
             color: $overlay;
             border: 1px solid $overlay;
-            border-radius: 100px;
+            border-radius: 3px;
+            font-family: FuturaRg;
             font-size: 10px;
+            font-weight: 700;
+
             padding: 0.5rem 1.5rem 0.5rem 1.5rem;
             letter-spacing: 2px;
             transition: all 300ms ease-in-out;
