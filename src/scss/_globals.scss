@@ -28,14 +28,10 @@
     src: url(/fonts/Cesso-Regular.otf);
 }
 
-html {
-    box-sizing: border-box;
-    font-size: 100%;
-
-}
-
 *, *:before, *:after {
-    box-sizing: inherit;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -46,16 +42,12 @@ html {
 }
 
 body {
-    margin: 0;
-    padding: 0;
     overflow-x: hidden;
     font-family: Futura;
     font-size: $font_medium;
     line-height: 1.5;
     letter-spacing: 1px;
     color: $nav_links;
-    text-decoration: none;
-    list-style: none;
     text-align: center;
     background-image: url(/images/background.jpg);
 
@@ -72,16 +64,11 @@ body {
 
 }
 
-main {
-    width: 100%;
-    min-height: 100vh;
-}
-
 a, a:visited, a:hover {
     text-decoration: none;
 }
 
-h2, p {
+p {
     cursor: default;
     padding: 0 1.7rem;
 }
@@ -112,6 +99,33 @@ strong {
 
 input::-webkit-progress-value {
     background-color: $nav_links;
+}
+
+.aux_title {
+    padding: 0 1.5rem;
+    padding-top: 4rem;
+    font-family: Cesso;
+    font-size: 2.8rem;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+
+    @include breakpoint-down(tablet) {
+        font-size: 35px;
+    }
+    @include breakpoint-down(mobile) {
+        font-size: 30px;
+    }
+}
+
+.subtitle {
+    margin: 4rem auto;
+    margin-top: 2rem;
+    max-width: 620px;
+
+    @include breakpoint-down(mobile) {
+        font-size: $font_small;
+    }
 }
 
 .flex {
@@ -146,7 +160,7 @@ input::-webkit-progress-value {
 .revealable {
     opacity: 0;
     transform: translateY(50px);
-    transition: 1.5s ease all;
+    transition: all 1.5s ease;
 }
 
 .revealed {
@@ -154,36 +168,18 @@ input::-webkit-progress-value {
     transform: translateY(0px);
 }
 
-.aux_title {
-    font-family: Cesso;
-    font-size: 40px;
-    text-transform: uppercase;
-    font-weight: 100;
-    letter-spacing: 5px;
-}
 
 .input-control {
     display: block;
     padding: 1rem;
     font-size: 14px;
-    letter-spacing: 1px;
     border: 1px solid $nav_links;
+    border-radius: 5px;
     width: 100%;
     margin: 0 auto;
     margin-bottom: 1rem;
     max-width: 640px;
     background: transparent;
-}
-
-.input-control-round {
-    display: block;
-    padding: 1rem;
-    border: 1px solid $nav_links;
-    margin: 1rem auto;
-    background: transparent; 
-    border-radius: 40px;
-    font-size: 14px;
-
 }
 
 .button-control-round {
@@ -200,7 +196,7 @@ input::-webkit-progress-value {
     margin-right: auto;
     font-weight: normal;
     cursor: pointer;
-    border-radius: 40px;
+    border-radius: 5px;
     margin-bottom: 5rem;
     margin-top: 2rem;
     transition: all 300ms ease-in-out;
@@ -224,23 +220,14 @@ input::-webkit-progress-value {
     background-size: cover;
     background-position: center;
     z-index: 0;
-    min-height: 100vw;
+    height: 100vw;
     color: $overlay;
     overflow: hidden;
-    outline: 1px solid;
+    outline: 1px solid $overlay;
     outline-offset: -10px;
 
     @include breakpoint-up(laptop) {
-        min-height: 33rem;
-    }
-
-    &::before {
-        content: '';
-        display: block;
-        width: 80%;
-        height: 80%;
-        z-index: 1000;
-        border: 2px solid $overlay;
+        height: 40vw;
     }
 }
 

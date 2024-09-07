@@ -1,34 +1,9 @@
 .main-jobs {
-    .bottom-image {
-        background-image: url(/images/bottom/jobs.jpg);
-
-        @include breakpoint-up(laptop) {
-            background-image: url(/images/bottom/jobs-wide.jpg);
-        }
-    }
-
-    h2 {
-        margin-top: 5rem;
-        @include breakpoint-down(tablet) {
-            font-size: 35px;
-        }
-        @include breakpoint-down(mobile) {
-            font-size: 30px;
-        }
-    }
-
-    p {
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 4rem;
-        font-size: $font_small;
-    }
 
     form {
         padding-bottom: 4rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
 
         .input-file {
             &-text {
@@ -57,15 +32,16 @@
 
                 &-btn {
                     display: inline-block;
-                    background-color: $overlay;
-                    color: $nav_links;
                     padding: 1rem;
+                    color: $nav_links;
+                    background-color: $overlay;
                     border: 1px solid;
+                    border-radius: 5px;
                     cursor: pointer;
                     transition: all 300ms ease-in-out;
 
                     &:active {
-                        transform: scale(90%);
+                        transform: scale(95%);
                     }
 
                     &:hover {
@@ -91,6 +67,14 @@
         #loader {
             transform: translateY(-20px);
             margin-bottom: 1.9rem;
+        }
+    }
+
+    .bottom-image {
+        background-image: url(/images/bottom/jobs.jpg);
+
+        @include breakpoint-up(laptop) {
+            background-image: url(/images/bottom/jobs-wide.jpg);
         }
     }
 }

@@ -41,15 +41,6 @@ export default function Footer({ activeLink, activateLink }) {
                                 className={`footer-link ${activeLink === 4 ? 'is-active': ''}`}
                                 to="/carreras"
                                 onClick={activateLink.bind(null, 4)}
-                                // style={
-                                //     activeLink === 4
-                                //         ? {
-                                //               pointerEvents: 'none',
-                                //               cursor: 'default',
-                                //               color: '#7a5e5d',
-                                //           }
-                                //         : null
-                                // }
                             >
                                 carreras
                             </Link>
@@ -62,15 +53,6 @@ export default function Footer({ activeLink, activateLink }) {
                                 className={`footer-link ${activeLink === 5 ? 'is-active': ''}`}
                                 to="/contacto"
                                 onClick={activateLink.bind(null, 5)}
-                                // style={
-                                //     activeLink === 5
-                                //         ? {
-                                //               pointerEvents: 'none',
-                                //               cursor: 'default',
-                                //               color: '#7a5e5d',
-                                //           }
-                                //         : null
-                                // }
                             >
                                 contacto
                             </Link>
@@ -79,7 +61,7 @@ export default function Footer({ activeLink, activateLink }) {
 
                     <div className="socials">
                         <a
-                            className="hide-for-mobile"
+                            className="hide-for-mobile social-button"
                             href="https://www.instagram.com/cafevinowinebar/"
                             target="_blank"
                         >
@@ -107,7 +89,7 @@ export default function Footer({ activeLink, activateLink }) {
                         </Link>
 
                         <a
-                            className="hide-for-mobile"
+                            className="hide-for-mobile social-button"
                             href="https://www.facebook.com/CafeYVinoWinebar"
                             target="_blank"
                         >

@@ -1,4 +1,4 @@
-import LeafletMap from '../auxiliaryComponents/LeafletMap'
+import LeafletMap from '../custom/LeafletMap'
 import { useRef, useEffect } from 'react'
 
 function Horario({ activateLink }) {
@@ -47,12 +47,10 @@ function Horario({ activateLink }) {
                 <div className="horas">
                     <h2 className="aux_title">Horarios &amp; Ubicación</h2>
 
-                    <p>
-                        <a href="">
-                            calle Mercaderes, 142
-                            <br />
-                            Arequipa
-                        </a>
+                    <p className='ubicacion'>
+                        calle Mercaderes, 142
+                        <br />
+                        Arequipa
                     </p>
 
                     <p>

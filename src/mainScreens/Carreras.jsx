@@ -154,7 +154,7 @@ function Carreras({ activateLink }) {
             >
                 <h2 className="aux_title">Trabaja con nosotros</h2>
 
-                <p>
+                <p className='subtitle'>
                     Si está interesado en formar parte de nuestro equipo
                     dinámico y apasionado, simplemente complete el formulario a
                     continuación con su información y envíelo. ¡Nos encantará

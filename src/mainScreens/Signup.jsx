@@ -121,7 +121,7 @@ function Signup({ activateLink }) {
             >
                 <h2 className="aux_title">lista de envío</h2>
 
-                <p>
+                <p className='subtitle'>
                     Manténgase informado sobre nuestras noticias, ofertas y
                     eventos
                 </p>
@@ -134,20 +134,22 @@ function Signup({ activateLink }) {
                     <input
                         id="signup-name"
                         type="text"
-                        className="input-control-round"
+                        className="input-control"
                         name="name"
                         placeholder="Nombre"
                         onChange={handleInputChange}
                         required
+                        style={{ width: '50%' }}
                     />
                     <input
                         id="signup-email"
                         type="email"
-                        className="input-control-round"
+                        className="input-control"
                         name="email"
                         placeholder="Email"
                         onChange={handleInputChange}
                         required
+                        style={{ width: '50%' }}
                     />
                     <input
                         id="signup-submit-btn"

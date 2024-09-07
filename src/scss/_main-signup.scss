@@ -1,23 +1,5 @@
 .main-signup {
 
-    h2 {
-        margin-top: 5rem;
-        @include breakpoint-down(tablet) {
-            font-size: 35px;
-        }
-        @include breakpoint-down(mobile) {
-            font-size: 30px;
-        }
-    }
-
-    p {
-        margin-bottom: 3rem;
-        
-        @include breakpoint-down(mobile) {
-            font-size: $font_small;
-        }
-    }
-
     form {
         padding-bottom: 1rem;
 

@@ -112,7 +112,7 @@ function Contacto({ activateLink }) {
             >
                 <h2 className="aux_title">Envíanos un mensaje</h2>
 
-                <p>
+                <p className='subtitle'>
                     ¡Háganos saber su opinión! Llene el formulario para enviar
                     su mensaje, solicitud de negocios o simplemente compartir su
                     opinión.
