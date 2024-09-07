@@ -28,7 +28,9 @@
     src: url(/fonts/Cesso-Regular.otf);
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -61,10 +63,11 @@ body {
     .exit-focused {
         right: 0;
     }
-
 }
 
-a, a:visited, a:hover {
+a,
+a:visited,
+a:hover {
     text-decoration: none;
 }
 
@@ -148,13 +151,13 @@ input::-webkit-progress-value {
 .hide-for-mobile {
     @include breakpoint-down(tablet) {
         display: none !important;
-    };
+    }
 }
 
 .hide-for-desktop {
     @include breakpoint-up(laptop) {
         display: none !important;
-    };
+    }
 }
 
 .revealable {
@@ -167,7 +170,6 @@ input::-webkit-progress-value {
     opacity: 1;
     transform: translateY(0px);
 }
-
 
 .input-control {
     display: block;
@@ -190,7 +192,7 @@ input::-webkit-progress-value {
     font-family: 'Saveur Sans Regular';
     letter-spacing: 3px;
     background: none;
-    font-size: .8rem;
+    font-size: 0.8rem;
     border: 1px solid $nav_links;
     margin-left: auto;
     margin-right: auto;
@@ -202,12 +204,10 @@ input::-webkit-progress-value {
     transition: all 300ms ease-in-out;
 
     &:hover {
-
         @include breakpoint-up(laptop) {
             background-color: $nav_links;
             color: $overlay;
         }
-        
     }
 
     &:active {
@@ -216,15 +216,29 @@ input::-webkit-progress-value {
 }
 
 .bottom-image {
+    position: relative;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    z-index: 0;
     height: 100vw;
-    color: $overlay;
-    overflow: hidden;
-    outline: 1px solid $overlay;
-    outline-offset: -10px;
+
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 96%;
+        height: 96%;
+        border-radius: 5px;
+        box-shadow: inset 0 0 0 1.5px $overlay;
+
+        @include breakpoint-up(laptop) {
+            width: 98.5%;
+        }
+        
+    }
 
     @include breakpoint-up(laptop) {
         height: 40vw;
