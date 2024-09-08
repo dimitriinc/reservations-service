@@ -124,17 +124,15 @@ footer {
         margin-bottom: 1.5rem;
 
         .social-button {
-            height: 20px;
+            height: 25px;
 
-            img {
-                height: 20px;
-                width: 20px;
-                transition: all 0.3s ease;
-
+            svg {
+                transition: all 0.3s;
                 &:hover {
                     scale: 105%;
                 }
             }
+
         }
 
         .signup-cta {

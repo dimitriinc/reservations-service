@@ -113,16 +113,10 @@ export default function Home({ activateLink }) {
                 >
                     <div
                         onClick={onImageClick}
-                        className="hero__image"
+                        className="hero-image"
                     >
-                        <div
-                            className="filler"
-                            id="filler-left"
-                        ></div>
-                        <div
-                            className="filler"
-                            id="filler-right"
-                        ></div>
+                        <div className="filler filler--left"></div>
+                        <div className="filler filler--right"></div>
                     </div>
                 </Section>
 
@@ -130,10 +124,7 @@ export default function Home({ activateLink }) {
                     uniqueClass="main-text"
                     reference={textRef}
                 >
-                    <h2
-                        // ref={textRef}
-                        className="fade-in"
-                    >
+                    <h2 className="home-title">
                         Café francés de nueva generación
                     </h2>
                     <p className="main-message">
@@ -152,21 +143,17 @@ export default function Home({ activateLink }) {
                     </Link>
                 </Section>
 
-                <div className="points">
+                <div className="points centered">
                     <Section
                         uniqueClass="point point-one"
                         reference={point1Ref}
                     >
                         <img
-                            className="centered round-image"
+                            className="centered point-img"
                             src="images/scetches/cornerScene_noise.png"
                             alt="point-one"
-                            id="img-point-one"
                         />
-                        <p
-                            className="centered point-text"
-                            id="txt-point-one"
-                        >
+                        <p className="centered point-text">
                             Tellus in hac habitasse platea dictumst. Ultrices
                             neque ornare aenean euismod elementum nisi quis
                             eleifend quam.
@@ -180,7 +167,7 @@ export default function Home({ activateLink }) {
                         <img
                             src="images/scetches/barScene_noise.png"
                             alt="point-two"
-                            className="round-image centered"
+                            className="point-img centered"
                         />
                         <p className="centered point-text">
                             In ante metus dictum at. Quis commodo odio aenean
@@ -195,7 +182,7 @@ export default function Home({ activateLink }) {
                         <img
                             src="images/scetches/metalFrameScene_noise.png"
                             alt="point-three"
-                            className="round-image centered"
+                            className="point-img centered"
                         />
                         <p className="centered point-text">
                             Ullamcorper a lacus vestibulum sed arcu non odio.
