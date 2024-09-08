@@ -76,17 +76,6 @@ p {
     padding: 0 1.7rem;
 }
 
-button {
-    padding: 1rem;
-    font-size: 1rem;
-    text-transform: uppercase;
-    border: 1px solid;
-    border-radius: 5px;
-    background-color: transparent;
-    letter-spacing: 2px;
-    transition: all .3s ease;
-}
-
 canvas {
     touch-action: none;
 }
@@ -117,7 +106,7 @@ input::-webkit-progress-value {
 }
 
 .subtitle {
-    margin: 4rem auto;
+    margin: 8rem auto;
     margin-top: 2rem;
     max-width: 620px;
 
@@ -169,44 +158,49 @@ input::-webkit-progress-value {
 .input-control {
     display: block;
     padding: 1rem;
-    font-size: 14px;
-    border: 1px solid $nav_links;
-    border-radius: 5px;
-    width: 100%;
     margin: 0 auto;
     margin-bottom: 1rem;
     max-width: 640px;
+    font-size: $font_small;
+    letter-spacing: 1px;
+    border: 1px solid;
+    border-radius: 5px;
+    width: 100%;
     background: transparent;
+}
+
+button {
+    padding: 1rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    border: 1px solid;
+    border-radius: 5px;
+    background-color: transparent;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
 }
 
 .button-control-round {
     display: block;
-    padding: 1rem;
-    color: $nav_links;
-    text-transform: uppercase;
     font-family: 'Saveur Sans Regular';
+    font-size: $font_small;
+    text-transform: uppercase;
     letter-spacing: 3px;
-    background: none;
-    font-size: 0.8rem;
-    border: 1px solid $nav_links;
-    margin-left: auto;
-    margin-right: auto;
-    font-weight: normal;
-    cursor: pointer;
+    border: 1px solid;
     border-radius: 5px;
-    margin-bottom: 5rem;
-    margin-top: 2rem;
+    margin: 2rem auto 5rem auto;
+    padding: 1rem;
+    cursor: pointer;
+    background: none;
     transition: all 300ms ease-in-out;
 
     &:hover {
-        @include breakpoint-up(laptop) {
-            background-color: $nav_links;
-            color: $overlay;
-        }
+        background-color: $nav_links;
+        color: $overlay;
     }
 
     &:active {
-        scale: 90%;
+        scale: 95%;
     }
 }
 
@@ -232,7 +226,6 @@ input::-webkit-progress-value {
         @include breakpoint-up(laptop) {
             width: 98.5%;
         }
-        
     }
 
     @include breakpoint-up(laptop) {

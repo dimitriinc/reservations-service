@@ -128,9 +128,12 @@ footer {
 
             svg {
                 transition: all 0.3s;
-                &:hover {
-                    scale: 105%;
-                }
+            }
+            .svg-insta:hover {
+                transform: rotate(-6deg);
+            }
+            .svg-facebook:hover {
+                transform: rotate(6deg);
             }
 
         }

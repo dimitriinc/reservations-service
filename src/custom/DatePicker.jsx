@@ -93,7 +93,10 @@ function DatePicker({ setChosenDate }) {
                                     setSelectedDay(e.target.innerHTML)
                                     setSelectedMonth(currentMonth)
                                     setSelectedYear(currentYear)
-                                    sessionStorage.setItem('day', e.target.innerHTML)
+                                    sessionStorage.setItem(
+                                        'day',
+                                        e.target.innerHTML
+                                    )
                                     sessionStorage.setItem(
                                         'month',
                                         currentMonth
@@ -144,7 +147,6 @@ function DatePicker({ setChosenDate }) {
             <div className="calendar-header">
                 <div
                     className="arrows prev-mth"
-                    style={{ fontFamily: 'Futura' }}
                     onClick={() => changeMonth(-1)}
                 >
                     &lt;
@@ -152,7 +154,6 @@ function DatePicker({ setChosenDate }) {
                 <div className="mth">{`${monthNames[currentMonth]} ${currentYear}`}</div>
                 <div
                     className="arrows next-mth"
-                    style={{ fontFamily: 'Futura' }}
                     onClick={() => changeMonth(1)}
                 >
                     &gt;
