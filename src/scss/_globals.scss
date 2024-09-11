@@ -43,6 +43,10 @@
     user-select: none;
 }
 
+*:focus {
+    outline: none;
+}
+
 body {
     overflow-x: hidden;
     font-family: Futura;
@@ -106,9 +110,13 @@ input::-webkit-progress-value {
 }
 
 .subtitle {
-    margin: 8rem auto;
+    margin: 7rem auto;
     margin-top: 2rem;
     max-width: 620px;
+
+    @include breakpoint-down(tablet) {
+        margin-bottom: 5rem;
+    }
 
     @include breakpoint-down(mobile) {
         font-size: $font_small;
