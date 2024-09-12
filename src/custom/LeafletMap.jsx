@@ -25,7 +25,7 @@ function LeafletMap() {
         const customIcon = new L.Icon({
             iconUrl: marker,
             iconSize: [75, 75],
-            iconAnchor: [0, 38],
+            iconAnchor:[38, 20],
             popupAnchor: [0, -32]
         })
 
