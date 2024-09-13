@@ -192,7 +192,7 @@ function Carreras({ activateLink }) {
                         value={formData.position}
                         onChange={handleInputChange}
                         required
-                        style={formData.position ? null : { color: 'grey' }}
+                        style={formData.position ? null : { color: 'grey', border: '1px solid #160b17' }}
                     >
                         <option
                             value=""
