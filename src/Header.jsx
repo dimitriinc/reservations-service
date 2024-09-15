@@ -70,35 +70,31 @@ export default function Header({ activeLink, activateLink }) {
                     headerScrolling ? 'scroll' : ''
                 }`}
             >
-                <div
-                    className={`mobile-nav-menu hide-for-desktop ${
-                        menuOpen ? 'slide-in' : 'slide-out'
-                    }`}
-                >
-                    <div className="slider-links mobile-links-canvas">
+                <div className={`mobile-nav hide-for-desktop`}>
+                    <div className="mobile-links-container">
                         <Link
                             to="/horarios"
-                            className={`mobile-link slider-links ${
-                                menuOpen ? 'fade-in' : 'fade-out'
-                            } ${activeLink === 1 ? 'is-active' : ''}`}
+                            className={`mobile-link ${
+                                activeLink === 1 ? 'is-active' : ''
+                            }`}
                             onClick={onLinkClick.bind(null, 1)}
                         >
                             horarios & ubicación
                         </Link>
                         <Link
                             to="/carta"
-                            className={`mobile-link slider-links ${
-                                menuOpen ? 'fade-in' : 'fade-out'
-                            } ${activeLink === 2 ? 'is-active' : ''}`}
+                            className={`mobile-link ${
+                                activeLink === 2 ? 'is-active' : ''
+                            }`}
                             onClick={onLinkClick.bind(null, 2)}
                         >
                             carta
                         </Link>
                         <Link
                             to="/reservas"
-                            className={`mobile-link slider-links ${
-                                menuOpen ? 'fade-in' : 'fade-out'
-                            } ${activeLink === 3 ? 'is-active' : ''}`}
+                            className={`mobile-link ${
+                                activeLink === 3 ? 'is-active' : ''
+                            }`}
                             onClick={onLinkClick.bind(null, 3)}
                         >
                             reservaciones
@@ -106,70 +102,58 @@ export default function Header({ activeLink, activateLink }) {
 
                         <Link
                             to="/carreras"
-                            className={`mobile-link slider-links ${
-                                menuOpen ? 'fade-in' : 'fade-out'
-                            } ${activeLink === 4 ? 'is-active' : ''}`}
+                            className={`mobile-link ${
+                                activeLink === 4 ? 'is-active' : ''
+                            }`}
                             onClick={onLinkClick.bind(null, 4)}
                         >
                             carreras
                         </Link>
                         <Link
                             to="/contacto"
-                            className={`mobile-link slider-links ${
-                                menuOpen ? 'fade-in' : 'fade-out'
-                            } ${activeLink === 5 ? 'is-active' : ''}`}
+                            className={`mobile-link ${
+                                activeLink === 5 ? 'is-active' : ''
+                            }`}
                             onClick={onLinkClick.bind(null, 5)}
                         >
                             contacto
                         </Link>
-                    </div>
-                    <div
-                        className={`slider-links social-links ${
-                            menuOpen ? 'fade-in' : 'fade-out'
-                        }`}
-                    >
-                        <a
-                            href="https://www.instagram.com/cafevinowinebar/"
-                            target="_blank"
-                        >
-                            <img
-                                src="/images/socials/instagram-logo-regal.png"
-                                className={`slider-links ${
-                                    menuOpen ? 'fade-in' : 'fade-out'
-                                }`}
-                                heigth="26px"
-                                width="26px"
-                                alt="insta-logo"
-                            />
-                        </a>
-                        <a
-                            href="https://www.facebook.com/CafeYVinoWinebar"
-                            target="_blank"
-                        >
-                            <img
-                                src="/images/socials/facebook_icon_regal.png"
-                                className={`slider-links ${
-                                    menuOpen ? 'fade-in' : 'fade-out'
-                                }`}
-                                alt="facebook_logo"
-                                heigth="26px"
-                                width="26px"
-                            />
-                        </a>
-                        <a
-                            href="https://play.google.com/store/apps/details?id=com.cafeyvinowinebar.Cafe_y_Vino"
-                            target="_blank"
-                        >
-                            <img
-                                src="/images/socials/android-logo-regal.png"
-                                className={`slider-links ${
-                                    menuOpen ? 'fade-in' : 'fade-out'
-                                }`}
-                                alt="android_logo"
-                                heigth="26px"
-                                width="26px"
-                            />
-                        </a>
+                        
+                        <div className={`mobile-social-links-container`}>
+                            <a
+                                href="https://www.instagram.com/cafevinowinebar/"
+                                target="_blank"
+                            >
+                                <img
+                                    src="/images/socials/instagram-logo-regal.png"
+                                    heigth="26px"
+                                    width="26px"
+                                    alt="insta-logo"
+                                />
+                            </a>
+                            <a
+                                href="https://www.facebook.com/CafeYVinoWinebar"
+                                target="_blank"
+                            >
+                                <img
+                                    src="/images/socials/facebook_icon_regal.png"
+                                    alt="facebook_logo"
+                                    heigth="26px"
+                                    width="26px"
+                                />
+                            </a>
+                            <a
+                                href="https://play.google.com/store/apps/details?id=com.cafeyvinowinebar.Cafe_y_Vino"
+                                target="_blank"
+                            >
+                                <img
+                                    src="/images/socials/android-logo-regal.png"
+                                    alt="android_logo"
+                                    heigth="26px"
+                                    width="26px"
+                                />
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <nav

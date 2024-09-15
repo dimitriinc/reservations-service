@@ -41,17 +41,6 @@ footer {
                 transition: scale 200ms ease-in-out;
                 cursor: pointer;
                 width: fit-content;
-
-                &:hover {
-                    scale: 105%;
-                }
-                &:active {
-                    scale: 100%;
-                }
-            }
-
-            #dimi_email {
-                bottom: -30px;
             }
         }
     }
