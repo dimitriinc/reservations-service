@@ -2,11 +2,11 @@
     .hero {
         display: flex;
         align-items: center;
-        padding-top: 1rem;
         margin-bottom: 5rem;
 
         @include breakpoint-down(tablet) {
             height: calc(100vh - 100px);
+            padding-bottom: 2rem;
         }
 
         @include breakpoint-up(laptop) {
@@ -17,17 +17,17 @@
             height: 100%;
             width: 100%;
             position: relative;
-            background-image: url(/images/hero-mobile.png);
+            background-image: url(/images/hero/hero-mobile.png);
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
 
             @include breakpoint-up(tablet) {
-                background-image: url(/images/hero-tablet.png);
+                background-image: url(/images/hero/hero-tablet.png);
             }
 
             @include breakpoint-up(laptop) {
-                background-image: url(/images/hero.png);
+                background-image: url(/images/hero/hero.png);
                 background-size: contain;
                 top: auto;
                 bottom: 0;

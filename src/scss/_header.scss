@@ -18,6 +18,18 @@
         }
     }
 
+    &.scroll {
+        background-color: $overlay;
+    
+        .header__logo {
+            img {
+                transition: all 500ms ease-in-out;
+                width: 5rem;
+                padding: 0;
+            }
+        }
+    }
+
     nav {
         padding: 1rem 1.5rem;
         transition: all 500ms ease-in-out;
@@ -39,6 +51,37 @@
             padding-bottom: 5rem;
         }
 
+        &.sticky {
+            @include breakpoint-up(laptop) {
+                width: 100%;
+                display: flex;
+                position: fixed;
+                top: 0;
+                left: 0;
+                padding-bottom: 2rem;
+    
+                .header__logo {
+                    margin-left: 2rem;
+                    margin-right: auto;
+    
+                    img {
+                        width: 6rem;
+                    }
+                }
+    
+                .header__links {
+                    a {
+                        font-size: 1rem;
+    
+                        @include breakpoint-down(laptop) {
+                            font-size: $font_small;
+                            margin: 0.5rem;
+                        }
+                    }
+                }
+            }
+        }
+        
         &.non-main {
             @include breakpoint-up(laptop) {
                 background: none;
@@ -46,35 +89,6 @@
         }
     }
 
-    .sticky {
-        @include breakpoint-up(laptop) {
-            width: 100%;
-            display: flex;
-            position: fixed;
-            top: 0;
-            left: 0;
-
-            .header__logo {
-                margin-left: 2rem;
-                margin-right: auto;
-
-                img {
-                    width: 6rem;
-                }
-            }
-
-            .header__links {
-                a {
-                    font-size: 1rem;
-
-                    @include breakpoint-down(laptop) {
-                        font-size: $font_small;
-                        margin: 0.5rem;
-                    }
-                }
-            }
-        }
-    }
 
     &__logo {
         width: fit-content;
@@ -205,7 +219,7 @@
         height: 100vh;
         z-index: 2;
         background-color: $overlay;
-        padding: 8rem 0 4rem;
+        padding: 8rem 0 6rem;
 
         transform: translateY(-100%);
         pointer-events: none;
@@ -258,26 +272,10 @@
         }
     }
 
-    &.scroll {
-        background-color: $overlay;
     
-        nav {
-            padding-bottom: 0;
-        }
-    
-        .header__logo {
-            img {
-                transition: all 500ms ease-in-out;
-                width: 5rem;
-                padding: 0;
-            }
-        }
-    }
 }
 
 .header-spacer {
-    left: 0;
-    top: 0;
     width: 100%;
     height: 166px;
 

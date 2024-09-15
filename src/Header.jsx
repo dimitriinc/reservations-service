@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 export default function Header({ activeLink, activateLink }) {
     const [menuOpen, setMenuOpen] = useState(false)
     const [headerScrolling, setHeaderScrolling] = useState(false)
+    const [homeScreen, setHomeScreen] = useState(false)
 
     const headerSlicer = useRef()
     const headerSpacer = useRef()
@@ -16,6 +17,10 @@ export default function Header({ activeLink, activateLink }) {
     }, [menuOpen])
 
     useEffect(() => {
+        // Check if the screen is the home screen
+        if (activateLink === 0) setHomeScreen(true)
+        else setHomeScreen(false)
+
         // Observer
         const obsCallback = function (entries) {
             const [entry] = entries
@@ -174,11 +179,8 @@ export default function Header({ activeLink, activateLink }) {
                         </div>
                     </div>
                 </div>
-                <nav
-                    className={`flex flex-ai-c ${
-                        headerScrolling ? 'sticky' : ''
-                    }`}
-                >
+
+                <nav className={`${headerScrolling ? 'sticky' : ''}`}>
                     <Link
                         to="/"
                         className="header__logo"
