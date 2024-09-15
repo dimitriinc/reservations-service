@@ -5,10 +5,10 @@
     top: 0;
     z-index: 3;
     font-family: 'Saveur Sans';
-    font-weight: 600;
 
     @include breakpoint-up(laptop) {
         position: absolute;
+        font-weight: 600;
     }
 
     @include breakpoint-down(tablet) {
@@ -178,8 +178,6 @@
         }
     }
 
-    // Hamburger open styles
-
     &.open {
         .header__toggle {
             > span:first-child {
@@ -207,7 +205,7 @@
         height: 100vh;
         z-index: 2;
         background-color: $overlay;
-        padding: 7rem 0 3rem;
+        padding: 8rem 0 4rem;
 
         transform: translateY(-100%);
         pointer-events: none;
@@ -250,23 +248,29 @@
                 align-items: center;
                 gap: 2rem;
                 margin-top: auto;
+
+                .mobile-social-link-icon {
+                    width: 26px;
+                    height: 26px;
+                    color: $nav_links;
+                }
             }
         }
     }
-}
 
-.scroll {
-    background-color: $overlay;
-
-    nav {
-        padding-bottom: 0;
-    }
-
-    .header__logo {
-        img {
-            transition: all 500ms ease-in-out;
-            width: 5rem;
-            padding: 0;
+    &.scroll {
+        background-color: $overlay;
+    
+        nav {
+            padding-bottom: 0;
+        }
+    
+        .header__logo {
+            img {
+                transition: all 500ms ease-in-out;
+                width: 5rem;
+                padding: 0;
+            }
         }
     }
 }
