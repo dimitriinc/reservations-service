@@ -69,10 +69,11 @@ body {
     }
 }
 
-a,
+a:link,
 a:visited,
 a:hover {
     text-decoration: none;
+    color: $nav_links;
 }
 
 p {
@@ -86,10 +87,6 @@ canvas {
 
 em {
     font-family: FuturaIt;
-}
-
-input::-webkit-progress-value {
-    background-color: $nav_links;
 }
 
 .aux_title {

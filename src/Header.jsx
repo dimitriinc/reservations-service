@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 export default function Header({ activeLink, activateLink }) {
     const [menuOpen, setMenuOpen] = useState(false)
     const [headerScrolling, setHeaderScrolling] = useState(false)
-    const [homeScreen, setHomeScreen] = useState(false)
+    const [homeScreen, setHomeScreen] = useState(true)
 
     const headerSlicer = useRef()
     const headerSpacer = useRef()
@@ -18,8 +18,10 @@ export default function Header({ activeLink, activateLink }) {
 
     useEffect(() => {
         // Check if the screen is the home screen
-        if (activateLink === 0) setHomeScreen(true)
-        else setHomeScreen(false)
+        // if (activeLink === 0) setHomeScreen(true)
+        // else setHomeScreen(false)
+
+        console.log(`active link: ${activeLink}\nhome screen: ${homeScreen}`)
 
         // Observer
         const obsCallback = function (entries) {
@@ -37,13 +39,16 @@ export default function Header({ activeLink, activateLink }) {
         const observer = new IntersectionObserver(obsCallback)
         if (document.documentElement.clientWidth < 769)
             observer.observe(headerSlicer.current)
-        if (document.documentElement.clientWidth > 769)
+        if (document.documentElement.clientWidth > 769 && activeLink === 0)
             observer.observe(headerSpacer.current)
 
-        // return () => {
-        //     if (headerSlicer.current) observer.unobserve(headerSlicer.current)
-        // }
-    }, [])
+        return () => {
+            if (document.documentElement.clientWidth < 769)
+                observer.unobserve(headerSlicer.current)
+            if (document.documentElement.clientWidth > 769)
+                observer.unobserve(headerSpacer.current)
+        }
+    }, [activeLink])
 
     const onHamburgerClick = () => setMenuOpen((value) => !value)
     const onLinkClick = (index) => {
@@ -72,8 +77,8 @@ export default function Header({ activeLink, activateLink }) {
 
             <header
                 className={`header ${menuOpen ? 'open' : ''} ${
-                    headerScrolling ? 'scroll' : ''
-                }`}
+                    headerScrolling ? 'sticky' : ''
+                } ${activeLink === 0 ? '' : 'not-home'}`}
             >
                 <div className={`mobile-nav hide-for-desktop`}>
                     <div className="mobile-links-container">
@@ -180,10 +185,10 @@ export default function Header({ activeLink, activateLink }) {
                     </div>
                 </div>
 
-                <nav className={`${headerScrolling ? 'sticky' : ''}`}>
+                <nav className={`navigation-main`}>
                     <Link
                         to="/"
-                        className="header__logo"
+                        className="logo-main centered"
                         onClick={onLinkClick.bind(null, 0)}
                     >
                         <img
@@ -192,17 +197,7 @@ export default function Header({ activeLink, activateLink }) {
                         />
                     </Link>
 
-                    <div
-                        onClick={onHamburgerClick}
-                        id="btnHamburger"
-                        className="header__toggle hide-for-desktop"
-                    >
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-
-                    <div className="header__links hide-for-mobile">
+                    <div className="nav-links hide-for-mobile">
                         <Link
                             to="/horarios"
                             onClick={onLinkClick.bind(null, 1)}
@@ -230,6 +225,15 @@ export default function Header({ activeLink, activateLink }) {
                         >
                             Reservaciones
                         </Link>
+                    </div>
+
+                    <div
+                        onClick={onHamburgerClick}
+                        className="hamburger-btn hide-for-desktop"
+                    >
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </div>
                 </nav>
             </header>

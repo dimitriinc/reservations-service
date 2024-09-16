@@ -1,169 +1,80 @@
 .header {
-    position: fixed;
+    position: absolute;
     left: 0;
     width: 100%;
     top: 0;
     z-index: 3;
     font-family: 'Saveur Sans';
+    font-weight: 600;
 
-    @include breakpoint-up(laptop) {
-        position: absolute;
-        font-weight: 600;
+    padding: 1rem 1.5rem 5rem 1.5rem;
+    background: linear-gradient(
+        to bottom,
+        #fcfaeb 0%,
+        #fcfaeb 32%,
+        rgba(252, 250, 235, 0.85) 70%,
+        rgba(252, 250, 235, 0.82) 71%,
+        rgba(252, 250, 235, 0) 100%
+    );
+    transition: all .2s ease-in;
+
+    @include breakpoint-down(tablet) {
+        position: fixed;
+        font-weight: 500;
+        background: none;
+        padding: 0;
     }
 
-    &.scroll {
-        background-color: $overlay;
-    
-        .header__logo {
-            margin-bottom: 0;
-            img {
-                transition: all 500ms ease-in-out;
-                width: 5rem;
-            }
-        }
+    &.not-home {
+        background: none;
     }
 
-    nav {
-        padding: 1rem 1.5rem;
-        transition: all 500ms ease-in-out;
+    &.sticky {
+        position: fixed;
+        padding-bottom: 2rem;
 
         @include breakpoint-down(tablet) {
+            padding-bottom: .2rem;
+        }
+
+        .navigation-main {
             display: flex;
             align-items: center;
-            background: none;
-        }
 
-        @include breakpoint-up(laptop) {
-            display: block;
-            background: linear-gradient(
-                to bottom,
-                #fcfaeb 0%,
-                #fcfaeb 32%,
-                rgba(252, 250, 235, 0.85) 70%,
-                rgba(252, 250, 235, 0.82) 71%,
-                rgba(252, 250, 235, 0) 100%
-            );
-            padding-bottom: 5rem;
-        }
+            @include breakpoint-down(tablet) {
+                display: block;
+            }
 
-        &.sticky {
-            @include breakpoint-up(laptop) {
-                display: flex;
-                align-items: center;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                padding-bottom: 2rem;
-    
-                .header__logo {
-                    margin-left: 2rem;
-                    margin-right: auto;
-    
-                    img {
-                        width: 6rem;
-                    }
+            .logo-main {
+                margin: 0 auto 0 2rem;
+
+                @include breakpoint-down(tablet) {
+                    margin: 1rem auto 0 auto;
                 }
-    
-                .header__links {
-                    a {
-                        font-size: 1rem;
 
+                img {
+                    width: 6rem;
+
+                    @include breakpoint-down(tablet) {
+                        width: 5rem;
                     }
                 }
             }
-        }
-    }
 
-
-    &__logo {
-        margin: 0 auto 1rem auto;
-        display: block;
-
-        img {
-            width: 8rem;
-            transition: all 500ms ease-in-out;
-        }
-    }
-
-    &__toggle {
-        z-index: 333;
-        cursor: pointer;
-        position: absolute;
-        right: 0%;
-        margin-right: 2rem;
-
-        > span {
-            display: block;
-            width: 26px;
-            height: 1px;
-            background-color: $nav_links;
-            transition: all 300ms ease-in;
-            transform-origin: 4px 0.5px;
-
-            &:not(:last-child) {
-                margin-bottom: 5px;
-            }
-        }
-    }
-
-    &__links {
-        display: flex;
-        justify-content: center;
-        gap: 1.5rem;
-        transition: all 500ms ease-in-out;
-
-        .is-active {
-            cursor: default;
-            pointer-events: none;
-            &::before {
-                content: '';
-                position: absolute;
-                left: 0;
-                right: 0;
-                bottom: -2px;
-                display: block;
-                height: 1px;
-                background-color: $nav_links;
-                width: 100%;
-            }
-        }
-
-        .nav-link {
-            position: relative;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-size: $font_medium;
-            letter-spacing: 2px;
-            color: $nav_links;
-            transition: color 300ms ease-in-out;
-
-            &:not(.is-active)::before {
-                content: '';
-                position: absolute;
-                left: 0;
-                right: 0;
-                bottom: -2px;
-                margin: 0 auto;
-                display: block;
-                height: 1px;
-                background-color: $nav_links;
-                width: 0%;
-                transition: width 300ms ease-in-out;
-            }
-
-            &:hover {
-                color: $nav_links_hover;
-
-                &::before {
-                    width: 100%;
+            .nav-links {
+                a {
+                    font-size: 1rem;
                 }
             }
+        }
+
+        @include breakpoint-down(tablet) {
+            background-color: $overlay;
         }
     }
 
     &.open {
-        .header__toggle {
+        .hamburger-btn {
             > span:first-child {
                 transform: rotate(45deg);
             }
@@ -178,6 +89,107 @@
         .mobile-nav {
             transform: translateY(0);
             pointer-events: auto;
+        }
+    }
+
+    
+
+    .navigation-main {
+
+        .logo-main {
+            display: block;
+            width: fit-content;
+            margin-bottom: 1rem;
+
+            @include breakpoint-down(tablet) {
+                margin-top: 1rem;
+                margin-bottom: 0;
+            }
+    
+            img {
+                width: 8rem;
+                transition: all 500ms ease-in;
+
+                @include breakpoint-down(tablet) {
+                    width: 7rem;
+                }
+
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            transition: all 500ms ease-in-out;
+
+            .nav-link {
+                position: relative;
+                font-size: $font_medium;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                cursor: pointer;
+                transition: color 300ms ease-in-out;
+
+                &.is-active {
+                    cursor: default;
+                    pointer-events: none;
+                    &::before {
+                        content: '';
+                        display: block;
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        bottom: -2px;
+                        width: 100%;
+                        height: 1px;
+                        background-color: $nav_links;
+                    }
+                }
+    
+                &:not(.is-active)::before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: -2px;
+                    width: 0%;
+                    height: 1px;
+                    background-color: $nav_links;
+                    margin: 0 auto;
+                    transition: width 300ms ease-in;
+                }
+    
+                &:hover {
+                    color: $nav_links_hover;
+    
+                    &::before {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        .hamburger-btn {
+            cursor: pointer;
+            position: absolute;
+            top: 2.5rem;
+            right: 2rem;
+            z-index: 333;
+    
+            > span {
+                display: block;
+                width: 26px;
+                height: 1px;
+                background-color: $nav_links;
+                transition: all .3s ease-in;
+                transform-origin: 4px 0.5px;
+    
+                &:not(:last-child) {
+                    margin-bottom: 5px;
+                }
+            }
         }
     }
 
@@ -206,14 +218,13 @@
 
             .mobile-link:link,
             .mobile-link:visited {
-                color: $nav_links;
                 text-transform: uppercase;
                 letter-spacing: 2px;
 
                 &.is-active {
                     pointer-events: none;
                     position: relative;
-    
+
                     &::before {
                         content: '';
                         display: block;
@@ -236,13 +247,10 @@
                 .mobile-social-link-icon {
                     width: 26px;
                     height: 26px;
-                    color: $nav_links;
                 }
             }
         }
     }
-
-    
 }
 
 .header-spacer {
