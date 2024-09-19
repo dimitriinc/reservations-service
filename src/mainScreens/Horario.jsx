@@ -3,6 +3,7 @@ import { useRef, useEffect } from 'react'
 
 function Horario({ activateLink }) {
     const mainSection = useRef()
+    const mapSection = useRef()
     const bottomSection = useRef()
     const scetchSection = useRef()
 
@@ -24,6 +25,7 @@ function Horario({ activateLink }) {
 
         Array.of(
             mainSection.current,
+            mapSection.current,
             bottomSection.current,
             scetchSection.current
         ).forEach((section) => {
@@ -47,7 +49,7 @@ function Horario({ activateLink }) {
                 <div className="horas">
                     <h2 className="aux_title">Horarios &amp; Ubicación</h2>
 
-                    <p className='ubicacion'>
+                    <p className="ubicacion">
                         calle Mercaderes, 142
                         <br />
                         Arequipa
@@ -69,7 +71,12 @@ function Horario({ activateLink }) {
                         2&#8212;6PM
                     </p>
                 </div>
+            </section>
 
+            <section
+                ref={mapSection}
+                className="revealable"
+            >
                 <LeafletMap />
             </section>
 

@@ -21,7 +21,7 @@ export default function Header({ activeLink, activateLink }) {
         // if (activeLink === 0) setHomeScreen(true)
         // else setHomeScreen(false)
 
-        console.log(`active link: ${activeLink}\nhome screen: ${homeScreen}`)
+        setHeaderScrolling(false)
 
         // Observer
         const obsCallback = function (entries) {

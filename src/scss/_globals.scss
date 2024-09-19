@@ -182,9 +182,11 @@ button {
     background: none;
     transition: all 300ms ease-in-out;
 
-    &:hover {
-        background-color: $nav_links;
-        color: $overlay;
+    @include breakpoint-up(laptop) {
+        &:hover {
+            background-color: $nav_links;
+            color: $overlay;
+        }
     }
 
     &:active {
