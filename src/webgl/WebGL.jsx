@@ -25,17 +25,17 @@ function WebGL({ disableWebgl }) {
                         position: [1, 17, 19],
                     }}
                 >
-                    <primitive
+                    {/* <primitive
                         object={
                             new THREE.GridHelper(10, 10, 0xffffff, 0xffffff)
                         }
-                    />
+                    /> */}
                     <color
                         args={['#241a1a']}
                         // args={['#000']}
                         attach="background"
                     />
-                    <ambientLight intensity={0.2} />
+                    {/* <ambientLight intensity={2} /> */}
 
                     {/* <Effects>
                         <Bloom
