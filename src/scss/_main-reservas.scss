@@ -1,8 +1,17 @@
 .main-reservas {
-
     form {
-
         padding: 0 1.5rem;
+
+        .reserv-text {
+            .aux_title {
+                @include breakpoint-down(mobile) {
+                    letter-spacing: 3px;
+                    font-size: 27px;
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+            }
+        }
 
         .second-part {
             visibility: hidden;
@@ -39,8 +48,8 @@
         }
         input[type='range']::-webkit-slider-thumb {
             -webkit-appearance: none;
-            background-color: $nav_links; 
-            width: 20px; 
+            background-color: $nav_links;
+            width: 20px;
             height: 20px;
             border: 0.2px solid $overlay;
             box-shadow: 1px 1px 1px $overlay, 0px 0px 1px $overlay;
@@ -54,8 +63,8 @@
         }
 
         input[type='range']::-moz-range-thumb {
-            background: $nav_links; 
-            width: 20px; 
+            background: $nav_links;
+            width: 20px;
             height: 20px;
             border: 1px solid $overlay;
         }
@@ -81,7 +90,7 @@
             align-items: center;
             max-width: 640px;
             margin-bottom: 1rem;
-            padding: .5rem 1rem;
+            padding: 0.5rem 1rem;
             background-color: $overlay;
             border: 1px solid;
             border-radius: 5px;
@@ -98,7 +107,7 @@
             .arrows {
                 font-size: 22px;
                 cursor: pointer;
-                transition: all .3s ease;
+                transition: all 0.3s ease;
 
                 &:hover {
                     scale: 110%;
