@@ -89,7 +89,7 @@ em {
     font-family: FuturaIt;
 }
 
-.aux_title {
+.screen-title {
     padding: 0 1.5rem;
     padding-top: 4rem;
     font-family: Cesso;
@@ -102,7 +102,10 @@ em {
         font-size: 35px;
     }
     @include breakpoint-down(mobile) {
-        font-size: 30px;
+        letter-spacing: 3px;
+        font-size: 27px;
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 

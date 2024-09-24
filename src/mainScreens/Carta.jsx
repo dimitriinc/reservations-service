@@ -103,7 +103,7 @@ function Carta({ activateLink }) {
                 data-first="1"
                 ref={mainSection}
             >
-                <h2 className="aux_title">Carta</h2>
+                <h2 className="screen-title">Carta</h2>
 
                 <div className="categories-carousel">
                     <div className="menu-categories-container">

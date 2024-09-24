@@ -2,17 +2,6 @@
     form {
         padding: 0 1.5rem;
 
-        .reserv-text {
-            .aux_title {
-                @include breakpoint-down(mobile) {
-                    letter-spacing: 3px;
-                    font-size: 27px;
-                    padding-left: 0;
-                    padding-right: 0;
-                }
-            }
-        }
-
         .second-part {
             visibility: hidden;
             opacity: 0;

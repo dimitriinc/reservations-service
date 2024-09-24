@@ -152,7 +152,7 @@ function Carreras({ activateLink }) {
                 data-first="1"
                 className="revealable"
             >
-                <h2 className="aux_title">Trabaja con nosotros</h2>
+                <h2 className="screen-title">Trabaja con nosotros</h2>
 
                 <p className='subtitle'>
                     Si está interesado en formar parte de nuestro equipo

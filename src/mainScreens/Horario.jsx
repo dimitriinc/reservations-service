@@ -47,7 +47,7 @@ function Horario({ activateLink }) {
                 data-first="1"
             >
                 <div className="horas">
-                    <h2 className="aux_title">Horarios &amp; Ubicación</h2>
+                    <h2 className="screen-title">Horarios &amp; Ubicación</h2>
 
                     <p className="ubicacion">
                         calle Mercaderes, 142

@@ -110,7 +110,7 @@ function Contacto({ activateLink }) {
                 ref={mainSection}
                 data-first="1"
             >
-                <h2 className="aux_title">Envíanos un mensaje</h2>
+                <h2 className="screen-title">Envíanos un mensaje</h2>
 
                 <p className='subtitle'>
                     ¡Háganos saber su opinión! Llene el formulario para enviar

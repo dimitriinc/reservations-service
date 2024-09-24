@@ -160,7 +160,7 @@ function Reservas({ activateLink }) {
                     ref={titleSection}
                 >
                     <div className="reserv-text">
-                        <h2 className="aux_title">Reservaciones</h2>
+                        <h2 className="screen-title">Reservaciones</h2>
 
                         <p className="subtitle">
                             Llene el formulario y reciba una confirmación en el

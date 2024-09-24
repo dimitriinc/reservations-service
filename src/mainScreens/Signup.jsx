@@ -119,7 +119,7 @@ function Signup({ activateLink }) {
                 data-first="1"
                 ref={mainSection}
             >
-                <h2 className="aux_title">lista de envío</h2>
+                <h2 className="screen-title">lista de envío</h2>
 
                 <p className='subtitle'>
                     Manténgase informado sobre nuestras noticias, ofertas y
@@ -139,7 +139,6 @@ function Signup({ activateLink }) {
                         placeholder="Nombre"
                         onChange={handleInputChange}
                         required
-                        style={{ width: '50%' }}
                     />
                     <input
                         id="signup-email"
@@ -149,7 +148,6 @@ function Signup({ activateLink }) {
                         placeholder="Email"
                         onChange={handleInputChange}
                         required
-                        style={{ width: '50%' }}
                     />
                     <input
                         id="signup-submit-btn"
