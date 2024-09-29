@@ -10,21 +10,23 @@ import { MeshPhysicalMaterial } from 'three'
 
 export default function Experience() {
     const sceneRef = useRef()
-    const { nodes } = useGLTF('/models/probe1.glb')
+    const { nodes } = useGLTF('/models/cactusProbe.glb')
+    const tree = useGLTF('/models/treeProbe.glb')
+    const treeNodes = tree.nodes
 
-    const probeTexture = useTexture('./textures/probe1.jpg')
+    const probeTexture = useTexture('./textures/cactusProbe.jpg')
     probeTexture.flipY = false
-    // const treeTexture = useTexture('./textures/moneyTree.jpg')
-    // treeTexture.flipY = false
-    // const chairsTexture = useTexture('./textures/chairs.jpg')
-    // chairsTexture.flipY = false
+    const treeTexture = useTexture('./textures/treeProbe.jpg')
+    probeTexture.flipY = false
 
     useEffect(() => {
-        // console.log(nodes)
+        console.log(nodes)
     }, [])
+
     useFrame((state, delta) => {
-        // sceneRef.current.rotation.y += delta / 4
+        sceneRef.current.rotation.y += delta / 4
     })
+
     return (
         <>
             {/* <Environment
@@ -34,19 +36,25 @@ export default function Experience() {
             <OrbitControls />
 
             <group ref={sceneRef}>
-                <mesh
+                {/* <mesh
                     geometry={nodes.baseProbe.geometry}
                     position={nodes.baseProbe.position}
                 >
                     <meshBasicMaterial map={probeTexture} />
-                </mesh>
-
-                {/* <mesh
-                    geometry={nodes.wallLight020.geometry}
-                    position={nodes.wallLight020.position}
-                >
-                    <meshBasicMaterial color={'#ffffe5'} />
                 </mesh> */}
+                {/* <mesh
+                    geometry={nodes.cactus_3.geometry}
+                    position={nodes.cactus_3.position}
+                >
+                    <meshBasicMaterial map={probeTexture} />
+                </mesh> */}
+                <mesh
+                    geometry={treeNodes.plant_9.geometry}
+                    position={treeNodes.plant_9.position}
+                    rotation={treeNodes.plant_9.rotation}
+                >
+                    <meshBasicMaterial map={treeTexture} />
+                </mesh>
 
                 {Object.values(nodes).map((node) => {
                     if (node.name.startsWith('wallLight')) {
@@ -60,7 +68,10 @@ export default function Experience() {
                         )
                     }
 
-                    if (node.name.startsWith('glass') && node.name !== 'glassVoid') {
+                    if (
+                        node.name.startsWith('glass') &&
+                        node.name !== 'glassVoid'
+                    ) {
                         return (
                             <mesh
                                 geometry={node.geometry}
@@ -106,6 +117,7 @@ export default function Experience() {
                         )
                     }
                 })}
+
                 {/* <mesh geometry={nodes.moneyTree.geometry} position={nodes.moneyTree.position}>
                     <meshBasicMaterial map={treeTexture} />
                 </mesh> */}

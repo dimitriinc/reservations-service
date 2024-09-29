@@ -42,12 +42,12 @@ export default function Header({ activeLink, activateLink }) {
         if (document.documentElement.clientWidth > 769 && activeLink === 0)
             observer.observe(headerSpacer.current)
 
-        return () => {
-            if (document.documentElement.clientWidth < 769)
-                observer.unobserve(headerSlicer.current)
-            if (document.documentElement.clientWidth > 769)
-                observer.unobserve(headerSpacer.current)
-        }
+        // return () => {
+        //     if (document.documentElement.clientWidth < 769)
+        //         observer.unobserve(headerSlicer.current)
+        //     if (document.documentElement.clientWidth > 769)
+        //         observer.unobserve(headerSpacer.current)
+        // }
     }, [activeLink])
 
     const onHamburgerClick = () => setMenuOpen((value) => !value)

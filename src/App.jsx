@@ -1,5 +1,6 @@
 import Header from './Header'
 import Home from './mainScreens/Home'
+import Admin from './Admin'
 import Horario from './mainScreens/Horario'
 import Footer from './Footer'
 import Signup from './mainScreens/Signup'
@@ -11,13 +12,9 @@ import Carta from './mainScreens/Carta'
 import Reservas from './mainScreens/Reservas'
 import ScrollToTop from './custom/ScrollToTop'
 
-function App() {
-    const [activeLink, setActiveLink] = useState(0)
-    const activateLink = (index) => {
-        setActiveLink(index)
-    }
+function MainApp({activateLink, activeLink}) {
     return (
-        <Router>
+        <div>
             <ScrollToTop />
             <Header
                 activeLink={activeLink}
@@ -59,6 +56,32 @@ function App() {
                 activeLink={activeLink}
                 activateLink={activateLink}
             />
+        </div>
+    )
+}
+
+function App() {
+    const [activeLink, setActiveLink] = useState(0)
+    const activateLink = (index) => {
+        setActiveLink(index)
+    }
+    return (
+        <Router>
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <MainApp
+                            activeLink={activeLink}
+                            activateLink={activateLink}
+                        />
+                    }
+                ></Route>
+                <Route
+                    path="/admin"
+                    element={<Admin />}
+                ></Route>
+            </Routes>
         </Router>
     )
 }
