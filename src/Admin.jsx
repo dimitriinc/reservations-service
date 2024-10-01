@@ -1,13 +1,21 @@
+import { useState, useRef, useEffect } from 'react'
+
 function Admin() {
     return (
         <div>
-            <header className="reservations-header">
-                <div className="flex-header-container">
-                    <img
-                        id="logo-res-head"
-                        src="/images/logo_inline_black.svg"
-                        alt="logo"
-                    />
+            <header className="admin-header">
+                <div className="admin-nav">
+                    <a
+                        href="/"
+                        className="header-logo"
+                    >
+                        <img
+                            height={90}
+                            width={90}
+                            src="/images/logo_inline_black.svg"
+                            alt="logo"
+                        />
+                    </a>
                     <button id="tomorrow-btn">mañana</button>
                     <img
                         id="cal-res-head"
