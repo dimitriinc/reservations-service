@@ -1,6 +1,18 @@
 import { useState, useRef, useEffect } from 'react'
 
 function Admin() {
+    const [reservasLoading, setReservasLoading] = useState(true)
+    const [currentDate, setCurrentDate] = useState('')
+
+    useEffect(() => {
+        setCurrentDate(constructDate(new Date()))
+    }, [])
+
+    const constructDate = (date) =>
+        `${String(date.getDate()).padStart(2, 0)}/${String(
+            date.getMonth() + 1
+        ).padStart(2, 0)}/${date.getFullYear()}`
+
     return (
         <div>
             <header className="admin-header">
@@ -18,12 +30,12 @@ function Admin() {
                     </a>
                     <button id="tomorrow-btn">mañana</button>
                     <img
-                        id="cal-res-head"
+                        className="calendar-img"
                         src="/images/calendar.png"
                         alt="calendario"
                     />
                 </div>
-                <div id="res-date-picker--container">
+                <div id="reservas-date-picker--container">
                     <input
                         type="date"
                         name="date"
@@ -34,17 +46,17 @@ function Admin() {
 
             <div id="head-spacers-res"></div>
             <h2
-                className="aux-title"
+                // className="screen-title"
                 id="reservations-title"
             >
                 Reservaciones
             </h2>
-            <h3 id="reservations-date"></h3>
+            <h3 id="reservations-date">{currentDate}</h3>
 
             <main className="main-admin">
                 <img
                     id="reservations-loader"
-                    className="invisible centered"
+                    className={reservasLoading ? 'visible' : 'innvisible'}
                     src="/images/loaders/reservations.svg"
                     alt="loader"
                 />

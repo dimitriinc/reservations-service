@@ -42,7 +42,7 @@
             }
         }
 
-        #cal-res-head {
+        .calendar-img {
             width: 50px;
             height: 50px;
             margin-right: 1.4rem;
@@ -53,7 +53,7 @@
         }
     }
 
-    #res-date-picker--container {
+    #reservas-date-picker--container {
         display: none;
     }
 }
@@ -67,6 +67,7 @@
     margin-top: 3rem;
     letter-spacing: 5px;
     font-size: 30px;
+    margin-bottom: 1.5rem;
 
     @include breakpoint-down(tablet) {
         margin-top: 2rem;
@@ -82,9 +83,10 @@
 .main-admin {
     #reservations-loader {
         position: fixed;
-        left: 0;
+        left: 50%;
         right: 0;
         top: 60%;
+        transform: translateX(-50%);
         transition: all 0.3s ease-in-out;
     }
 
