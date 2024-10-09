@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
+import dummyReservas from './reservas.json'
+import Reserva from './Reserva'
 
 function Admin() {
     const [reservasLoading, setReservasLoading] = useState(true)
@@ -6,6 +8,9 @@ function Admin() {
 
     useEffect(() => {
         setCurrentDate(constructDate(new Date()))
+        setTimeout(() => {
+            setReservasLoading(false)
+        }, 3000)
     }, [])
 
     const constructDate = (date) =>
@@ -56,7 +61,7 @@ function Admin() {
             <main className="main-admin">
                 <img
                     id="reservations-loader"
-                    className={reservasLoading ? 'visible' : 'innvisible'}
+                    className={reservasLoading ? 'visible' : 'invisible'}
                     src="/images/loaders/reservations.svg"
                     alt="loader"
                 />
@@ -66,7 +71,18 @@ function Admin() {
                     className="invisible centered"
                 ></div>
 
-                <div className="reservations-container invisible"></div>
+                <div
+                    className={`reservations-container ${
+                        reservasLoading ? 'invisible' : 'visible'
+                    }`}
+                >
+                    {dummyReservas.map((reserva) => (
+                        <Reserva
+                            reserva={reserva}
+                            key={reserva.id}
+                        />
+                    ))}
+                </div>
             </main>
         </div>
     )

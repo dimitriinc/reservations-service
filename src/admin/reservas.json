@@ -1,0 +1,50 @@
+[
+    {
+        "id": "1",
+        "arrivalTimestamp": 32425234324,
+        "name": "John",
+        "hour": "19:00",
+        "pax": "3",
+        "phone": "23443532",
+        "comment": "lorem ipsum dolor sit amet",
+        "date": "01/02/2024",
+        "email": "example@gmail.com",
+        "confirmed": 1
+    },
+    {
+        "id": "2",
+        "arrivalTimestamp": 23463464326,
+        "name": "Cate",
+        "hour": "14:00",
+        "pax": "2",
+        "phone": "979007565",
+        "comment": "lorem ipsum dolor sit amet",
+        "date": "01/02/2024",
+        "email": "foobar@gmail.com",
+        "confirmed": 0
+    },
+    {
+        "id": "3",
+        "arrivalTimestamp": 32464326243,
+        "name": "Lana",
+        "hour": "21:00",
+        "pax": "6",
+        "phone": "36677345",
+        "comment": "lorem ipsum dolor sit amet",
+        "date": "01/02/2024",
+        "email": "lorem@gmail.com",
+        "confirmed": 1
+    },
+    {
+        "id": "4",
+        "arrivalTimestamp": 54652435262,
+        "name": "Mike",
+        "hour": "18:30",
+        "pax": "2",
+        "phone": "556326363",
+        "comment": "lorem ipsum dolor sit amet",
+        "date": "01/02/2024",
+        "email": "token@gmail.com",
+        "confirmed": 0
+    }
+]

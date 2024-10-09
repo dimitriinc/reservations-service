@@ -1,6 +1,6 @@
 import Header from './Header'
 import Home from './mainScreens/Home'
-import Admin from './Admin'
+import Admin from './admin/Admin'
 import Horario from './mainScreens/Horario'
 import Footer from './Footer'
 import Signup from './mainScreens/Signup'
