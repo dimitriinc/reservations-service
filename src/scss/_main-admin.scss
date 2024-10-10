@@ -163,10 +163,8 @@
                         display: inline-block;
                         margin: 1rem;
                         padding: 1rem;
-                        font-family: 'Saveur Sans';
-                        border: 1px solid $nav_links;
-                        color: $nav_links;
-                        background-color: $overlay;
+                        font-family: 'Saveur Sans Regular';
+                        border: 1px solid;
                         transition: all 0.1s ease-in;
                         z-index: 4;
 

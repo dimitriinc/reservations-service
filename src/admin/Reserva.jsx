@@ -1,4 +1,77 @@
+import { useState } from 'react'
+
 function Reserva({ reserva }) {
+    const [reservaConfirmed, setReservaConfirmed] = useState(reserva.confirmed)
+    const [rejecting, setRejecting] = useState(false)
+    const [confirming, setConfirming] = useState(false)
+    const [iconName, setIconName] = useState('confirm-tick.png')
+
+    const handleConfirm = async () => {
+        if (rejecting) return
+        setConfirming(true)
+        const data = {
+            id: reserva.id,
+            name: reserva.name,
+            email: reserva.email,
+            date: reserva.date,
+            hour: reserva.hour,
+        }
+        try {
+            const res = await fetch(
+                'https://future-url.pe/confirm-reservation',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                }
+            )
+            setConfirming(false)
+            setReservaConfirmed(true)
+        } catch (_) {
+            // Dummy
+            setTimeout(() => {
+                setConfirming(false)
+                setReservaConfirmed(true)
+            }, 2000)
+        }
+    }
+
+    const handleReject = async () => {
+        if (confirming) return
+        setRejecting(true)
+        const data = {
+            id: reserva.id,
+            name: reserva.name,
+            email: reserva.email,
+            date: reserva.date,
+            hour: reserva.hour,
+        }
+        try {
+            const res = await fetch(
+                'https://future-url.pe/reject-reservation',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                }
+            )
+            setRejecting(false)
+            setIconName('cancelled.png')
+            setReservaConfirmed(true)
+        } catch (_) {
+            // Dummy
+            setTimeout(() => {
+                setRejecting(false)
+                setIconName('cancelled.png')
+                setReservaConfirmed(true)
+            }, 2000)
+        }
+    }
+
     return (
         <div className="reservation-item">
             <h3>
@@ -16,16 +89,14 @@ function Reserva({ reserva }) {
                 </div>
                 <div className="res-comment">
                     <span className="reservation-label">Comentario: </span>
-                    <span className="reservation-value">
-                        {reserva.comment}
-                    </span>
+                    <span className="reservation-value">{reserva.comment}</span>
                 </div>
             </div>
 
-            {reserva.confirmed ? (
+            {reservaConfirmed ? (
                 <div className="reservation-confirmed">
                     <img
-                        src="/images/confirm-tick.png"
+                        src={`/images/${iconName}`}
                         alt="confirmado"
                     />
                 </div>
@@ -33,12 +104,10 @@ function Reserva({ reserva }) {
                 <div className="reservation-actions">
                     <div className="reservation-action-container">
                         <button
-                            // dataId="${reservation.id}"
-                            // dataEmail="${reservation.email}"
-                            // dataName="${reservation.name}"
-                            // dataDate="${reservation.date}"
-                            // dataHour="${reservation.hour}"
-                            className="reservation-action btn-confirm-res"
+                            className={`reservation-action btn-confirm-res ${
+                                confirming && 'invisible'
+                            }`}
+                            onClick={handleConfirm}
                         >
                             Confirmar
                         </button>
@@ -47,24 +116,35 @@ function Reserva({ reserva }) {
                             className="reservation-loader"
                             src="/images/loaders/res-actions.svg"
                             alt="loader"
+                            style={
+                                confirming
+                                    ? { visibility: 'visible', opacity: '1' }
+                                    : null
+                            }
                         />
                     </div>
                     <div className="reservation-action-container">
                         <button
-                            // dataId="${reservation.id}"
-                            // dataEmail="${reservation.email}"
-                            // dataName="${reservation.name}"
-                            // dataDate="${reservation.date}"
-                            // dataHour="${reservation.hour}"
-                            className="reservation-action btn-reject-res"
+                            className={`reservation-action btn-reject-res ${
+                                rejecting && 'invisible'
+                            }`}
+                            onClick={handleReject}
                         >
                             Rechazar
                         </button>
                         <img
                             id="reservation-rejection-loader"
-                            className="reservation-loader"
+                            className="reservation-loader visible"
                             src="/images/loaders/res-actions.svg"
                             alt="loader"
+                            style={
+                                rejecting
+                                    ? {
+                                          visibility: 'visible',
+                                          opacity: '1',
+                                      }
+                                    : null
+                            }
                         />
                     </div>
                 </div>
