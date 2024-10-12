@@ -1,55 +1,30 @@
 .admin-header {
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 100%;
-    background-color: $overlay;
-    z-index: 999;
-
-    @include breakpoint-up(laptop) {
-        background-color: transparent;
-        position: absolute;
-    }
 
     .admin-nav {
         display: flex;
         align-items: center;
-        justify-content: end;
-        height: 100px;
-        margin: 0 1rem;
+        justify-content: center;
+        gap: 1rem;
+        margin: 0 2rem;
 
-        .header-logo {
-            margin-right: auto;
-
-            img {
-                @include breakpoint-down(tablet) {
-                    width: 70px;
-                    height: 70px;
-                }
-            }
-        }
-
-        #tomorrow-btn {
-            margin-right: 2rem;
-            padding: 0.5rem;
+        button {
+            text-transform: uppercase;
             font-size: 16px;
-            font-family: 'Futura';
-            transform: translateY(4px);
-            text-transform: lowercase;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all .3s ease;
 
             &:hover {
-                cursor: pointer;
+                background-color: $nav_links;
+                color: $overlay;
             }
         }
 
         .calendar-img {
             width: 50px;
             height: 50px;
-            margin-right: 1.4rem;
-
-            &:hover {
-                cursor: pointer;
-            }
+            transform: translateY(-4px);
+            cursor: pointer;
         }
     }
 
@@ -81,11 +56,11 @@
 }
 
 .main-admin {
+    position: relative;
     #reservations-loader {
-        position: fixed;
+        position: absolute;
         left: 50%;
-        right: 0;
-        top: 60%;
+        top: 4rem;
         transform: translateX(-50%);
         transition: all 0.3s ease-in-out;
     }
@@ -102,28 +77,49 @@
 
     .reservations-container {
         transition: all 0.5s ease-in-out;
+        margin: 0 2rem;
 
         .reservation-item {
+            position: relative;
             max-width: 640px;
             height: fit-content;
             padding: 1rem;
             border: 2px solid $nav_links;
             border-radius: 5px;
-            margin-bottom: 2rem;
+            margin-bottom: 4rem;
             margin-left: auto;
             margin-right: auto;
 
+            @include breakpoint-down(tablet) {
+                max-width: 450px;
+            }
+
             @include breakpoint-down(mobile) {
-                width: 300px;
+                max-width: 300px;
+            }
+
+            &:not(:last-child):after {
+                content: '';
+                display: block;
+                height: 0.4rem;
+                width: 0.4rem;
+                border-radius: 50%;
+                background-color: $nav_links;
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translate(-50%, 2.5rem);
             }
 
             h3 {
                 font-family: 'Saveur Sans';
                 letter-spacing: 2px;
+                margin-bottom: 1.5rem;
             }
 
             .reservation-data {
                 text-align: start;
+                margin-bottom: 2.5rem;
 
                 .reservation-label {
                     font-weight: bold;
@@ -131,8 +127,6 @@
             }
 
             .reservation-actions {
-                margin-top: 2rem;
-
                 .reservation-action-container {
                     position: relative;
                     z-index: 2;
