@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { collection, getDocs, query, where, orderBy } from 'firebase/firestore'
+// import { collection, getDocs, query, where, orderBy } from 'firebase/firestore'
 import { db } from '../firebase'
 import MenuCarousel from '../custom/MenuCarousel'
 
@@ -17,35 +17,33 @@ function Carta({ activateLink }) {
     const [vinosVisible, setVinosVisible] = useState(false)
     const [menuReady, setMenuReady] = useState(false)
 
-    const fetchMenuCollection = async () => {
-        console.log('fetching starts...')
-        setFetchingMenuCollection(true)
-        console.log(`Collection path: ${collectionPath}`)
-        const q = query(
-            collection(db, collectionPath),
-            where('isPresent', '==', true),
-            orderBy('nombre')
-        )
-        try {
-            const snapshot = await getDocs(q)
-            const plates = snapshot.docs.map((doc) => {
-                // console.log(doc.data().nombre)
-                return doc.data().nombre
-            })
-            setMenuCollection([...plates])
-            setFetchingMenuCollection(false)
+    // const fetchMenuCollection = async () => {
+    //     setFetchingMenuCollection(true)
+    //     const q = query(
+    //         collection(db, collectionPath),
+    //         where('isPresent', '==', true),
+    //         orderBy('nombre')
+    //     )
+    //     try {
+    //         const snapshot = await getDocs(q)
+    //         const plates = snapshot.docs.map((doc) => {
+    //             // console.log(doc.data().nombre)
+    //             return doc.data().nombre
+    //         })
+    //         setMenuCollection([...plates])
+    //         setFetchingMenuCollection(false)
 
-            // Temporal
-            menuCollection.forEach((document) => console.log(document))
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    //         // Temporal
+    //         menuCollection.forEach((document) => console.log(document))
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
     useEffect(() => {
         activateLink(2)
 
-        fetchMenuCollection()
+        // fetchMenuCollection()
 
         const reveal = function (entries, observer) {
             const [entry] = entries
@@ -73,7 +71,7 @@ function Carta({ activateLink }) {
         )
     }, [])
 
-    useEffect(() => fetchMenuCollection, [collectionPath])
+    // useEffect(() => fetchMenuCollection, [collectionPath])
 
     const activateCategory = (event) => {
         const category = event.target.dataset.id

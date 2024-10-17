@@ -1,197 +1,320 @@
 .admin-header {
+    .header-logo {
+        display: inline-block;
+    }
+}
 
-    .admin-nav {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-        margin: 0 2rem;
+nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0 3rem;
 
-        button {
-            text-transform: uppercase;
-            font-size: 16px;
-            padding: 0.5rem;
-            cursor: pointer;
-            transition: all .3s ease;
+    .reservations-title {
+        position: relative;
+        font-family: 'Saveur Sans';
+        letter-spacing: 5px;
+        font-size: 30px;
 
-            &:hover {
-                background-color: $nav_links;
-                color: $overlay;
-            }
+        &.active {
+            pointer-events: none;
         }
 
-        .calendar-img {
-            width: 50px;
-            height: 50px;
-            transform: translateY(-4px);
+        &:not(.active):hover {
             cursor: pointer;
+            color: $nav_links_hover;
+        }
+
+        &.active::after {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: $nav_links;
+        }
+    }
+}
+
+.admin-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background-color: #e8e7e8;
+    padding: 1rem;
+    border-top: 1px solid $nav_links;
+    border-bottom: 1px solid $nav_links;
+
+    select {
+        padding: 0.5rem;
+        letter-spacing: 1.5px;
+    }
+
+    button {
+        text-transform: uppercase;
+        font-size: 16px;
+        padding: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background-color: $nav_links;
+            color: $overlay;
         }
     }
 
-    #reservas-date-picker--container {
-        display: none;
+    .calendar {
+        cursor: pointer;
+        &:hover {
+            color: $nav_links_hover;
+        }
     }
-}
-
-#head-spacers-res {
-    height: 100px;
-}
-
-#reservations-title {
-    font-family: 'Saveur Sans';
-    margin-top: 3rem;
-    letter-spacing: 5px;
-    font-size: 30px;
-    margin-bottom: 1.5rem;
-
-    @include breakpoint-down(tablet) {
-        margin-top: 2rem;
-    }
-}
-
-#reservations-date {
-    font-family: 'Saveur Sans';
-    letter-spacing: 2px;
-    margin-bottom: 3rem;
 }
 
 .main-admin {
-    position: relative;
-    #reservations-loader {
-        position: absolute;
-        left: 50%;
-        top: 4rem;
-        transform: translateX(-50%);
-        transition: all 0.3s ease-in-out;
-    }
+    min-height: 100vh;
 
-    #res-err-msg {
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: 60%;
-        transition: all 0.3s ease-in-out;
-        letter-spacing: 2px;
-        width: 70%;
-    }
+    .reservations-main {
+        position: relative;
+        #reservations-date {
+            font-family: 'Saveur Sans';
+            letter-spacing: 2px;
+            margin-bottom: 3rem;
+        }
 
-    .reservations-container {
-        transition: all 0.5s ease-in-out;
-        margin: 0 2rem;
+        #reservations-loader {
+            position: absolute;
+            left: 50%;
+            top: 4rem;
+            transform: translateX(-50%);
+            transition: all 0.3s ease-in-out;
+        }
 
-        .reservation-item {
-            position: relative;
-            max-width: 640px;
-            height: fit-content;
-            padding: 1rem;
-            border: 2px solid $nav_links;
-            border-radius: 5px;
-            margin-bottom: 4rem;
-            margin-left: auto;
-            margin-right: auto;
+        #error-message {
+            position: absolute;
+            left: 50%;
+            top: 4rem;
+            letter-spacing: 2px;
+            width: 70%;
+            transform: translateX(-50%);
+            transition: all 0.3s ease-in-out;
+        }
 
-            @include breakpoint-down(tablet) {
-                max-width: 450px;
-            }
+        .reservations-container {
+            transition: all 0.5s ease-in-out;
+            margin: 0 2rem;
 
-            @include breakpoint-down(mobile) {
-                max-width: 300px;
-            }
+            .reservation-item {
+                position: relative;
+                max-width: 640px;
+                height: fit-content;
+                padding: 1rem;
+                border: 2px solid $nav_links;
+                border-radius: 5px;
+                margin-bottom: 4rem;
+                margin-left: auto;
+                margin-right: auto;
 
-            &:not(:last-child):after {
-                content: '';
-                display: block;
-                height: 0.4rem;
-                width: 0.4rem;
-                border-radius: 50%;
-                background-color: $nav_links;
-                position: absolute;
-                bottom: 0;
-                left: 50%;
-                transform: translate(-50%, 2.5rem);
-            }
-
-            h3 {
-                font-family: 'Saveur Sans';
-                letter-spacing: 2px;
-                margin-bottom: 1.5rem;
-            }
-
-            .reservation-data {
-                text-align: start;
-                margin-bottom: 2.5rem;
-
-                .reservation-label {
-                    font-weight: bold;
+                @include breakpoint-down(tablet) {
+                    max-width: 450px;
                 }
-            }
 
-            .reservation-actions {
-                .reservation-action-container {
-                    position: relative;
-                    z-index: 2;
+                @include breakpoint-down(mobile) {
+                    max-width: 300px;
+                }
 
-                    @include breakpoint-up(laptop) {
-                        display: inline-block;
+                &:not(:last-child):after {
+                    content: '';
+                    display: block;
+                    height: 0.4rem;
+                    width: 0.4rem;
+                    border-radius: 50%;
+                    background-color: $nav_links;
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translate(-50%, 2.5rem);
+                }
+
+                h3 {
+                    font-family: 'Saveur Sans';
+                    letter-spacing: 2px;
+                    margin-bottom: 1.5rem;
+                }
+
+                .reservation-data {
+                    text-align: start;
+                    margin-bottom: 2.5rem;
+
+                    .reservation-label {
+                        font-weight: bold;
                     }
+                }
 
-                    .reservation-loader {
-                        opacity: 0;
-                        visibility: hidden;
-                        height: 32px;
-                        width: 30px;
-                        position: absolute;
-                        left: 0;
-                        right: 0;
-                        top: 30%;
-                        margin: auto;
-                        z-index: 3;
-                        transition: all 0.3s ease-in;
-
-                        @include breakpoint-down(tablet) {
-                            top: 20%;
-                        }
-                    }
-
-                    .reservation-action {
-                        display: inline-block;
-                        margin: 1rem;
-                        padding: 1rem;
-                        font-family: 'Saveur Sans Regular';
-                        border: 1px solid;
-                        transition: all 0.1s ease-in;
-                        z-index: 4;
-
-                        @include breakpoint-down(tablet) {
-                            display: block;
-                            margin-left: auto;
-                            margin-right: auto;
-                            &:active {
-                                transform: scale(95%);
-                            }
-                        }
+                .reservation-actions {
+                    .reservation-action-container {
+                        position: relative;
+                        z-index: 2;
 
                         @include breakpoint-up(laptop) {
-                            cursor: pointer;
-                            &:hover {
-                                transform: scale(105%);
+                            display: inline-block;
+                        }
+
+                        .reservation-loader {
+                            opacity: 0;
+                            visibility: hidden;
+                            height: 32px;
+                            width: 30px;
+                            position: absolute;
+                            left: 0;
+                            right: 0;
+                            top: 30%;
+                            margin: auto;
+                            z-index: 3;
+                            transition: all 0.3s ease-in;
+
+                            @include breakpoint-down(tablet) {
+                                top: 20%;
                             }
-                            &:active {
-                                transform: scale(100%);
+                        }
+
+                        .reservation-action {
+                            display: inline-block;
+                            margin: 1rem;
+                            padding: 1rem;
+                            font-family: 'Saveur Sans Regular';
+                            border: 1px solid;
+                            transition: all 0.1s ease-in;
+                            z-index: 4;
+
+                            @include breakpoint-down(tablet) {
+                                display: block;
+                                margin-left: auto;
+                                margin-right: auto;
+                                &:active {
+                                    transform: scale(95%);
+                                }
+                            }
+
+                            @include breakpoint-up(laptop) {
+                                cursor: pointer;
+                                &:hover {
+                                    transform: scale(105%);
+                                }
+                                &:active {
+                                    transform: scale(100%);
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            .reservation-confirmed {
-                margin-top: 2rem;
+                .reservation-confirmed {
+                    margin-top: 2rem;
 
-                img {
-                    width: 40px;
-                    height: 40px;
+                    img {
+                        width: 40px;
+                        height: 40px;
+                    }
                 }
             }
         }
     }
+}
+
+.carta-main {
+    position: relative;
+    margin-bottom: 3rem;
+    min-height: 100vh;
+
+    .carta-loader {
+        position: absolute;
+        left: 50%;
+        top: 5rem;
+        transform: translateX(-50%);
+    }
+
+    .category-container {
+        margin: 0 2rem;
+        transition: all .4s ease;
+
+        .category-label {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+        .category-content {
+            li {
+                display: flex;
+                align-items: center;
+                max-width: 650px;
+                border: 1px solid;
+                border-radius: 5px;
+                padding: 0.5rem 1rem;
+                margin-bottom: 1rem;
+
+                .dish-name {
+                    font-family: 'FuturaRg';
+                }
+                .switch {
+                    font-size: 17px;
+                    position: relative;
+                    display: inline-block;
+                    width: 3.5em;
+                    height: 2em;
+                    margin-left: auto;
+
+                    input {
+                        opacity: 0;
+                        width: 0;
+                        height: 0;
+                    }
+                    .slider {
+                        position: absolute;
+                        cursor: pointer;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background-color: #e8e7e8;
+                        transition: 0.4s;
+                        border: 1px solid;
+                        border-radius: 5px;
+
+                        &.checked {
+                            background-color: $nav_links;
+                            &::before {
+                                transform: translateX(1.5em);
+                            }
+                        }
+
+                        &:before {
+                            position: absolute;
+                            content: '';
+                            height: 1.4em;
+                            width: 1.4em;
+                            border: 1px solid;
+                            border-radius: 5px;
+                            left: 0.3em;
+                            top: 0.25em;
+                            transform: rotate(270deg);
+                            background-color: rgb(255, 255, 255);
+                            transition: .8s;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+    background-color: $nav_links;
 }
