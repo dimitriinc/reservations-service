@@ -43,6 +43,7 @@
 
             @include breakpoint-down(tablet) {
                 display: block;
+
             }
 
             .logo-main {
@@ -89,6 +90,8 @@
         .mobile-nav {
             transform: translateY(0);
             pointer-events: auto;
+            opacity: 1;
+            visibility: visible;
         }
     }
 
@@ -205,6 +208,8 @@
 
         transform: translateY(-100%);
         pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
 
         transition: all 0.4s ease-in;
 

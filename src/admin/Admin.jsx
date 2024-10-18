@@ -21,7 +21,7 @@ function Admin() {
                 </a>
             </header>
 
-            <nav>
+            <nav className='admin-nav'>
                 <h2
                     onClick={() => setActiveMode('reservas')}
                     className={`reservations-title ${
@@ -42,7 +42,7 @@ function Admin() {
 
             {activeMode === 'reservas' ? <Reservas /> : <Carta />}
 
-            <footer>
+            <footer className='admin-footer'>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
