@@ -263,6 +263,7 @@
             li {
                 display: flex;
                 align-items: center;
+                gap: 1rem;
                 max-width: 650px;
                 border: 1px solid;
                 border-radius: 5px;
@@ -272,50 +273,37 @@
 
                 .switch {
                     flex-shrink: 0;
-                    font-size: 17px;
+                    margin-left: auto;
                     position: relative;
-                    display: inline-block;
+                    font-size: 17px;
                     width: 3.5em;
                     height: 2em;
-                    margin-left: auto;
+                    background-color: #e8e7e8;
+                    border: 1px solid;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: 0.4s;
 
-                    input {
-                        opacity: 0;
-                        width: 0;
-                        height: 0;
+                    &.checked {
+                        background-color: $nav_links;
+                        
+                        &::before {
+                            transform: translateX(1.5em);
+                        }
                     }
-                    .slider {
+
+                    &:before {
                         position: absolute;
-                        cursor: pointer;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
-                        background-color: #e8e7e8;
-                        transition: 0.4s;
+                        content: '';
+                        height: 1.4em;
+                        width: 1.4em;
                         border: 1px solid;
                         border-radius: 5px;
-
-                        &.checked {
-                            background-color: $nav_links;
-                            &::before {
-                                transform: translateX(1.5em);
-                            }
-                        }
-
-                        &:before {
-                            position: absolute;
-                            content: '';
-                            height: 1.4em;
-                            width: 1.4em;
-                            border: 1px solid;
-                            border-radius: 5px;
-                            left: 0.3em;
-                            top: 0.25em;
-                            transform: rotate(270deg);
-                            background-color: rgb(255, 255, 255);
-                            transition: 0.8s;
-                        }
+                        left: 0.3em;
+                        top: 0.25em;
+                        transform: rotate(270deg);
+                        background-color: rgb(255, 255, 255);
+                        transition: 0.8s;
                     }
                 }
             }

@@ -8,7 +8,7 @@ function CartaItem({ item }) {
     async function handleItemChecked(e) {
         setChecked((c) => !c)
         try {
-            await updateDoc(doc(db, item.path), {isPresent: !checked})
+            await updateDoc(doc(db, item.path), { isPresent: !checked })
             console.log(`${item.name} updated successfully!`)
         } catch (error) {
             console.log(`${item.name} wasn't updated. Error: ${error}`)
@@ -17,14 +17,18 @@ function CartaItem({ item }) {
     return (
         <li className="centered">
             <span className="dish-name">{item.name}</span>
-            <label className="switch">
+            <span
+                className={`switch ${checked && 'checked'}`}
+                onClick={handleItemChecked}
+            ></span>
+            {/* <label className="switch">
                 <input
                     type="checkbox"
                     checked={item.isPresent}
                     onChange={handleItemChecked}
                 />
-                <span className={`slider ${checked && 'checked'}`}></span>
-            </label>
+                <span className={`slider ${checked && 'checked'}`} onClick={handleItemChecked}></span>
+            </label> */}
         </li>
     )
 }
