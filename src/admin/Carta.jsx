@@ -14,6 +14,8 @@ const cartaCategories = [
     'Ofertas',
 ]
 
+const vinosCategories = ['Tintos', 'Blancos', 'Rosé', 'Postre', 'Copas']
+
 const cartaMapping = {
     Platos: 'menu/01.platos/platos',
     Piqueos: 'menu/02.piqueos/piqueos',
@@ -23,21 +25,45 @@ const cartaMapping = {
     Bebidas: 'menu/06.bebidas calientes/bebidas calientes',
     Postres: 'menu/061.postres/postres',
     Ofertas: 'menu/07.ofertas/ofertas',
+    Tintos: 'menu/03.vinos/vinos/Vinos tintos/vinos',
+    Blancos: 'menu/03.vinos/vinos/Vinos blancos/vinos',
+    Rosé: 'menu/03.vinos/vinos/Vinos rose/vinos',
+    Postre: 'menu/03.vinos/vinos/Vinos de postre/vinos',
+    Copas: 'menu/03.vinos/vinos/Vinos por copa/vinos',
 }
 
 function Carta() {
     const [activeCategory, setActiveCategory] = useState('Platos')
-    const [cartaLoading, setCartaLoading] = useState(false)
+    const [activeVineCategory, setActiveVineCategory] = useState('')
+    const [cartaLoading, setCartaLoading] = useState(true)
     const [categoryItems, setCategoryItems] = useState([])
+    const [vinosSelectorVisible, setVinosSelectorVisible] = useState(false)
 
     function handleCategoryChange(e) {
+        if (e.target.value === 'Vinos') {
+            if (!vinosSelectorVisible) {
+                setVinosSelectorVisible(true)
+                setCartaLoading(true)
+                setActiveCategory('Vinos')
+                setActiveVineCategory('Tintos')
+                return
+            } else return
+        } else {
+            setActiveVineCategory('')
+            setVinosSelectorVisible(false)
+        }
         setCartaLoading(true)
         setActiveCategory(e.target.value)
     }
 
-    async function fetchCategory() {
+    function handleVineCategoryChange(e) {
+        setCartaLoading(true)
+        setActiveVineCategory(e.target.value)
+    }
+
+    async function fetchCategory(category) {
         const q = query(
-            collection(db, cartaMapping[activeCategory]),
+            collection(db, cartaMapping[category]),
             orderBy('nombre')
         )
         try {
@@ -57,8 +83,14 @@ function Carta() {
     }
 
     useEffect(() => {
-        fetchCategory()
+        if (activeCategory === 'Vinos') return
+        fetchCategory(activeCategory)
     }, [activeCategory])
+
+    useEffect(() => {
+        if (!activeVineCategory) return
+        fetchCategory(activeVineCategory)
+    }, [activeVineCategory])
 
     useEffect(() => {
         if (categoryItems.length) {
@@ -69,21 +101,42 @@ function Carta() {
     return (
         <>
             <div className="admin-actions">
-                <select
-                    value={activeCategory}
-                    onChange={handleCategoryChange}
-                >
-                    {cartaCategories.map((category) => {
-                        return (
-                            <option
-                                value={category}
-                                key={category}
-                            >
-                                {category}
-                            </option>
-                        )
-                    })}
-                </select>
+                <div className="carta-selectors">
+                    <select
+                        value={activeCategory}
+                        onChange={handleCategoryChange}
+                        className="carta-selector"
+                    >
+                        {cartaCategories.map((category) => {
+                            return (
+                                <option
+                                    value={category}
+                                    key={category}
+                                >
+                                    {category}
+                                </option>
+                            )
+                        })}
+                    </select>
+                    {vinosSelectorVisible && (
+                        <select
+                            value={activeVineCategory}
+                            onChange={handleVineCategoryChange}
+                            className={`carta-selector`}
+                        >
+                            {vinosCategories.map((category) => {
+                                return (
+                                    <option
+                                        value={category}
+                                        key={category}
+                                    >
+                                        {category}
+                                    </option>
+                                )
+                            })}
+                        </select>
+                    )}
+                </div>
             </div>
             <div className="carta-main">
                 <img
@@ -98,7 +151,6 @@ function Carta() {
                         cartaLoading ? 'invisible' : 'visible'
                     }`}
                 >
-                    <h4 className="category-label">{activeCategory}</h4>
                     <ul className="category-content">
                         {categoryItems.map((item) => (
                             <CartaItem

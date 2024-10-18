@@ -3,7 +3,13 @@ import Reservas from './Reservas'
 import Carta from './Carta'
 
 function Admin() {
-    const [activeMode, setActiveMode] = useState('reservas')
+    const [activeMode, setActiveMode] = useState(
+        sessionStorage.getItem('adminMode') || 'reservas'
+    )
+    function handleModeChange(mode) {
+        setActiveMode(mode)
+        sessionStorage.setItem('adminMode', mode)
+    }
 
     return (
         <>
@@ -20,29 +26,32 @@ function Admin() {
                     />
                 </a>
             </header>
+            <main
+                className="admin-main"
+                style={{ minHeight: '100vh' }}
+            >
+                <nav className="admin-nav">
+                    <h2
+                        onClick={() => handleModeChange('reservas')}
+                        className={`reservations-title ${
+                            activeMode === 'reservas' && 'active'
+                        }`}
+                    >
+                        Reservaciones
+                    </h2>
+                    <h2
+                        onClick={() => handleModeChange('carta')}
+                        className={`reservations-title ${
+                            activeMode === 'carta' && 'active'
+                        }`}
+                    >
+                        Carta
+                    </h2>
+                </nav>
 
-            <nav className='admin-nav'>
-                <h2
-                    onClick={() => setActiveMode('reservas')}
-                    className={`reservations-title ${
-                        activeMode === 'reservas' && 'active'
-                    }`}
-                >
-                    Reservaciones
-                </h2>
-                <h2
-                    onClick={() => setActiveMode('carta')}
-                    className={`reservations-title ${
-                        activeMode === 'carta' && 'active'
-                    }`}
-                >
-                    Carta
-                </h2>
-            </nav>
-
-            {activeMode === 'reservas' ? <Reservas /> : <Carta />}
-
-            <footer className='admin-footer'>
+                {activeMode === 'reservas' ? <Reservas /> : <Carta />}
+            </main>
+            <footer className="admin-footer">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

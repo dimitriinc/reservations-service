@@ -16,7 +16,7 @@
         position: relative;
         font-family: 'Saveur Sans';
         letter-spacing: 5px;
-        font-size: 30px;
+        font-size: 25px;
 
         &.active {
             pointer-events: none;
@@ -43,41 +43,59 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     background-color: #e8e7e8;
     padding: 1rem;
     border-top: 1px solid $nav_links;
     border-bottom: 1px solid $nav_links;
 
-    select {
-        padding: 0.5rem;
-        letter-spacing: 1.5px;
+    .carta-selectors {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+
+        .carta-selector {
+            font-size: 20px;
+            letter-spacing: 1.5px;
+            width: 140px;
+            border: 1px solid $nav_links;
+            border-radius: 5px;
+            padding: 0.5rem;
+        }
+
+        .carta-selector--vinos {
+        }
     }
 
     button {
+        width: 120px;
         text-transform: uppercase;
-        font-size: 16px;
+        font-size: 14px;
         padding: 0.5rem;
         cursor: pointer;
         transition: all 0.3s ease;
 
-        &:hover {
-            background-color: $nav_links;
-            color: $overlay;
+        @include breakpoint-up(laptop) {
+            &:hover {
+                background-color: $nav_links;
+                color: $overlay;
+            }
         }
     }
 
     .calendar {
         cursor: pointer;
-        &:hover {
-            color: $nav_links_hover;
+        @include breakpoint-up(laptop) {
+            &:hover {
+                color: $nav_links_hover;
+            }
         }
     }
 }
 
 .main-admin {
-    min-height: 100vh;
-
     .reservations-main {
         position: relative;
         #reservations-date {
@@ -229,7 +247,6 @@
 .carta-main {
     position: relative;
     margin-bottom: 3rem;
-    min-height: 100vh;
 
     .carta-loader {
         position: absolute;
@@ -240,12 +257,8 @@
 
     .category-container {
         margin: 0 2rem;
-        transition: all .4s ease;
+        transition: all 0.4s ease;
 
-        .category-label {
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-        }
         .category-content {
             li {
                 display: flex;
@@ -257,9 +270,6 @@
                 margin-bottom: 1rem;
                 text-align: start;
 
-                .dish-name {
-                    font-family: 'FuturaRg';
-                }
                 .switch {
                     flex-shrink: 0;
                     font-size: 17px;
@@ -304,7 +314,7 @@
                             top: 0.25em;
                             transform: rotate(270deg);
                             background-color: rgb(255, 255, 255);
-                            transition: .8s;
+                            transition: 0.8s;
                         }
                     }
                 }
@@ -319,4 +329,5 @@
     align-items: center;
     height: 5rem;
     background-color: $nav_links;
+    margin-top: 3rem;
 }

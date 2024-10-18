@@ -234,11 +234,13 @@ button {
 .invisible {
     visibility: hidden;
     opacity: 0;
+    pointer-events: none;
 }
 
 .visible {
     visibility: visible;
     opacity: 1;
+    pointer-events: auto;
 }
 
 .overlay {
