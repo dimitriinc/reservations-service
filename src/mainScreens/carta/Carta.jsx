@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 // import { collection, getDocs, query, where, orderBy } from 'firebase/firestore'
-import { db } from '../firebase'
-import MenuCarousel from '../custom/MenuCarousel'
+import { db } from '../../firebase'
+import MenuCarousel from '../../custom/MenuCarousel'
 
 function Carta({ activateLink }) {
     const mainSection = useRef()

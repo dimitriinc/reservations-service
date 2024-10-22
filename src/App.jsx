@@ -13,7 +13,7 @@ import {
 } from 'react-router-dom'
 import Carreras from './mainScreens/Carreras'
 import Contacto from './mainScreens/Contacto'
-import Carta from './mainScreens/Carta'
+import Carta from './mainScreens/carta/Carta'
 import Reservas from './mainScreens/Reservas'
 import ScrollToTop from './custom/ScrollToTop'
 

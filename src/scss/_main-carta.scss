@@ -53,6 +53,7 @@
             margin: 1rem 0;
             padding-bottom: .5rem;
             display: flex;
+            gap: 1rem;
             flex-wrap: wrap;
             justify-content: center;
             max-width: 100%;
@@ -66,14 +67,14 @@
             }
     
             .menu-category {
-                padding: .2rem;
+                padding: .5rem 1rem;
                 border: 1.2rem solid #fff;
                 border-image: url(/images/border-deco-fat.png);
                 border-image-repeat: round;
                 border-image-slice: 88;
                 font-size: 18px;
-                margin: 10px;
-                min-width: fit-content;
+                // margin: 10px;
+                // min-width: fit-content;
                 border-radius: 5px;
                 cursor: pointer;
                 transition: all 200ms ease-in-out;
@@ -82,12 +83,14 @@
                     font-size: 16px;
                     padding: .2rem;
                 }
+
+                &.active {
+                    // scale: 110%;
+                    box-shadow: 2px 5px 2px 1px rgba(69, 60, 69, 0.2);
+                }
             }
 
-            .active {
-                scale: 110%;
-                box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-            }
+            
         }
     }
 

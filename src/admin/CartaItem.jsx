@@ -21,14 +21,6 @@ function CartaItem({ item }) {
                 className={`switch ${checked && 'checked'}`}
                 onClick={handleItemChecked}
             ></span>
-            {/* <label className="switch">
-                <input
-                    type="checkbox"
-                    checked={item.isPresent}
-                    onChange={handleItemChecked}
-                />
-                <span className={`slider ${checked && 'checked'}`} onClick={handleItemChecked}></span>
-            </label> */}
         </li>
     )
 }
