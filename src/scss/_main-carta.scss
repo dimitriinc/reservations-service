@@ -5,56 +5,17 @@
         @include breakpoint-up(laptop) {
             display: none;
         }
-    }
 
-    .carousel-container {
-        min-height: 50vh;
-        transform: translateY(-100px);
-        transition: transform 500ms ease-in-out;
-        position: relative;
-        margin-top: 2rem;
-
-        .carta-loader {
-            width: 70px;
-            height: 70px;
-            display: inline-block;
-            position: absolute;
-            left: 0;
-            right: 0;
-            margin: auto;
-            top: 30%;
-            transition: all 0.3s ease-in-out;
+        @include breakpoint-down(mobile) {
+            font-size: 35px;
         }
-
-        .carousel-error {
-            margin-top: 4rem;
-
-            @include breakpoint-down(tablet) {
-                margin-top: 2rem;
-            }
-
-            .carousel-broken-img {
-                width: 163px;
-                height: 163px;
-                margin-bottom: 1rem;
-            }
-
-            .carousel-error-msg {
-                padding: 1rem;
-                border: 1px solid $nav_links;
-                width: fit-content;
-                max-width: 80%;
-            }
-        }
-    }
-
-    .translated {
-        transform: translateY(0);
     }
 
     .carta-categories {
+        position: relative;
         margin-left: 2rem;
         margin-right: 2rem;
+        padding-bottom: 0.2rem;
 
         @include breakpoint-up(laptop) {
             margin-top: 2rem;
@@ -101,47 +62,98 @@
                 }
             }
         }
+
+        .vinos-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: .6rem;
+            width: 100%;
+            margin: 0 auto;
+            padding-top: 10px;
+            transition: all 500ms ease-in-out;
+            z-index: 0;
+
+            &.visible {
+                top: 100%;
+            }
+
+            .vino-category {
+                border: 1rem solid #fff;
+                border-image: url(/images/border-deco-fat.png);
+                border-image-repeat: round;
+                border-image-slice: 88;
+                font-size: 16px;
+                cursor: pointer;
+                transition: all 200ms ease-in-out;
+
+                @include breakpoint-down(tablet) {
+                    font-size: 14px;
+                }
+            }
+
+            .active {
+                font-size: 18px;
+                transform: translateY(-5px);
+
+                @include breakpoint-down(tablet) {
+                    font-size: 16px;
+                }
+            }
+        }
     }
 
-    .vinos-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 1rem;
-        margin: 0 2rem;
-        padding-top: 10px;
-        transition: all 500ms ease-in-out;
-        z-index: 0;
+    .carousel-container {
+        min-height: 50vh;
+        transform: translateY();
+        transition: transform 500ms ease-in-out;
+        position: relative;
 
-        &.invisible {
-            transform: translateY(-100px);
-        }
+        &.translated {
+            transform: translateY(80px);
+            padding-bottom: 80px;
 
-        &.visible {
-            transform: translateY(0);
-        }
-
-        .vino-category {
-            border: 1rem solid #fff;
-            border-image: url(/images/border-deco-fat.png);
-            border-image-repeat: round;
-            border-image-slice: 88;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 200ms ease-in-out;
-
-            @include breakpoint-down(tablet) {
-                font-size: 14px;
+            @include breakpoint-down(mobile) {
+                transform: translateY(130px);
+                padding-bottom: 130px;
             }
         }
 
-        .active {
-            font-size: 18px;
-            transform: translateY(-5px);
+        .carta-loader {
+            width: 70px;
+            height: 70px;
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+            top: 30%;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .carousel-error {
+            margin-top: 4rem;
 
             @include breakpoint-down(tablet) {
-                font-size: 16px;
+                margin-top: 2rem;
+            }
+
+            .carousel-broken-img {
+                width: 163px;
+                height: 163px;
+                margin-bottom: 1rem;
+            }
+
+            .carousel-error-msg {
+                padding: 1rem;
+                border: 1px solid $nav_links;
+                width: fit-content;
+                max-width: 80%;
             }
         }
     }

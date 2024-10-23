@@ -144,23 +144,25 @@ function Carta({ activateLink }) {
                             </div>
                         ))}
                     </div>
-                </div>
-                <div
-                    className={`vinos-container ${
-                        vinosVisible ? 'visible' : 'invisible'
-                    }`}
-                >
-                    {vinosCategories.map((category) => (
-                        <div
-                            key={category}
-                            className={`vino-category ${
-                                activeWineCategory === category ? 'active' : ''
-                            }`}
-                            onClick={() => activateWineCategory(category)}
-                        >
-                            {category}
-                        </div>
-                    ))}
+                    <div
+                        className={`vinos-container ${
+                            vinosVisible ? 'visible' : 'invisible'
+                        }`}
+                    >
+                        {vinosCategories.map((category) => (
+                            <div
+                                key={category}
+                                className={`vino-category ${
+                                    activeWineCategory === category
+                                        ? 'active'
+                                        : ''
+                                }`}
+                                onClick={() => activateWineCategory(category)}
+                            >
+                                {category}
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
                 <div
