@@ -1,8 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import { collection, getDocs, query, where, orderBy } from 'firebase/firestore'
 import { db } from '../../firebase'
-import MenuCarousel from '../../custom/MenuCarousel'
-import { cartaMapping } from '../../../public/cartaUtils'
+import MenuCarousel from './CartaCarousel'
+import {
+    cartaMapping,
+    vinosCategories,
+    cartaCategories,
+} from '../../../public/cartaUtils'
 
 function Carta({ activateLink }) {
     const mainSection = useRef()
@@ -13,9 +17,15 @@ function Carta({ activateLink }) {
     const [menuItems, setMenuItems] = useState([])
     const [fetchingMenuCollection, setFetchingMenuCollection] = useState(true)
     const [vinosVisible, setVinosVisible] = useState(false)
-    const [menuReady, setMenuReady] = useState(false)
+    const [buildingCarousel, setBuildingCarousel] = useState(false)
 
+    /**
+     * Fetch an items collection based on the active category.
+     * Map the fetched items to the format needed by the app.
+     * Store the formatted items in the state.
+     */
     const fetchMenuCollection = async (category) => {
+        setBuildingCarousel(false)
         setFetchingMenuCollection(true)
         const q = query(
             collection(db, cartaMapping[category]),
@@ -27,9 +37,11 @@ function Carta({ activateLink }) {
             const items = snapshot.docs.map((doc) => {
                 return {
                     name: doc.data().nombre,
-                    description: doc.data().descripcion,
+                    description:
+                        doc.data().descripcion ||
+                        'Lo sentimos, por el momento la descripción para este producto no está disponible.',
                     price: doc.data().precio,
-                    imagePath: doc.data().image,
+                    imagePath: doc.data().image || 'lg.png',
                 }
             })
 
@@ -39,6 +51,9 @@ function Carta({ activateLink }) {
         }
     }
 
+    /**
+     * Set the intersection Observer to reveal sections
+     */
     useEffect(() => {
         activateLink(2)
 
@@ -68,22 +83,29 @@ function Carta({ activateLink }) {
         )
     }, [])
 
+    /**
+     * React to the change of the items collection: update the carousel
+     */
     useEffect(() => {
         if (!menuItems.length) return
-        setFetchingMenuCollection(false)
-        console.log(menuItems)
+        setBuildingCarousel(true)
     }, [menuItems])
 
+    /**
+     * React to the change of the active category: start fetching a new item collection
+     */
     useEffect(() => {
         if (activeCategory === 'Vinos') return
         fetchMenuCollection(activeCategory)
     }, [activeCategory])
-
     useEffect(() => {
         if (!activeWineCategory) return
         fetchMenuCollection(activeWineCategory)
     }, [activeWineCategory])
 
+    /**
+     * Handle the clicks on categories: set a new active category
+     */
     const activateCategory = (category) => {
         if (activeCategory === category) return
 
@@ -92,9 +114,9 @@ function Carta({ activateLink }) {
             setVinosVisible(true)
         } else {
             setVinosVisible(false)
+            setActiveWineCategory('')
         }
     }
-
     const activateWineCategory = (category) => {
         setActiveWineCategory(category)
     }
@@ -102,126 +124,43 @@ function Carta({ activateLink }) {
     return (
         <div className="main-carta">
             <section
-                className="revealable"
+                className="revealable main-carta-section"
                 data-first="1"
                 ref={mainSection}
             >
                 <h2 className="screen-title">Carta</h2>
 
-                <div className="categories-carousel">
+                <div className="carta-categories">
                     <div className="menu-categories-container">
-                        <div
-                            className={`menu-category category ${
-                                activeCategory === 'Platos' ? 'active' : ''
-                            }`}
-                            onClick={() => activateCategory('Platos')}
-                        >
-                            Platos
-                        </div>
-                        <div
-                            className={`menu-category category ${
-                                activeCategory === 'Piqueos' ? 'active' : ''
-                            }`}
-                            onClick={() => activateCategory('Piqueos')}
-                        >
-                            Piqueos
-                        </div>
-                        <div
-                            className={`menu-category category ${
-                                activeCategory === 'Vinos' ? 'active' : ''
-                            }`}
-                            onClick={() => activateCategory('Vinos')}
-                        >
-                            Vinos
-                        </div>
-                        <div
-                            className={`menu-category category ${
-                                activeCategory === 'Cocteles' ? 'active' : ''
-                            }`}
-                            onClick={() => activateCategory('Cocteles')}
-                        >
-                            Cocteles
-                        </div>
-                        <div
-                            className={`menu-category category ${
-                                activeCategory === 'Cervezas' ? 'active' : ''
-                            }`}
-                            onClick={() => activateCategory('Cervezas')}
-                        >
-                            Cervezas
-                        </div>
-                        <div
-                            className={`menu-category category ${
-                                activeCategory === 'Bebidas' ? 'active' : ''
-                            }`}
-                            onClick={() => activateCategory('Bebidas')}
-                        >
-                            Bebidas
-                        </div>
-                        <div
-                            className={`menu-category category ${
-                                activeCategory === 'Postres' ? 'active' : ''
-                            }`}
-                            onClick={() => activateCategory('Postres')}
-                        >
-                            Postres
-                        </div>
-                        <div
-                            className={`menu-category category ${
-                                activeCategory === 'Ofertas' ? 'active' : ''
-                            }`}
-                            onClick={() => activateCategory('Ofertas')}
-                        >
-                            Ofertas
-                        </div>
+                        {cartaCategories.map((category) => (
+                            <div
+                                key={category}
+                                className={`menu-category category ${
+                                    activeCategory === category ? 'active' : ''
+                                }`}
+                                onClick={() => activateCategory(category)}
+                            >
+                                {category}
+                            </div>
+                        ))}
                     </div>
                 </div>
-
                 <div
                     className={`vinos-container ${
                         vinosVisible ? 'visible' : 'invisible'
                     }`}
                 >
-                    <div
-                        className={`vino-category category wine ${
-                            activeWineCategory === 'Tintos' ? 'active' : ''
-                        }`}
-                        onClick={() => activateWineCategory('Tintos')}
-                    >
-                        Tintos
-                    </div>
-                    <div
-                        className={`vino-category category wine ${
-                            activeWineCategory === 'Blancos' ? 'active' : ''
-                        }`}
-                        onClick={() => activateWineCategory('Blancos')}
-                    >
-                        Blancos
-                    </div>
-                    <div
-                        className={`vino-category category wine ${
-                            activeWineCategory === 'Rosé' ? 'active' : ''
-                        }`}
-                        onClick={() => activateWineCategory('Rosé')}
-                    >
-                        Rosé
-                    </div>
-                    <div
-                        className={`vino-category category wine ${
-                            activeWineCategory === 'Postre' ? 'active' : ''
-                        }`}
-                        onClick={() => activateWineCategory('Postre')}
-                    >
-                        Postre
-                    </div>
-                    <div
-                        className={`vino-category category wine ${
-                            activeWineCategory === 'Copas' ? 'active' : ''
-                        }`}
-                        onClick={() => activateWineCategory('Copas')}
-                    >
-                        Copas
-                    </div>
+                    {vinosCategories.map((category) => (
+                        <div
+                            key={category}
+                            className={`vino-category ${
+                                activeWineCategory === category ? 'active' : ''
+                            }`}
+                            onClick={() => activateWineCategory(category)}
+                        >
+                            {category}
+                        </div>
+                    ))}
                 </div>
 
                 <div
@@ -230,7 +169,7 @@ function Carta({ activateLink }) {
                     }`}
                 >
                     <img
-                        className="carta-load-anim"
+                        className="carta-loader"
                         src="/images/loaders/carta.svg"
                         style={
                             fetchingMenuCollection
@@ -239,24 +178,15 @@ function Carta({ activateLink }) {
                         }
                     />
 
-                    <div
-                        className="carousel"
-                        style={
-                            fetchingMenuCollection
-                                ? { opacity: '0' }
-                                : { opacity: '1' }
-                        }
-                    >
-                        {menuReady ? (
-                            <MenuCarousel
-                                setMenuReady={setMenuReady}
-                                menuCollection={menuItems}
-                            />
-                        ) : null}
-                    </div>
+                    {buildingCarousel ? (
+                        <MenuCarousel
+                            onFetchingCollection={setFetchingMenuCollection}
+                            menuItems={menuItems}
+                        />
+                    ) : null}
                 </div>
             </section>
-            
+
             <section
                 ref={scetchSection}
                 className="revealable"
