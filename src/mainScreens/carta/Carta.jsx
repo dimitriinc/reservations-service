@@ -1,40 +1,39 @@
 import { useState, useEffect, useRef } from 'react'
-// import { collection, getDocs, query, where, orderBy } from 'firebase/firestore'
+import { collection, getDocs, query, where, orderBy } from 'firebase/firestore'
 import { db } from '../../firebase'
 import MenuCarousel from '../../custom/MenuCarousel'
+import { cartaMapping } from '../../../public/cartaUtils'
 
 function Carta({ activateLink }) {
     const mainSection = useRef()
     const scetchSection = useRef()
 
-    const [collectionPath, setCollectionPath] = useState(
-        'menu/01.platos/platos'
-    )
-    const [activeCategory, setActiveCategory] = useState('platos')
+    const [activeCategory, setActiveCategory] = useState('Platos')
     const [activeWineCategory, setActiveWineCategory] = useState('')
-    const [menuCollection, setMenuCollection] = useState([])
+    const [menuItems, setMenuItems] = useState([])
     const [fetchingMenuCollection, setFetchingMenuCollection] = useState(true)
     const [vinosVisible, setVinosVisible] = useState(false)
     const [menuReady, setMenuReady] = useState(false)
 
-    const fetchMenuCollection = async () => {
+    const fetchMenuCollection = async (category) => {
         setFetchingMenuCollection(true)
         const q = query(
-            collection(db, collectionPath),
+            collection(db, cartaMapping[category]),
             where('isPresent', '==', true),
             orderBy('nombre')
         )
         try {
             const snapshot = await getDocs(q)
-            const plates = snapshot.docs.map((doc) => {
-                // console.log(doc.data().nombre)
-                return doc.data().nombre
+            const items = snapshot.docs.map((doc) => {
+                return {
+                    name: doc.data().nombre,
+                    description: doc.data().descripcion,
+                    price: doc.data().precio,
+                    imagePath: doc.data().image,
+                }
             })
-            setMenuCollection([...plates])
-            setFetchingMenuCollection(false)
 
-            // Temporal
-            menuCollection.forEach((document) => console.log(document))
+            setMenuItems(items)
         } catch (error) {
             console.log(error)
         }
@@ -42,8 +41,6 @@ function Carta({ activateLink }) {
 
     useEffect(() => {
         activateLink(2)
-
-        fetchMenuCollection()
 
         const reveal = function (entries, observer) {
             const [entry] = entries
@@ -71,27 +68,35 @@ function Carta({ activateLink }) {
         )
     }, [])
 
-    useEffect(() => fetchMenuCollection, [collectionPath])
+    useEffect(() => {
+        if (!menuItems.length) return
+        setFetchingMenuCollection(false)
+        console.log(menuItems)
+    }, [menuItems])
 
-    const activateCategory = (event) => {
-        const category = event.target.dataset.id
+    useEffect(() => {
+        if (activeCategory === 'Vinos') return
+        fetchMenuCollection(activeCategory)
+    }, [activeCategory])
+
+    useEffect(() => {
+        if (!activeWineCategory) return
+        fetchMenuCollection(activeWineCategory)
+    }, [activeWineCategory])
+
+    const activateCategory = (category) => {
         if (activeCategory === category) return
 
         setActiveCategory(category)
-        if (category === 'vinos') {
+        if (category === 'Vinos') {
             setVinosVisible(true)
         } else {
             setVinosVisible(false)
-            const dbPath = event.target.dataset.dbPath
-            setCollectionPath(dbPath)
         }
     }
 
-    const activateWineCategory = (event) => {
-        const category = event.target.dataset.id
+    const activateWineCategory = (category) => {
         setActiveWineCategory(category)
-        const dbPath = event.target.dataset.dbPath
-        setCollectionPath(dbPath)
     }
 
     return (
@@ -107,83 +112,65 @@ function Carta({ activateLink }) {
                     <div className="menu-categories-container">
                         <div
                             className={`menu-category category ${
-                                activeCategory === 'platos' ? 'active' : ''
+                                activeCategory === 'Platos' ? 'active' : ''
                             }`}
-                            data-id="platos"
-                            data-db-path="menu/01.platos/platos"
-                            onClick={activateCategory}
+                            onClick={() => activateCategory('Platos')}
                         >
                             Platos
                         </div>
                         <div
                             className={`menu-category category ${
-                                activeCategory === 'piqueos' ? 'active' : ''
+                                activeCategory === 'Piqueos' ? 'active' : ''
                             }`}
-                            data-id="piqueos"
-                            data-db-path="menu/02.piqueos/piqueos"
-                            onClick={activateCategory}
+                            onClick={() => activateCategory('Piqueos')}
                         >
                             Piqueos
                         </div>
                         <div
                             className={`menu-category category ${
-                                activeCategory === 'vinos' ? 'active' : ''
+                                activeCategory === 'Vinos' ? 'active' : ''
                             }`}
-                            data-id="vinos"
-                            data-db-path="menu/03.vinos/vinos"
-                            onClick={activateCategory}
+                            onClick={() => activateCategory('Vinos')}
                         >
                             Vinos
                         </div>
                         <div
                             className={`menu-category category ${
-                                activeCategory === 'cocteles' ? 'active' : ''
+                                activeCategory === 'Cocteles' ? 'active' : ''
                             }`}
-                            data-id="cocteles"
-                            data-db-path="menu/04.cocteles/cocteles"
-                            onClick={activateCategory}
+                            onClick={() => activateCategory('Cocteles')}
                         >
                             Cocteles
                         </div>
                         <div
                             className={`menu-category category ${
-                                activeCategory === 'cervezas' ? 'active' : ''
+                                activeCategory === 'Cervezas' ? 'active' : ''
                             }`}
-                            data-id="cervezas"
-                            data-db-path="menu/05.cervezas/cervezas"
-                            onClick={activateCategory}
+                            onClick={() => activateCategory('Cervezas')}
                         >
                             Cervezas
                         </div>
                         <div
                             className={`menu-category category ${
-                                activeCategory === 'bebidas calientes'
-                                    ? 'active'
-                                    : ''
+                                activeCategory === 'Bebidas' ? 'active' : ''
                             }`}
-                            data-id="bebidas calientes"
-                            data-db-path="menu/06.bebidas calientes/bebidas calientes"
-                            onClick={activateCategory}
+                            onClick={() => activateCategory('Bebidas')}
                         >
-                            Bebidas calientes
+                            Bebidas
                         </div>
                         <div
                             className={`menu-category category ${
-                                activeCategory === 'postres' ? 'active' : ''
+                                activeCategory === 'Postres' ? 'active' : ''
                             }`}
-                            data-id="postres"
-                            data-db-path="menu/061.postres/postres"
-                            onClick={activateCategory}
+                            onClick={() => activateCategory('Postres')}
                         >
                             Postres
                         </div>
                         <div
                             className={`menu-category category ${
-                                activeCategory === 'ofertas' ? 'active' : ''
+                                activeCategory === 'Ofertas' ? 'active' : ''
                             }`}
-                            data-id="ofertas"
-                            data-db-path="menu/07.ofertas/ofertas"
-                            onClick={activateCategory}
+                            onClick={() => activateCategory('Ofertas')}
                         >
                             Ofertas
                         </div>
@@ -192,56 +179,46 @@ function Carta({ activateLink }) {
 
                 <div
                     className={`vinos-container ${
-                        vinosVisible ? 'visible' : 'hidden'
+                        vinosVisible ? 'visible' : 'invisible'
                     }`}
                 >
                     <div
-                        data-db-path="menu/03.vinos/vinos/Vinos tintos/vinos"
                         className={`vino-category category wine ${
-                            activeWineCategory === 'tintos' ? 'active' : ''
+                            activeWineCategory === 'Tintos' ? 'active' : ''
                         }`}
-                        data-id="tintos"
-                        onClick={activateWineCategory}
+                        onClick={() => activateWineCategory('Tintos')}
                     >
                         Tintos
                     </div>
                     <div
-                        data-db-path="menu/03.vinos/vinos/Vinos blancos/vinos"
                         className={`vino-category category wine ${
-                            activeWineCategory === 'blancos' ? 'active' : ''
+                            activeWineCategory === 'Blancos' ? 'active' : ''
                         }`}
-                        data-id="blancos"
-                        onClick={activateWineCategory}
+                        onClick={() => activateWineCategory('Blancos')}
                     >
                         Blancos
                     </div>
                     <div
-                        data-db-path="menu/03.vinos/vinos/Vinos rose/vinos"
                         className={`vino-category category wine ${
-                            activeWineCategory === 'rose' ? 'active' : ''
+                            activeWineCategory === 'Rosé' ? 'active' : ''
                         }`}
-                        data-id="rose"
-                        onClick={activateWineCategory}
+                        onClick={() => activateWineCategory('Rosé')}
                     >
                         Rosé
                     </div>
                     <div
-                        data-db-path="menu/03.vinos/vinos/Vinos de postre/vinos"
                         className={`vino-category category wine ${
-                            activeWineCategory === 'postre' ? 'active' : ''
+                            activeWineCategory === 'Postre' ? 'active' : ''
                         }`}
-                        data-id="postre"
-                        onClick={activateWineCategory}
+                        onClick={() => activateWineCategory('Postre')}
                     >
                         Postre
                     </div>
                     <div
-                        data-db-path="menu/03.vinos/vinos/Vinos por copa/vinos"
                         className={`vino-category category wine ${
-                            activeWineCategory === 'copas' ? 'active' : ''
+                            activeWineCategory === 'Copas' ? 'active' : ''
                         }`}
-                        data-id="copas"
-                        onClick={activateWineCategory}
+                        onClick={() => activateWineCategory('Copas')}
                     >
                         Copas
                     </div>
@@ -273,12 +250,13 @@ function Carta({ activateLink }) {
                         {menuReady ? (
                             <MenuCarousel
                                 setMenuReady={setMenuReady}
-                                menuCollection={menuCollection}
+                                menuCollection={menuItems}
                             />
                         ) : null}
                     </div>
                 </div>
             </section>
+            
             <section
                 ref={scetchSection}
                 className="revealable"
