@@ -40,7 +40,7 @@ function Carta({ activateLink }) {
                     description:
                         doc.data().descripcion ||
                         'Lo sentimos, por el momento la descripción para este producto no está disponible.',
-                    price: doc.data().precio,
+                    price: `S/ ${doc.data().precio}`,
                     imagePath: doc.data().image || 'lg.png',
                 }
             })
