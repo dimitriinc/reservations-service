@@ -31,6 +31,7 @@ $carousel-item-width: 300px !default;
         position: relative;
         transform-style: preserve-3d;
         transition: transform 0.4s ease-in;
+        cursor: pointer;
 
         &.flipped {
             transform: rotateY(180deg);
@@ -81,6 +82,7 @@ $carousel-item-width: 300px !default;
             background-color: $overlay;
             border: 1px solid;
             border-radius: 5px;
+            cursor: pointer;
 
             .item-specs {
               position: relative;
@@ -93,6 +95,9 @@ $carousel-item-width: 300px !default;
                   top: 2.5rem;
                   right: 0;
                   left: 0;
+                  height: 70%;
+                  overflow-y: scroll;
+                  cursor: pointer;
                 }
                 .item-price {
                   position: absolute;

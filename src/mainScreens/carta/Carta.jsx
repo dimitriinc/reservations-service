@@ -191,7 +191,7 @@ function Carta({ activateLink }) {
 
             <section
                 ref={scetchSection}
-                className="revealable"
+                className="revealable scetch-section"
             >
                 <img
                     id="carta-scetch"

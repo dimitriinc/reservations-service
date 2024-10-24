@@ -72,7 +72,7 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            gap: .6rem;
+            gap: 0.6rem;
             width: 100%;
             margin: 0 auto;
             padding-top: 10px;
@@ -109,7 +109,7 @@
     }
 
     .carousel-container {
-        min-height: 50vh;
+        height: 400px;
         transform: translateY();
         transition: transform 500ms ease-in-out;
         position: relative;
@@ -132,7 +132,7 @@
             left: 0;
             right: 0;
             margin: auto;
-            top: 30%;
+            top: 10rem;
             transition: all 0.3s ease-in-out;
         }
 
@@ -158,23 +158,34 @@
         }
     }
 
-    #carta-scetch {
-        width: 800px;
-        height: 275px;
+    .scetch-section {
+        position: relative;
+        padding-top: 50px;
+        height: 300px;
 
-        @include breakpoint-down(laptop) {
-            width: 600px;
-            height: 206px;
-        }
+        #carta-scetch {
+            width: 800px;
+            height: 275px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
 
-        @include breakpoint-down(tablet) {
-            width: 400px;
-            height: 138px;
-        }
+            @include breakpoint-down(laptop) {
+                width: 600px;
+                height: 206px;
+            }
 
-        @include breakpoint-down(mobile) {
-            width: 300px;
-            height: 103px;
+            @include breakpoint-down(tablet) {
+                width: 400px;
+                height: 138px;
+            }
+
+            @include breakpoint-down(mobile) {
+                width: 300px;
+                height: 103px;
+            }
         }
     }
 }
