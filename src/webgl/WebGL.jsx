@@ -39,9 +39,9 @@ function WebGL({ disableWebgl }) {
 
                     {/* <Effects>
                         <Bloom
-                            // luminanceThreshold={0}
-                            // luminanceSmoothing={0.9}
-                            // height={300}
+                            luminanceThreshold={0}
+                            luminanceSmoothing={0.9}
+                            height={300}
                         />
                     </Effects> */}
 

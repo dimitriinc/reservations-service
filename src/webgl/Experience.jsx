@@ -16,12 +16,12 @@ export default function Experience() {
     baseTexture.flipY = false
 
     useEffect(() => {
-        console.log(nodes)
+        // console.log(nodes)
     }, [])
 
-    useFrame((state, delta) => {
-        sceneRef.current.rotation.y += delta / 4
-    })
+    // useFrame((state, delta) => {
+    //     sceneRef.current.rotation.y += delta / 4
+    // })
 
     return (
         <>
@@ -40,7 +40,6 @@ export default function Experience() {
                     <meshBasicMaterial map={baseTexture} />
                 </mesh>
 
-
                 {Object.values(nodes).map((node) => {
                     if (node.name.startsWith('emissive')) {
                         return (
@@ -56,8 +55,7 @@ export default function Experience() {
                     }
 
                     if (
-                        node.name.startsWith('glass') &&
-                        node.name !== 'glassVoid'
+                        node.name.startsWith('glass')
                     ) {
                         return (
                             <mesh
@@ -82,7 +80,7 @@ export default function Experience() {
                         )
                     }
 
-                    if (node.name === 'glassVoid') {
+                    if (node.name === 'mirror') {
                         return (
                             <mesh
                                 geometry={node.geometry}
@@ -106,13 +104,6 @@ export default function Experience() {
                         )
                     }
                 })}
-
-                {/* <mesh geometry={nodes.moneyTree.geometry} position={nodes.moneyTree.position}>
-                    <meshBasicMaterial map={treeTexture} />
-                </mesh> */}
-                {/* <mesh geometry={nodes.chairs.geometry} position={nodes.chairs.position}>
-                    <meshBasicMaterial map={chairsTexture} />
-                </mesh> */}
             </group>
         </>
     )

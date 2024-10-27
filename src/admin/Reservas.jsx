@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
 import dummyReservas from './reservas.json'
-import { flushSync } from 'react-dom'
 import Reserva from './Reserva'
 
 dummyReservas.sort((a, b) => {
@@ -18,6 +17,7 @@ function Reservas() {
     const [currentDate, setCurrentDate] = useState(today)
     const [currentDateString, setCurrentDateString] = useState('')
     const [specialButtonText, setSpecialButtonText] = useState('mañana')
+    const [pendientesMode, setPendientesMode] = useState(false)
     const [hayReservas, setHayReservas] = useState(true)
 
     const datePicker = useRef()
@@ -28,12 +28,14 @@ function Reservas() {
     }, [])
 
     useEffect(() => {
+        setPendientesMode(false)
         setReservasLoading(true)
         setCurrentDateString(constructDate(currentDate))
         loadReservas()
     }, [currentDate])
 
     const loadReservas = () => {
+        // Dummy
         setTimeout(() => {
             setReservasLoading(false)
             setHayReservas(true)
@@ -75,6 +77,20 @@ function Reservas() {
         setCurrentDate(date)
     }
 
+    const handlePendientes = () => {
+        setPendientesMode(true)
+        setReservasLoading(true)
+        setSpecialButtonText('hoy')
+
+        //Dummy
+        setTimeout(() => {
+            dummyReservas.forEach((reserva) => {
+                reserva.date = constructDate(new Date(reserva.arrivalTimestamp))
+            })
+            setReservasLoading(false)
+        }, 3000)
+    }
+
     return (
         <>
             <div className="admin-actions">
@@ -92,7 +108,7 @@ function Reservas() {
                     strokeWidth="1.5"
                     stroke="currentColor"
                     onClick={handleCalendar}
-                    className='calendar'
+                    className="calendar"
                 >
                     <path
                         strokeLinecap="round"
@@ -101,7 +117,12 @@ function Reservas() {
                     />
                 </svg>
 
-                <button className="pendientes">pendientes</button>
+                <button
+                    className="pendientes"
+                    onClick={handlePendientes}
+                >
+                    pendientes
+                </button>
                 <input
                     type="date"
                     hidden={true}
@@ -112,7 +133,9 @@ function Reservas() {
 
             <main className="main-admin">
                 <div className="reservations-main">
-                    <h3 id="reservations-date">{currentDateString}</h3>
+                    {pendientesMode ? null : (
+                        <h3 id="reservations-date">{currentDateString}</h3>
+                    )}
 
                     <img
                         id="reservations-loader"
@@ -130,7 +153,7 @@ function Reservas() {
                         No hay reservas
                     </div>
 
-                    {hayReservas && (
+                    {hayReservas && !pendientesMode && (
                         <div
                             className={`reservations-container ${
                                 reservasLoading ? 'invisible' : 'visible'
@@ -140,8 +163,27 @@ function Reservas() {
                                 <Reserva
                                     reserva={reserva}
                                     key={reserva.id}
+                                    pendiente={false}
                                 />
                             ))}
+                        </div>
+                    )}
+
+                    {hayReservas && pendientesMode && (
+                        <div
+                            className={`reservations-container ${
+                                reservasLoading ? 'invisible' : 'visible'
+                            }`}
+                        >
+                            {dummyReservas
+                                .filter((reserva) => !reserva.confirmed)
+                                .map((reserva) => (
+                                    <Reserva
+                                        reserva={reserva}
+                                        key={reserva.id}
+                                        pendiente={true}
+                                    />
+                                ))}
                         </div>
                     )}
                 </div>

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function Reserva({ reserva }) {
+function Reserva({ reserva, pendiente }) {
     const [reservaConfirmed, setReservaConfirmed] = useState(reserva.confirmed)
     const [rejecting, setRejecting] = useState(false)
     const [confirming, setConfirming] = useState(false)
@@ -79,6 +79,14 @@ function Reserva({ reserva }) {
             </h3>
 
             <div className="reservation-data">
+                {pendiente && (
+                    <div className="res-fecha">
+                        <span className="reservation-label">Fecha: </span>
+                        <span className="reservation-value">
+                            {reserva.date}
+                        </span>
+                    </div>
+                )}
                 <div className="res-pax">
                     <span className="reservation-label">Pax: </span>
                     <span className="reservation-value">{reserva.pax}</span>
