@@ -22,7 +22,7 @@ function WebGL({ disableWebgl }) {
                         outputColorSpace: THREE.LinearDisplayP3ColorSpace,
                     }}
                     camera={{
-                        position: [0, 10, 10],
+                        position: [0, 18, 25],
                     }}
                 >
                     {/* <primitive
