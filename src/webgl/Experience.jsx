@@ -10,14 +10,10 @@ import { MeshPhysicalMaterial } from 'three'
 
 export default function Experience() {
     const sceneRef = useRef()
-    const { nodes } = useGLTF('/models/cactusProbe.glb')
-    const tree = useGLTF('/models/treeProbe.glb')
-    const treeNodes = tree.nodes
+    const { nodes } = useGLTF('/models/master.glb')
 
-    const probeTexture = useTexture('./textures/cactusProbe.jpg')
-    probeTexture.flipY = false
-    const treeTexture = useTexture('./textures/treeProbe.jpg')
-    probeTexture.flipY = false
+    const baseTexture = useTexture('./textures/base.jpg')
+    baseTexture.flipY = false
 
     useEffect(() => {
         console.log(nodes)
@@ -36,32 +32,23 @@ export default function Experience() {
             <OrbitControls />
 
             <group ref={sceneRef}>
-                {/* <mesh
-                    geometry={nodes.baseProbe.geometry}
-                    position={nodes.baseProbe.position}
-                >
-                    <meshBasicMaterial map={probeTexture} />
-                </mesh> */}
-                {/* <mesh
-                    geometry={nodes.cactus_3.geometry}
-                    position={nodes.cactus_3.position}
-                >
-                    <meshBasicMaterial map={probeTexture} />
-                </mesh> */}
                 <mesh
-                    geometry={treeNodes.plant_9.geometry}
-                    position={treeNodes.plant_9.position}
-                    rotation={treeNodes.plant_9.rotation}
+                    geometry={nodes.base020.geometry}
+                    position={nodes.base020.position}
+                    rotation={nodes.base020.rotation}
                 >
-                    <meshBasicMaterial map={treeTexture} />
+                    <meshBasicMaterial map={baseTexture} />
                 </mesh>
 
+
                 {Object.values(nodes).map((node) => {
-                    if (node.name.startsWith('wallLight')) {
+                    if (node.name.startsWith('emissive')) {
                         return (
                             <mesh
                                 geometry={node.geometry}
                                 position={node.position}
+                                rotation={node.rotation}
+                                key={node.name}
                             >
                                 <meshBasicMaterial color={'#ffffe5'} />
                             </mesh>
@@ -78,6 +65,7 @@ export default function Experience() {
                                 position={node.position}
                                 rotation={node.rotation}
                                 scale={node.scale}
+                                key={node.name}
                             >
                                 <meshPhysicalMaterial
                                     color="white"
@@ -100,6 +88,7 @@ export default function Experience() {
                                 geometry={node.geometry}
                                 position={node.position}
                                 rotation={node.rotation}
+                                key={node.name}
                                 scale={node.scale}
                             >
                                 <meshPhysicalMaterial

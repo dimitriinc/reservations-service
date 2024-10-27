@@ -162,10 +162,15 @@
         position: relative;
         padding-top: 50px;
         height: 300px;
+        margin-top: 50px;
+
+        @include breakpoint-down(tablet) {
+            margin-top: 0;
+        }
 
         #carta-scetch {
-            width: 800px;
-            height: 275px;
+            width: 700px;
+            height: 241px;
             position: absolute;
             bottom: 0;
             left: 0;
