@@ -14,9 +14,11 @@ export default function Experience() {
 
     const baseTexture = useTexture('./textures/base.jpg')
     baseTexture.flipY = false
+    const promoTexture = useTexture('./textures/promo.jpg')
+    promoTexture.flipY = false
 
     useEffect(() => {
-        // console.log(nodes)
+        console.log(nodes)
     }, [])
 
     // useFrame((state, delta) => {
@@ -25,10 +27,11 @@ export default function Experience() {
 
     return (
         <>
-            {/* <Environment
-                background
-                files={'/textures/EveningSky.exr'}
-            /> */}
+            <Environment
+                background={false}
+                preset='sunset'
+                // environmentIntensity={.9}
+            />
             <OrbitControls />
 
             <group ref={sceneRef}>
@@ -38,6 +41,13 @@ export default function Experience() {
                     rotation={nodes.base020.rotation}
                 >
                     <meshBasicMaterial map={baseTexture} />
+                </mesh>
+                <mesh
+                    geometry={nodes.promoBooth.geometry}
+                    position={nodes.promoBooth.position}
+                    rotation={nodes.promoBooth.rotation}
+                >
+                    <meshBasicMaterial map={promoTexture} />
                 </mesh>
 
                 {Object.values(nodes).map((node) => {
@@ -54,9 +64,7 @@ export default function Experience() {
                         )
                     }
 
-                    if (
-                        node.name.startsWith('glass')
-                    ) {
+                    if (node.name.startsWith('glass')) {
                         return (
                             <mesh
                                 geometry={node.geometry}
@@ -100,6 +108,56 @@ export default function Experience() {
                                     clearcoat={1} // Extra layer on top for shine
                                     clearcoatRoughness={0}
                                 />
+                            </mesh>
+                        )
+                    }
+
+                    // if (node.name === 'metal') {
+                    //     return (
+                    //         <mesh
+                    //             geometry={node.geometry}
+                    //             position={node.position}
+                    //             // rotation={node.rotation}
+                    //             key={node.name}
+                    //             // scale={node.scale}
+                    //         >
+                    //             <meshStandardMaterial
+                    //                 metalness={0.9}
+                    //                 roughness={0.2}
+                    //                 color="red"
+                    //             />
+                    //         </mesh>
+                    //     )
+                    // }
+
+                    if (node.name === 'black') {
+                        return (
+                            <mesh
+                                geometry={node.geometry}
+                                position={node.position}
+                                rotation={node.rotation}
+                                key={node.name}
+                                scale={node.scale}
+                            >
+                                <meshStandardMaterial
+                                    metalness={0.6}
+                                    roughness={0.7}
+                                    color="black"
+                                />
+                            </mesh>
+                        )
+                    }
+
+                    if (node.name.startsWith('leaves')) {
+                        return (
+                            <mesh
+                                geometry={node.geometry}
+                                position={node.position}
+                                rotation={node.rotation}
+                                key={node.name}
+                                scale={node.scale}
+                            >
+                                <meshBasicMaterial color={'green'} />
                             </mesh>
                         )
                     }
