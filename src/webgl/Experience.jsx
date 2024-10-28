@@ -6,11 +6,12 @@ import {
 } from '@react-three/drei'
 import { useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { MeshPhysicalMaterial } from 'three'
+import { DoubleSide, MeshPhysicalMaterial } from 'three'
 
 export default function Experience() {
     const sceneRef = useRef()
-    const { nodes } = useGLTF('/models/master.glb')
+    const baked = useGLTF('/models/baked.glb')
+    const normal = useGLTF('/models/normal.glb')
 
     const baseTexture = useTexture('./textures/base.jpg')
     baseTexture.flipY = false
@@ -18,7 +19,7 @@ export default function Experience() {
     promoTexture.flipY = false
 
     useEffect(() => {
-        console.log(nodes)
+        // console.log(bakedNodes)
     }, [])
 
     // useFrame((state, delta) => {
@@ -29,28 +30,27 @@ export default function Experience() {
         <>
             <Environment
                 background={false}
-                preset='sunset'
-                // environmentIntensity={.9}
+                preset="sunset"
             />
             <OrbitControls />
 
             <group ref={sceneRef}>
                 <mesh
-                    geometry={nodes.base020.geometry}
-                    position={nodes.base020.position}
-                    rotation={nodes.base020.rotation}
+                    geometry={baked.nodes.base020.geometry}
+                    position={baked.nodes.base020.position}
+                    rotation={baked.nodes.base020.rotation}
                 >
                     <meshBasicMaterial map={baseTexture} />
                 </mesh>
                 <mesh
-                    geometry={nodes.promoBooth.geometry}
-                    position={nodes.promoBooth.position}
-                    rotation={nodes.promoBooth.rotation}
+                    geometry={baked.nodes.promoBooth.geometry}
+                    position={baked.nodes.promoBooth.position}
+                    rotation={baked.nodes.promoBooth.rotation}
                 >
                     <meshBasicMaterial map={promoTexture} />
                 </mesh>
 
-                {Object.values(nodes).map((node) => {
+                {Object.values(normal.nodes).map((node) => {
                     if (node.name.startsWith('emissive')) {
                         return (
                             <mesh
@@ -98,9 +98,9 @@ export default function Experience() {
                                 scale={node.scale}
                             >
                                 <meshPhysicalMaterial
-                                    color="white"
+                                    color="#fff"
                                     transmission={1} // For glass transparency
-                                    opacity={0.7} // Adjust transparency level
+                                    opacity={0.9} // Adjust transparency level
                                     transparent={true} // Allow transparency
                                     roughness={0.9} // Smooth surface
                                     metalness={0.9} // Slight metallic sheen
@@ -112,23 +112,23 @@ export default function Experience() {
                         )
                     }
 
-                    // if (node.name === 'metal') {
-                    //     return (
-                    //         <mesh
-                    //             geometry={node.geometry}
-                    //             position={node.position}
-                    //             // rotation={node.rotation}
-                    //             key={node.name}
-                    //             // scale={node.scale}
-                    //         >
-                    //             <meshStandardMaterial
-                    //                 metalness={0.9}
-                    //                 roughness={0.2}
-                    //                 color="red"
-                    //             />
-                    //         </mesh>
-                    //     )
-                    // }
+                    if (node.name === 'metal') {
+                        return (
+                            <mesh
+                                geometry={node.geometry}
+                                position={node.position}
+                                rotation={node.rotation}
+                                key={node.name}
+                                scale={node.scale}
+                            >
+                                <meshStandardMaterial
+                                    metalness={0.9}
+                                    roughness={0.2}
+                                    color="gray"
+                                />
+                            </mesh>
+                        )
+                    }
 
                     if (node.name === 'black') {
                         return (
@@ -141,8 +141,8 @@ export default function Experience() {
                             >
                                 <meshStandardMaterial
                                     metalness={0.6}
-                                    roughness={0.7}
-                                    color="black"
+                                    roughness={0.9}
+                                    color="#333"
                                 />
                             </mesh>
                         )
@@ -157,7 +157,10 @@ export default function Experience() {
                                 key={node.name}
                                 scale={node.scale}
                             >
-                                <meshBasicMaterial color={'green'} />
+                                <meshStandardMaterial
+                                    color={'green'}
+                                    side={DoubleSide}
+                                />
                             </mesh>
                         )
                     }

@@ -35,7 +35,9 @@ function WebGL({ disableWebgl }) {
                         // args={['#000']}
                         attach="background"
                     />
-                    <ambientLight intensity={0.5} />
+                    {/* <ambientLight intensity={0.5} /> */}
+
+                    {/* <directionalLight position={[0, 0, 30]} scale={40, 40}/> */}
 
                     {/* <Effects>
                         <Bloom
