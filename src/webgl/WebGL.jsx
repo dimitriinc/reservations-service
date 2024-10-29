@@ -1,22 +1,40 @@
 import { Canvas } from '@react-three/fiber'
 import Experience from './Experience'
 import * as THREE from 'three'
-import { Suspense, useRef } from 'react'
+import { Suspense, useRef, useState } from 'react'
 import { OrbitControls, Environment } from '@react-three/drei'
 import { Bloom } from '@react-three/postprocessing'
+import Loader from './Loader'
 
 function TronGrid() {
     const gridRef = useRef()
 }
 
 function WebGL({ disableWebgl }) {
+    const [isLoading, setIsLoading] = useState(true)
+
     return (
         <div
             className="overlay"
             onClick={disableWebgl}
         >
             <div className="webgl-screen">
+                <Loader isLoading={isLoading} />
                 <Canvas
+                    className="canvas"
+                    style={
+                        isLoading
+                            ? { visibility: 'hidden', opacity: '0' }
+                            : { visibility: 'visible', opacity: '1' }
+                    }
+                    onCreated={({ gl }) => {
+                        console.log('created!!!!!1')
+                        setIsLoading(false)
+                    }}
+                    onLoad={() => {
+                        console.log('loadadeded!!!!!1')
+                        setIsLoading(false)
+                    }}
                     gl={{
                         toneMapping: THREE.ACESFilmicToneMapping,
                         outputColorSpace: THREE.LinearDisplayP3ColorSpace,
@@ -58,9 +76,9 @@ function WebGL({ disableWebgl }) {
                         />
                     </Effects> */}
 
-                    <Suspense>
-                        <Experience />
-                    </Suspense>
+                    {/* <Suspense fallback={<Loader />}> */}
+                    <Experience />
+                    {/* </Suspense> */}
                 </Canvas>
             </div>
         </div>
