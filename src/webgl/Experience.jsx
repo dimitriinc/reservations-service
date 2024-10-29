@@ -113,7 +113,7 @@ export default function Experience({onProgressChange}) {
                         )
                     }
 
-                    if (node.name === 'metal') {
+                    if (node.name === 'whiteMetal') {
                         return (
                             <mesh
                                 geometry={node.geometry}
@@ -125,7 +125,7 @@ export default function Experience({onProgressChange}) {
                                 <meshStandardMaterial
                                     metalness={0.5}
                                     roughness={0.2}
-                                    color="gray"
+                                    color="#ddd"
                                 />
                             </mesh>
                         )
