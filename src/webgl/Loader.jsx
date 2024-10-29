@@ -23,7 +23,7 @@ function Loader({isLoading, progress}) {
                 ></img>
                 <div
                     className="loading-runner"
-                    style={{ transform: `scaleX(${progress})` }}
+                    style={{ width: `${progress}%` }}
                 ></div>
             </div>
         </>
