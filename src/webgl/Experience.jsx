@@ -5,6 +5,7 @@ import { DoubleSide } from 'three'
 export default function Experience({onProgressChange}) {
 
     const {progress} = useProgress()
+    onProgressChange(progress)
     
     const sceneRef = useRef()
     const baked = useGLTF('/models/baked.glb')
@@ -15,9 +16,9 @@ export default function Experience({onProgressChange}) {
     const promoTexture = useTexture('./textures/promo.jpg')
     promoTexture.flipY = false
 
-    useEffect(() => {
-        onProgressChange(progress)
-    }, [progress])
+    // useEffect(() => {
+    //     onProgressChange(progress)
+    // }, [progress])
 
     return (
         <>

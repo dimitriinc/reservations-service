@@ -35,7 +35,6 @@ function WebGL({ disableWebgl }) {
                     onCreated={() => {
                         setIsLoading(false)
                     }}
-       
                     gl={{
                         toneMapping: THREE.ACESFilmicToneMapping,
                         outputColorSpace: THREE.LinearDisplayP3ColorSpace,
@@ -72,7 +71,7 @@ function WebGL({ disableWebgl }) {
                     </Effects> */}
 
                     {/* <Suspense fallback={<Loader />}> */}
-                    <Experience onProgressChange={handleProgressChange}/>
+                        <Experience onProgressChange={handleProgressChange} />
                     {/* </Suspense> */}
                 </Canvas>
             </div>
