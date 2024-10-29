@@ -1,15 +1,11 @@
-import {
-    useGLTF,
-    OrbitControls,
-    Environment,
-    useTexture,
-    PresentationControls,
-} from '@react-three/drei'
+import { useGLTF, useTexture, useProgress } from '@react-three/drei'
 import { useEffect, useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
-import { DoubleSide, MeshPhysicalMaterial } from 'three'
+import { DoubleSide } from 'three'
 
-export default function Experience() {
+export default function Experience({onProgressChange}) {
+
+    const {progress} = useProgress()
+    
     const sceneRef = useRef()
     const baked = useGLTF('/models/baked.glb')
     const normal = useGLTF('/models/normal.glb')
@@ -20,29 +16,11 @@ export default function Experience() {
     promoTexture.flipY = false
 
     useEffect(() => {
-        // console.log(bakedNodes)
-    }, [])
-
-    // useFrame((state, delta) => {
-    //     sceneRef.current.rotation.y += delta / 4
-    // })
+        onProgressChange(progress)
+    }, [progress])
 
     return (
         <>
-            {/* <Environment
-                background={false}
-                preset="sunset"
-            />
-            <OrbitControls
-                minPolarAngle={0}
-                maxPolarAngle={Math.PI / 2.8}
-                maxDistance={40}
-                minDistance={15}
-                enableDamping
-                dampingFactor={0.03}
-                rotateSpeed={0.3}
-            /> */}
-
             {/* <PresentationControls
                 global
                 cursor={false}

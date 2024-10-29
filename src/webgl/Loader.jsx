@@ -1,6 +1,6 @@
 import { Html } from '@react-three/drei'
 
-function Loader({isLoading}) {
+function Loader({isLoading, progress}) {
     return (
         <>
             <div className={`web-gl-loader`}
@@ -14,6 +14,7 @@ function Loader({isLoading}) {
                     src="/images/loaders/res-actions.svg"
                     style={{ width: '32px', height: '32px' }}
                 ></img>
+                <div className='loading-runner' style={{transform: `scaleX(${progress})`}}></div>
             </div>
         </>
     )
