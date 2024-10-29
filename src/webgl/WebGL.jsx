@@ -1,8 +1,8 @@
 import { Canvas } from '@react-three/fiber'
 import Experience from './Experience'
 import * as THREE from 'three'
-import { useRef } from 'react'
-import { Effects } from '@react-three/drei'
+import { Suspense, useRef } from 'react'
+import { OrbitControls, Environment } from '@react-three/drei'
 import { Bloom } from '@react-three/postprocessing'
 
 function TronGrid() {
@@ -25,6 +25,19 @@ function WebGL({ disableWebgl }) {
                         position: [0, 18, 25],
                     }}
                 >
+                    <Environment
+                        background={false}
+                        preset="sunset"
+                    />
+                    <OrbitControls
+                        minPolarAngle={0}
+                        maxPolarAngle={Math.PI / 2.8}
+                        maxDistance={40}
+                        minDistance={15}
+                        enableDamping
+                        dampingFactor={0.03}
+                        rotateSpeed={0.3}
+                    />
                     {/* <primitive
                         object={
                             new THREE.GridHelper(10, 10, 0xffffff, 0xffffff)
@@ -45,7 +58,9 @@ function WebGL({ disableWebgl }) {
                         />
                     </Effects> */}
 
-                    <Experience />
+                    <Suspense>
+                        <Experience />
+                    </Suspense>
                 </Canvas>
             </div>
         </div>

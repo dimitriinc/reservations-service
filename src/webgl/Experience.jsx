@@ -3,6 +3,7 @@ import {
     OrbitControls,
     Environment,
     useTexture,
+    PresentationControls,
 } from '@react-three/drei'
 import { useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
@@ -28,13 +29,34 @@ export default function Experience() {
 
     return (
         <>
-            <Environment
+            {/* <Environment
                 background={false}
                 preset="sunset"
             />
-            <OrbitControls />
+            <OrbitControls
+                minPolarAngle={0}
+                maxPolarAngle={Math.PI / 2.8}
+                maxDistance={40}
+                minDistance={15}
+                enableDamping
+                dampingFactor={0.03}
+                rotateSpeed={0.3}
+            /> */}
 
-            <group ref={sceneRef}>
+            {/* <PresentationControls
+                global
+                cursor={false}
+                zoom={0.8}
+                config={{
+                    mass: 4,
+                    tension: 100,
+                }}
+            > */}
+            <group
+                ref={sceneRef}
+                position={[0, 0, -8]}
+                rotation-y={-Math.PI / 2.5}
+            >
                 <mesh
                     geometry={baked.nodes.base020.geometry}
                     position={baked.nodes.base020.position}
@@ -158,14 +180,33 @@ export default function Experience() {
                                 scale={node.scale}
                             >
                                 <meshStandardMaterial
-                                    color={'#3e7b20'}
+                                    color={'#2f4c0d'}
                                     side={DoubleSide}
+                                />
+                            </mesh>
+                        )
+                    }
+
+                    if (node.name.startsWith('trunk')) {
+                        return (
+                            <mesh
+                                geometry={node.geometry}
+                                position={node.position}
+                                rotation={node.rotation}
+                                key={node.name}
+                                scale={node.scale}
+                            >
+                                <meshStandardMaterial
+                                    color={'#2b1f09'}
+                                    roughness={0.9}
+                                    // side={DoubleSide}
                                 />
                             </mesh>
                         )
                     }
                 })}
             </group>
+            {/* </PresentationControls> */}
         </>
     )
 }
