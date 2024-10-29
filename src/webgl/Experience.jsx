@@ -122,7 +122,7 @@ export default function Experience() {
                                 scale={node.scale}
                             >
                                 <meshStandardMaterial
-                                    metalness={0.9}
+                                    metalness={0.5}
                                     roughness={0.2}
                                     color="gray"
                                 />
@@ -158,7 +158,7 @@ export default function Experience() {
                                 scale={node.scale}
                             >
                                 <meshStandardMaterial
-                                    color={'green'}
+                                    color={'#3e7b20'}
                                     side={DoubleSide}
                                 />
                             </mesh>
