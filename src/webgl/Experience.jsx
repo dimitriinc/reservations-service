@@ -1,22 +1,23 @@
 import { useGLTF, useTexture, useProgress } from '@react-three/drei'
 import { useEffect, useRef } from 'react'
 import { DoubleSide } from 'three'
+import { GradientMaterial } from './gradientAlphaMaterial'
 
 function getRandomLeafGreen() {
     // Lower green range and adjust other values for natural, muted green shades.
-    const r = Math.floor(30 + Math.random() * 40); // Red: low and close to blue
-    const g = Math.floor(80 + Math.random() * 70); // Green: moderate but not too bright
-    const b = Math.floor(30 + Math.random() * 40); // Blue: low and close to red
-  
+    const r = Math.floor(30 + Math.random() * 40) // Red: low and close to blue
+    const g = Math.floor(80 + Math.random() * 70) // Green: moderate but not too bright
+    const b = Math.floor(30 + Math.random() * 40) // Blue: low and close to red
+
     // Convert to hex and ensure two-digit formatting
-    return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
-  }
+    return `#${r.toString(16).padStart(2, '0')}${g
+        .toString(16)
+        .padStart(2, '0')}${b.toString(16).padStart(2, '0')}`
+}
 
-export default function Experience({onProgressChange}) {
+export default function Experience({ onProgressChange }) {
+    const { progress } = useProgress()
 
-    const {progress} = useProgress()
-    onProgressChange(progress)
-    
     const sceneRef = useRef()
     const baked = useGLTF('/models/baked.glb')
     const normal = useGLTF('/models/normal.glb')
@@ -25,22 +26,17 @@ export default function Experience({onProgressChange}) {
     baseTexture.flipY = false
     const promoTexture = useTexture('./textures/promo.jpg')
     promoTexture.flipY = false
+    const alphaMap = useTexture('./textures/alpha.png')
+    // alphaMap.flipY = false
 
-    // useEffect(() => {
-    //     onProgressChange(progress)
-    // }, [progress])
+    console.log(normal.nodes)
+
+    useEffect(() => {
+        onProgressChange(progress)
+    }, [progress])
 
     return (
         <>
-            {/* <PresentationControls
-                global
-                cursor={false}
-                zoom={0.8}
-                config={{
-                    mass: 4,
-                    tension: 100,
-                }}
-            > */}
             <group
                 ref={sceneRef}
                 position={[0, 0, -8]}
@@ -85,6 +81,7 @@ export default function Experience({onProgressChange}) {
                                 key={node.name}
                             >
                                 <meshPhysicalMaterial
+                                    depthWrite={false}
                                     color="white"
                                     transmission={1} // For glass transparency
                                     opacity={0.5} // Adjust transparency level
@@ -109,6 +106,7 @@ export default function Experience({onProgressChange}) {
                                 scale={node.scale}
                             >
                                 <meshPhysicalMaterial
+                                    // depthWrite={false}
                                     color="#fff"
                                     transmission={1} // For glass transparency
                                     opacity={0.9} // Adjust transparency level
@@ -193,9 +191,70 @@ export default function Experience({onProgressChange}) {
                             </mesh>
                         )
                     }
+
+                    if (node.name.startsWith('column')) {
+                        return (
+                            <mesh
+                                geometry={node.geometry}
+                                position={node.position}
+                                rotation={node.rotation}
+                                key={node.name}
+                                scale={node.scale}
+                            >
+                                {/* <primitive attach='material' object={new GradientMaterial()}/> */}
+                                <meshStandardMaterial
+                                    depthWrite={false}
+                                    color={'#983B16'}
+                                    roughness={0.9}
+                                    transparent={true}
+                                    alphaMap={alphaMap}
+                                />
+                            </mesh>
+                        )
+                    }
+
+                    if (node.name === 'toldoBase') {
+                        return (
+                            <mesh
+                                geometry={node.geometry}
+                                position={node.position}
+                                rotation={node.rotation}
+                                key={node.name}
+                                scale={node.scale}
+                            >
+                                <meshStandardMaterial
+                                    depthWrite={false}
+                                    color={'#983B16'}
+                                    roughness={0.9}
+                                    transparent={true}
+                                    opacity={0.3}
+                                />
+                            </mesh>
+                        )
+                    }
+
+                    if (node.name === 'toldoRoof') {
+                        return (
+                            <mesh
+                                geometry={node.geometry}
+                                position={node.position}
+                                rotation={node.rotation}
+                                key={node.name}
+                                scale={node.scale}
+                            >
+                                <meshStandardMaterial
+                                    depthWrite={false}
+                                    color={'#bbb'}
+                                    roughness={0.9}
+                                    side={DoubleSide}
+                                    transparent={true}
+                                    opacity={0.3}
+                                />
+                            </mesh>
+                        )
+                    }
                 })}
             </group>
-            {/* </PresentationControls> */}
         </>
     )
 }

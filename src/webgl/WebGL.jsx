@@ -24,7 +24,10 @@ function WebGL({ disableWebgl }) {
             onClick={disableWebgl}
         >
             <div className="webgl-screen">
-                <Loader isLoading={isLoading} progress={progress} />
+                <Loader
+                    isLoading={isLoading}
+                    progress={progress}
+                />
                 <Canvas
                     className="canvas"
                     style={
@@ -59,7 +62,7 @@ function WebGL({ disableWebgl }) {
                     <color
                         args={['#241a1a']}
                         attach="background"
-                    />
+                        />
                     {/* <ambientLight intensity={0.5} /> */}
 
                     {/* <Effects>
@@ -70,9 +73,19 @@ function WebGL({ disableWebgl }) {
                         />
                     </Effects> */}
 
+                        {/* <PresentationControls
+                                global
+                                cursor={false}
+                                zoom={0.8}
+                                config={{
+                                    mass: 4,
+                                    tension: 100,
+                                }}
+                        > */}
                     {/* <Suspense fallback={<Loader />}> */}
-                        <Experience onProgressChange={handleProgressChange} />
+                    <Experience onProgressChange={handleProgressChange} />
                     {/* </Suspense> */}
+                    {/* </PresentationControls> */}
                 </Canvas>
             </div>
         </div>
