@@ -1,7 +1,6 @@
 import { useGLTF, useTexture, useProgress } from '@react-three/drei'
 import { useEffect, useRef } from 'react'
 import { DoubleSide } from 'three'
-import { GradientMaterial } from './gradientAlphaMaterial'
 
 function getRandomLeafGreen() {
     // Lower green range and adjust other values for natural, muted green shades.
@@ -26,7 +25,7 @@ export default function Experience({ onProgressChange }) {
     baseTexture.flipY = false
     const promoTexture = useTexture('./textures/promo.jpg')
     promoTexture.flipY = false
-    const alphaMap = useTexture('./textures/alpha.png')
+    const alphaMap = useTexture('./textures/alpha2.png')
     // alphaMap.flipY = false
 
     console.log(normal.nodes)
@@ -106,12 +105,13 @@ export default function Experience({ onProgressChange }) {
                                 scale={node.scale}
                             >
                                 <meshPhysicalMaterial
+                                    // depthWrite={false}
                                     color="#fff"
                                     transmission={1} // For glass transparency
                                     opacity={0.9} // Adjust transparency level
                                     transparent={true} // Allow transparency
                                     roughness={0.9} // Smooth surface
-                                    metalness={0.9} // Slight metallic sheen
+                                    metalness={0.1} // Slight metallic sheen
                                     reflectivity={1} // Reflectivity for glass-like effect
                                     clearcoat={1} // Extra layer on top for shine
                                     clearcoatRoughness={0}
@@ -185,7 +185,7 @@ export default function Experience({ onProgressChange }) {
                                 <meshStandardMaterial
                                     color={'#2b1f09'}
                                     roughness={0.9}
-                                    // side={DoubleSide}
+                                    side={DoubleSide}
                                 />
                             </mesh>
                         )
