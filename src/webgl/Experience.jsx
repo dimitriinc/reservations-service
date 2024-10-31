@@ -25,7 +25,9 @@ export default function Experience({ onProgressChange }) {
     baseTexture.flipY = false
     const promoTexture = useTexture('./textures/promo.jpg')
     promoTexture.flipY = false
-    const alphaMap = useTexture('./textures/alpha2.png')
+    const bottlesTexture = useTexture('./textures/bottles.jpg')
+    bottlesTexture.flipY = false
+    const alphaMap = useTexture('./textures/alpha.png')
     // alphaMap.flipY = false
 
     console.log(normal.nodes)
@@ -54,6 +56,13 @@ export default function Experience({ onProgressChange }) {
                     rotation={baked.nodes.promoBooth.rotation}
                 >
                     <meshBasicMaterial map={promoTexture} />
+                </mesh>
+                <mesh
+                    geometry={baked.nodes.bottles.geometry}
+                    position={baked.nodes.bottles.position}
+                    rotation={baked.nodes.bottles.rotation}
+                >
+                    <meshBasicMaterial map={bottlesTexture} />
                 </mesh>
 
                 {Object.values(normal.nodes).map((node) => {
