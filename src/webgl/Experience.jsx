@@ -106,7 +106,6 @@ export default function Experience({ onProgressChange }) {
                                 scale={node.scale}
                             >
                                 <meshPhysicalMaterial
-                                    // depthWrite={false}
                                     color="#fff"
                                     transmission={1} // For glass transparency
                                     opacity={0.9} // Adjust transparency level
@@ -227,7 +226,7 @@ export default function Experience({ onProgressChange }) {
                                     color={'#983B16'}
                                     roughness={0.9}
                                     transparent={true}
-                                    opacity={0.3}
+                                    opacity={0.2}
                                 />
                             </mesh>
                         )
@@ -248,7 +247,7 @@ export default function Experience({ onProgressChange }) {
                                     roughness={0.9}
                                     side={DoubleSide}
                                     transparent={true}
-                                    opacity={0.3}
+                                    opacity={0.2}
                                 />
                             </mesh>
                         )
