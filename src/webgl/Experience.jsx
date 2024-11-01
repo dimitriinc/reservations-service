@@ -1,6 +1,7 @@
 import { useGLTF, useTexture, useProgress } from '@react-three/drei'
 import { useEffect, useRef } from 'react'
 import { DoubleSide } from 'three'
+import { colors } from './leafColors'
 
 function getRandomLeafGreen() {
     // Lower green range and adjust other values for natural, muted green shades.
@@ -12,6 +13,11 @@ function getRandomLeafGreen() {
     return `#${r.toString(16).padStart(2, '0')}${g
         .toString(16)
         .padStart(2, '0')}${b.toString(16).padStart(2, '0')}`
+}
+
+function getRandomLeafColor(colors) {
+    const index = Math.floor(Math.random() * colors.length)
+    return colors[index]
 }
 
 export default function Experience({ onProgressChange }) {
@@ -175,7 +181,7 @@ export default function Experience({ onProgressChange }) {
                                 scale={node.scale}
                             >
                                 <meshStandardMaterial
-                                    color={getRandomLeafGreen()}
+                                    color={getRandomLeafColor(colors)}
                                     side={DoubleSide}
                                 />
                             </mesh>
