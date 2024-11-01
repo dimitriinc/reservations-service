@@ -3,17 +3,17 @@ import { useEffect, useRef } from 'react'
 import { DoubleSide } from 'three'
 import { colors } from './leafColors'
 
-function getRandomLeafGreen() {
-    // Lower green range and adjust other values for natural, muted green shades.
-    const r = Math.floor(30 + Math.random() * 40) // Red: low and close to blue
-    const g = Math.floor(80 + Math.random() * 70) // Green: moderate but not too bright
-    const b = Math.floor(30 + Math.random() * 40) // Blue: low and close to red
+// function getRandomLeafGreen() {
+//     // Lower green range and adjust other values for natural, muted green shades.
+//     const r = Math.floor(30 + Math.random() * 40) // Red: low and close to blue
+//     const g = Math.floor(80 + Math.random() * 70) // Green: moderate but not too bright
+//     const b = Math.floor(30 + Math.random() * 40) // Blue: low and close to red
 
-    // Convert to hex and ensure two-digit formatting
-    return `#${r.toString(16).padStart(2, '0')}${g
-        .toString(16)
-        .padStart(2, '0')}${b.toString(16).padStart(2, '0')}`
-}
+//     // Convert to hex and ensure two-digit formatting
+//     return `#${r.toString(16).padStart(2, '0')}${g
+//         .toString(16)
+//         .padStart(2, '0')}${b.toString(16).padStart(2, '0')}`
+// }
 
 function getRandomLeafColor(colors) {
     const index = Math.floor(Math.random() * colors.length)
