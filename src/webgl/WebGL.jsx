@@ -2,8 +2,12 @@ import { Canvas } from '@react-three/fiber'
 import Experience from './Experience'
 import * as THREE from 'three'
 import { Suspense, useRef, useState } from 'react'
-import { OrbitControls, Environment, PresentationControls } from '@react-three/drei'
-import { Bloom } from '@react-three/postprocessing'
+import {
+    OrbitControls,
+    Environment,
+    PresentationControls,
+} from '@react-three/drei'
+import { Bloom, EffectComposer } from '@react-three/postprocessing'
 import Loader from './Loader'
 
 function TronGrid() {

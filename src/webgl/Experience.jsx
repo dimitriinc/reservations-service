@@ -1,7 +1,8 @@
-import { useGLTF, useTexture, useProgress } from '@react-three/drei'
+import { Effects, useGLTF, useTexture, useProgress } from '@react-three/drei'
 import { useEffect, useRef } from 'react'
 import { DoubleSide } from 'three'
 import { colors } from './leafColors'
+import { Bloom, EffectComposer } from '@react-three/postprocessing'
 
 // function getRandomLeafGreen() {
 //     // Lower green range and adjust other values for natural, muted green shades.
@@ -36,7 +37,7 @@ export default function Experience({ onProgressChange }) {
     const alphaMap = useTexture('./textures/alpha.png')
     // alphaMap.flipY = false
 
-    console.log(normal.nodes)
+    console.log(baked.nodes)
 
     useEffect(() => {
         onProgressChange(progress)
@@ -70,6 +71,21 @@ export default function Experience({ onProgressChange }) {
                 >
                     <meshBasicMaterial map={bottlesTexture} />
                 </mesh>
+                <mesh
+                    geometry={baked.nodes.tableLong.geometry}
+                    position={baked.nodes.tableLong.position}
+                    rotation={baked.nodes.tableLong.rotation}
+                    onClick={() => alert()}
+                    onPointerEnter={() =>
+                        (document.body.style.cursor = 'pointer')
+                    }
+                    onPointerLeave={() =>
+                        (document.body.style.cursor = 'default')
+                    }
+                >
+                    <meshBasicMaterial map={baseTexture} />
+                </mesh>
+               
 
                 {Object.values(normal.nodes).map((node) => {
                     if (node.name.startsWith('emissive')) {
@@ -263,6 +279,26 @@ export default function Experience({ onProgressChange }) {
                                     side={DoubleSide}
                                     transparent={true}
                                     opacity={0.2}
+                                />
+                            </mesh>
+                        )
+                    }
+
+                    if (node.name === 'cords') {
+                        return (
+                            <mesh
+                                geometry={node.geometry}
+                                position={node.position}
+                                rotation={node.rotation}
+                                key={node.name}
+                                scale={node.scale}
+                            >
+                                <meshStandardMaterial
+                                    depthWrite={false}
+                                    color={'#333'}
+                                    roughness={0.9}
+                                    transparent={true}
+                                    alphaMap={alphaMap}
                                 />
                             </mesh>
                         )
