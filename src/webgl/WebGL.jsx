@@ -2,7 +2,7 @@ import { Canvas } from '@react-three/fiber'
 import Experience from './Experience'
 import * as THREE from 'three'
 import { Suspense, useRef, useState } from 'react'
-import { OrbitControls, Environment } from '@react-three/drei'
+import { OrbitControls, Environment, PresentationControls } from '@react-three/drei'
 import { Bloom } from '@react-three/postprocessing'
 import Loader from './Loader'
 
@@ -50,7 +50,7 @@ function WebGL({ disableWebgl }) {
                         background={false}
                         preset="sunset"
                     />
-                    <OrbitControls
+                    {/* <OrbitControls
                         minPolarAngle={0}
                         maxPolarAngle={Math.PI / 2.8}
                         maxDistance={40}
@@ -58,11 +58,11 @@ function WebGL({ disableWebgl }) {
                         enableDamping
                         dampingFactor={0.03}
                         rotateSpeed={0.7}
-                    />
+                    /> */}
                     <color
                         args={['#241a1a']}
                         attach="background"
-                        />
+                    />
                     {/* <ambientLight intensity={0.3} /> */}
 
                     {/* <Effects>
@@ -73,19 +73,19 @@ function WebGL({ disableWebgl }) {
                         />
                     </Effects> */}
 
-                        {/* <PresentationControls
-                                global
-                                cursor={false}
-                                zoom={0.8}
-                                config={{
-                                    mass: 4,
-                                    tension: 100,
-                                }}
-                        > */}
-                    {/* <Suspense fallback={<Loader />}> */}
-                    <Experience onProgressChange={handleProgressChange} />
-                    {/* </Suspense> */}
-                    {/* </PresentationControls> */}
+                    <PresentationControls
+                        global
+                        cursor={false}
+                        zoom={0.8}
+                        config={{
+                            mass: 4,
+                            tension: 100,
+                        }}
+                    >
+                        {/* <Suspense fallback={<Loader />}> */}
+                        <Experience onProgressChange={handleProgressChange} />
+                        {/* </Suspense> */}
+                    </PresentationControls>
                 </Canvas>
             </div>
         </div>
