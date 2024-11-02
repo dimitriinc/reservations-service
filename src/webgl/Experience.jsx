@@ -51,9 +51,9 @@ export default function Experience({ onProgressChange }) {
                 rotation-y={-Math.PI / 2.5}
             >
                 <mesh
-                    geometry={baked.nodes.base020.geometry}
-                    position={baked.nodes.base020.position}
-                    rotation={baked.nodes.base020.rotation}
+                    geometry={baked.nodes.master.geometry}
+                    position={baked.nodes.master.position}
+                    rotation={baked.nodes.master.rotation}
                 >
                     <meshBasicMaterial map={baseTexture} />
                 </mesh>

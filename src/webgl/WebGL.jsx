@@ -82,13 +82,11 @@ function WebGL({ disableWebgl }) {
                         cursor={false}
                         zoom={0.8}
                         config={{
-                            mass: 4,
+                            mass: 1,
                             tension: 100,
                         }}
                     >
-                        {/* <Suspense fallback={<Loader />}> */}
                         <Experience onProgressChange={handleProgressChange} />
-                        {/* </Suspense> */}
                     </PresentationControls>
                 </Canvas>
             </div>
