@@ -27,6 +27,7 @@ export default function Experience({ onProgressChange }) {
     const sceneRef = useRef()
     const baked = useGLTF('/models/baked.glb')
     const normal = useGLTF('/models/normal.glb')
+    const tables = useGLTF('/models/tables.glb')
 
     const baseTexture = useTexture('./textures/base.jpg')
     baseTexture.flipY = false
@@ -34,6 +35,8 @@ export default function Experience({ onProgressChange }) {
     promoTexture.flipY = false
     const bottlesTexture = useTexture('./textures/bottles.jpg')
     bottlesTexture.flipY = false
+    const tablesTexture = useTexture('./textures/tables.jpg')
+    tablesTexture.flipY = false
     const alphaMap = useTexture('./textures/alpha.png')
     // alphaMap.flipY = false
 
@@ -85,7 +88,59 @@ export default function Experience({ onProgressChange }) {
                 >
                     <meshBasicMaterial map={baseTexture} />
                 </mesh>
-               
+
+                {Object.values(tables.nodes).map((node) => {
+                    if (node.name.startsWith('tableRoundTop')) {
+                        return (
+                            <mesh
+                                geometry={node.geometry}
+                                position={node.position}
+                                rotation={node.rotation}
+                                scale={node.scale}
+                                key={node.name}
+                                onClick={() => alert()}
+                                onPointerEnter={() =>
+                                    (document.body.style.cursor = 'pointer')
+                                }
+                                onPointerLeave={() =>
+                                    (document.body.style.cursor = 'default')
+                                }
+                            >
+                                <meshPhysicalMaterial
+                                    depthWrite={false}
+                                    color="white"
+                                    transmission={1}
+                                    opacity={0.6}
+                                    transparent={true}
+                                    roughness={0.2}
+                                    metalness={0.1}
+                                    reflectivity={1}
+                                    clearcoat={1}
+                                    clearcoatRoughness={0}
+                                />
+                            </mesh>
+                        )
+                    } else {
+                        return (
+                            <mesh
+                                geometry={node.geometry}
+                                position={node.position}
+                                rotation={node.rotation}
+                                scale={node.scale}
+                                key={node.name}
+                                onClick={() => alert()}
+                                onPointerEnter={() =>
+                                    (document.body.style.cursor = 'pointer')
+                                }
+                                onPointerLeave={() =>
+                                    (document.body.style.cursor = 'default')
+                                }
+                            >
+                                <meshBasicMaterial map={tablesTexture} />
+                            </mesh>
+                        )
+                    }
+                })}
 
                 {Object.values(normal.nodes).map((node) => {
                     if (node.name.startsWith('emissive')) {
@@ -214,7 +269,7 @@ export default function Experience({ onProgressChange }) {
                                 scale={node.scale}
                             >
                                 <meshStandardMaterial
-                                    color={'#2b1f09'}
+                                    color={'#554c3a'}
                                     roughness={0.9}
                                     side={DoubleSide}
                                 />
