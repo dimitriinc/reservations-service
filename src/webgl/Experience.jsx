@@ -37,14 +37,20 @@ export default function Experience({ onProgressChange }) {
     bottlesTexture.flipY = false
     const tablesTexture = useTexture('./textures/tables.jpg')
     tablesTexture.flipY = false
+    const tablesRoughnessTexture = useTexture('./textures/tablesRoughness.jpg')
+    tablesTexture.flipY = false
+    const tablesNormalTexture = useTexture('./textures/tablesNormal.jpg')
+    tablesTexture.flipY = false
     const alphaMap = useTexture('./textures/alpha.png')
-    // alphaMap.flipY = false
-
-    console.log(baked.nodes)
 
     useEffect(() => {
         onProgressChange(progress)
     }, [progress])
+
+    function handleTableClick(event) {
+        // console.log(event)
+        // alert(`Mesa ${event.target.userData.number}`)
+    }
 
     return (
         <>
@@ -74,20 +80,6 @@ export default function Experience({ onProgressChange }) {
                 >
                     <meshBasicMaterial map={bottlesTexture} />
                 </mesh>
-                <mesh
-                    geometry={baked.nodes.tableLong.geometry}
-                    position={baked.nodes.tableLong.position}
-                    rotation={baked.nodes.tableLong.rotation}
-                    onClick={() => alert()}
-                    onPointerEnter={() =>
-                        (document.body.style.cursor = 'pointer')
-                    }
-                    onPointerLeave={() =>
-                        (document.body.style.cursor = 'default')
-                    }
-                >
-                    <meshBasicMaterial map={baseTexture} />
-                </mesh>
 
                 {Object.values(tables.nodes).map((node) => {
                     if (node.name.startsWith('tableRoundTop')) {
@@ -98,7 +90,7 @@ export default function Experience({ onProgressChange }) {
                                 rotation={node.rotation}
                                 scale={node.scale}
                                 key={node.name}
-                                onClick={() => alert()}
+                                onClick={() => alert(`Mesa ${node.userData.number}`)}
                                 onPointerEnter={() =>
                                     (document.body.style.cursor = 'pointer')
                                 }
@@ -108,7 +100,7 @@ export default function Experience({ onProgressChange }) {
                             >
                                 <meshPhysicalMaterial
                                     depthWrite={false}
-                                    color="white"
+                                    color="#fff"
                                     transmission={1}
                                     opacity={0.6}
                                     transparent={true}
@@ -128,7 +120,7 @@ export default function Experience({ onProgressChange }) {
                                 rotation={node.rotation}
                                 scale={node.scale}
                                 key={node.name}
-                                onClick={() => alert()}
+                                onClick={() => alert(`Mesa ${node.userData.number}`)}
                                 onPointerEnter={() =>
                                     (document.body.style.cursor = 'pointer')
                                 }
@@ -136,7 +128,11 @@ export default function Experience({ onProgressChange }) {
                                     (document.body.style.cursor = 'default')
                                 }
                             >
-                                <meshBasicMaterial map={tablesTexture} />
+                                <meshBasicMaterial
+                                    map={tablesTexture}
+                                    roughness={tablesRoughnessTexture}
+                                    normal={tablesNormalTexture}
+                                />
                             </mesh>
                         )
                     }
