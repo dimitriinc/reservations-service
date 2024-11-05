@@ -248,7 +248,7 @@ function Carreras({ activateLink }) {
                             id="jobs-submit"
                             type="submit"
                             className="button-control-round"
-                            value="aplicar"
+                            value="postular"
                             style={sending ? { display: 'none' } : null}
                         />
                         <img

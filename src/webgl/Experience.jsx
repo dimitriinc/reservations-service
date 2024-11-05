@@ -100,7 +100,7 @@ export default function Experience({ onProgressChange }) {
                             >
                                 <meshPhysicalMaterial
                                     depthWrite={false}
-                                    color="#fff"
+                                    color="#aaa"
                                     transmission={1}
                                     opacity={0.6}
                                     transparent={true}

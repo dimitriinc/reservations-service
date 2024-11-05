@@ -23,38 +23,41 @@ function WebGL({ disableWebgl }) {
     }
 
     return (
-        <div
-            className="overlay"
-            onClick={disableWebgl}
-        >
-            <div className="webgl-screen">
-                <Loader
-                    isLoading={isLoading}
-                    progress={progress}
-                />
-                <Canvas
-                    className="canvas"
-                    style={
-                        isLoading
-                            ? { visibility: 'hidden', opacity: '0' }
-                            : { visibility: 'visible', opacity: '1' }
-                    }
-                    onCreated={() => {
-                        setIsLoading(false)
-                    }}
-                    gl={{
-                        toneMapping: THREE.ACESFilmicToneMapping,
-                        outputColorSpace: THREE.LinearDisplayP3ColorSpace,
-                    }}
-                    camera={{
-                        position: [0, 18, 25],
-                    }}
-                >
-                    <Environment
-                        background={false}
-                        preset="sunset"
-                    />
-                    {/* <OrbitControls
+        <div className="overlay">
+            <div
+                className="relative-screen"
+                onClick={disableWebgl}
+            >
+                <div className="webgl-screen">
+                    <div className="webgl-container">
+                        <Loader
+                            isLoading={isLoading}
+                            progress={progress}
+                        />
+                        <Canvas
+                            className="canvas"
+                            style={
+                                isLoading
+                                    ? { visibility: 'hidden', opacity: '0' }
+                                    : { visibility: 'visible', opacity: '1' }
+                            }
+                            onCreated={() => {
+                                setIsLoading(false)
+                            }}
+                            gl={{
+                                toneMapping: THREE.ACESFilmicToneMapping,
+                                outputColorSpace:
+                                    THREE.LinearDisplayP3ColorSpace,
+                            }}
+                            camera={{
+                                position: [0, 18, 25],
+                            }}
+                        >
+                            <Environment
+                                background={false}
+                                preset="sunset"
+                            />
+                            {/* <OrbitControls
                         minPolarAngle={0}
                         maxPolarAngle={Math.PI / 2.8}
                         maxDistance={40}
@@ -63,13 +66,13 @@ function WebGL({ disableWebgl }) {
                         dampingFactor={0.03}
                         rotateSpeed={0.7}
                     /> */}
-                    <color
-                        args={['#241a1a']}
-                        attach="background"
-                    />
-                    {/* <ambientLight intensity={0.3} /> */}
+                            <color
+                                args={['#241a1a']}
+                                attach="background"
+                            />
+                            {/* <ambientLight intensity={0.3} /> */}
 
-                    {/* <Effects>
+                            {/* <Effects>
                         <Bloom
                             luminanceThreshold={0}
                             luminanceSmoothing={0.9}
@@ -77,18 +80,22 @@ function WebGL({ disableWebgl }) {
                         />
                     </Effects> */}
 
-                    <PresentationControls
-                        global
-                        cursor={false}
-                        zoom={0.8}
-                        config={{
-                            mass: 1,
-                            tension: 100,
-                        }}
-                    >
-                        <Experience onProgressChange={handleProgressChange} />
-                    </PresentationControls>
-                </Canvas>
+                            <PresentationControls
+                                global
+                                cursor={false}
+                                zoom={0.8}
+                                config={{
+                                    mass: 1,
+                                    tension: 100,
+                                }}
+                            >
+                                <Experience
+                                    onProgressChange={handleProgressChange}
+                                />
+                            </PresentationControls>
+                        </Canvas>
+                    </div>
+                </div>
             </div>
         </div>
     )

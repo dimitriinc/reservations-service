@@ -74,7 +74,7 @@ function Reservas({ activateLink }) {
         setWebglEnabled(true)
     }
     const disableWebgl = (e) => {
-        if (e.target.classList.contains('overlay')) setWebglEnabled(false)
+        if (e.target.classList.contains('relative-screen')) setWebglEnabled(false)
     }
 
     const handleInputChange = (e) => {
