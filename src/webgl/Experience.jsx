@@ -1,8 +1,9 @@
 import { Effects, useGLTF, useTexture, useProgress } from '@react-three/drei'
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Color, DoubleSide } from 'three'
 import { colors, glassTables } from '/utils.js'
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
+import { useFrame } from '@react-three/fiber'
 
 function getRandomLeafColor(colors) {
     const index = Math.floor(Math.random() * colors.length)
@@ -11,6 +12,8 @@ function getRandomLeafColor(colors) {
 
 export default function Experience({ onProgressChange, reservedTables }) {
     const sceneRef = useRef()
+    const reservadoRefs = useRef({})
+
     const baked = useGLTF('/models/baked.glb')
     const normal = useGLTF('/models/normal.glb')
     const tables = useGLTF('/models/tables.glb')
@@ -33,7 +36,17 @@ export default function Experience({ onProgressChange, reservedTables }) {
     reservadoTexture.flipY = false
     const alphaMap = useTexture('./textures/alpha.png')
 
-    console.log(tablesEmissionTexture)
+    useEffect(() => {
+        reservedTables.forEach(tableNumber => {
+            reservadoRefs.current[tableNumber] = React.createRef()
+        })
+    }, [reservedTables.length])
+
+    useFrame((_, delta) => {
+        Object.values(reservadoRefs.current).forEach(ref => {
+            if (ref.current) ref.current.rotation.y += delta / 3
+        })
+    })
 
     function handleTableClick(event) {
         // console.log(event)
@@ -98,6 +111,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                         />
                                     </mesh>
                                     <mesh
+                                        ref={reservadoRefs.current[node.name]}
                                         geometry={child.geometry}
                                         position={child.position}
                                         rotation={child.rotation}
@@ -182,6 +196,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                         />
                                     </mesh>
                                     <mesh
+                                    ref={reservadoRefs.current[node.name]}
                                         geometry={child.geometry}
                                         position={child.position}
                                         rotation={child.rotation}
