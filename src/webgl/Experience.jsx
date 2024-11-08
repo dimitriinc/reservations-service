@@ -1,6 +1,6 @@
 import { Effects, useGLTF, useTexture, useProgress } from '@react-three/drei'
 import { useEffect, useRef } from 'react'
-import { DoubleSide } from 'three'
+import { Color, DoubleSide } from 'three'
 import { colors } from '/utils.js'
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
 
@@ -27,9 +27,13 @@ export default function Experience({ onProgressChange, reservedTables }) {
     tablesRoughnessTexture.flipY = false
     const tablesNormalTexture = useTexture('./textures/tablesNormal.jpg')
     tablesNormalTexture.flipY = false
+    const tablesEmissionTexture = useTexture('./textures/tablesEmission.jpg')
+    tablesEmissionTexture.flipY = false
     const reservadoTexture = useTexture('./textures/reservado.jpg')
     reservadoTexture.flipY = false
     const alphaMap = useTexture('./textures/alpha.png')
+
+    console.log(tablesEmissionTexture)
 
     function handleTableClick(event) {
         // console.log(event)
@@ -73,10 +77,8 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 position={node.position}
                                 rotation={node.rotation}
                                 scale={node.scale}
-                                key={node.name}
-                                onClick={() =>
-                                    alert(`Mesa ${node.userData.number}`)
-                                }
+                                key={node.uuid}
+                                onClick={() => alert(`Mesa ${node.name}`)}
                                 onPointerEnter={() =>
                                     (document.body.style.cursor = 'pointer')
                                 }
@@ -95,6 +97,9 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                     reflectivity={1}
                                     clearcoat={1}
                                     clearcoatRoughness={0}
+                                    emissive={'green'}
+                                    emissiveIntensity={1.5}
+                                    emissiveMap={tablesEmissionTexture}
                                 />
                             </mesh>
                         )
@@ -111,7 +116,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                         position={node.position}
                                         rotation={node.rotation}
                                         scale={node.scale}
-                                        key={node.name}
+                                        key={node.uuid}
                                     >
                                         <meshBasicMaterial
                                             map={tablesTexture}
@@ -124,7 +129,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                         position={child.position}
                                         rotation={child.rotation}
                                         scale={child.scale}
-                                        key={child.name}
+                                        key={child.uuid}
                                     >
                                         <meshBasicMaterial
                                             map={reservadoTexture}
@@ -139,10 +144,8 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                     position={node.position}
                                     rotation={node.rotation}
                                     scale={node.scale}
-                                    key={node.name}
-                                    onClick={() =>
-                                        alert(`Mesa ${node.userData.number}`)
-                                    }
+                                    key={node.uuid}
+                                    onClick={() => alert(`Mesa ${node.name}`)}
                                     onPointerEnter={() =>
                                         (document.body.style.cursor = 'pointer')
                                     }
@@ -150,10 +153,14 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                         (document.body.style.cursor = 'default')
                                     }
                                 >
-                                    <meshBasicMaterial
+                                    <meshStandardMaterial
                                         map={tablesTexture}
                                         roughness={tablesRoughnessTexture}
                                         normal={tablesNormalTexture}
+                                        emissive={new Color('#0e6f00')}
+                                        emissiveIntensity={50}
+                                        emissiveMap={tablesEmissionTexture}
+                                        envMapIntensity={1.4}
                                     />
                                 </mesh>
                             )
