@@ -1,29 +1,15 @@
 import { Effects, useGLTF, useTexture, useProgress } from '@react-three/drei'
 import { useEffect, useRef } from 'react'
 import { DoubleSide } from 'three'
-import { colors } from './leafColors'
+import { colors } from '/utils.js'
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
-
-// function getRandomLeafGreen() {
-//     // Lower green range and adjust other values for natural, muted green shades.
-//     const r = Math.floor(30 + Math.random() * 40) // Red: low and close to blue
-//     const g = Math.floor(80 + Math.random() * 70) // Green: moderate but not too bright
-//     const b = Math.floor(30 + Math.random() * 40) // Blue: low and close to red
-
-//     // Convert to hex and ensure two-digit formatting
-//     return `#${r.toString(16).padStart(2, '0')}${g
-//         .toString(16)
-//         .padStart(2, '0')}${b.toString(16).padStart(2, '0')}`
-// }
 
 function getRandomLeafColor(colors) {
     const index = Math.floor(Math.random() * colors.length)
     return colors[index]
 }
 
-export default function Experience({ onProgressChange }) {
-    const { progress } = useProgress()
-
+export default function Experience({ onProgressChange, reservedTables }) {
     const sceneRef = useRef()
     const baked = useGLTF('/models/baked.glb')
     const normal = useGLTF('/models/normal.glb')
@@ -38,14 +24,12 @@ export default function Experience({ onProgressChange }) {
     const tablesTexture = useTexture('./textures/tables.jpg')
     tablesTexture.flipY = false
     const tablesRoughnessTexture = useTexture('./textures/tablesRoughness.jpg')
-    tablesTexture.flipY = false
+    tablesRoughnessTexture.flipY = false
     const tablesNormalTexture = useTexture('./textures/tablesNormal.jpg')
-    tablesTexture.flipY = false
+    tablesNormalTexture.flipY = false
+    const reservadoTexture = useTexture('./textures/reservado.jpg')
+    reservadoTexture.flipY = false
     const alphaMap = useTexture('./textures/alpha.png')
-
-    useEffect(() => {
-        onProgressChange(progress)
-    }, [progress])
 
     function handleTableClick(event) {
         // console.log(event)
@@ -90,7 +74,9 @@ export default function Experience({ onProgressChange }) {
                                 rotation={node.rotation}
                                 scale={node.scale}
                                 key={node.name}
-                                onClick={() => alert(`Mesa ${node.userData.number}`)}
+                                onClick={() =>
+                                    alert(`Mesa ${node.userData.number}`)
+                                }
                                 onPointerEnter={() =>
                                     (document.body.style.cursor = 'pointer')
                                 }
@@ -113,28 +99,65 @@ export default function Experience({ onProgressChange }) {
                             </mesh>
                         )
                     } else {
-                        return (
-                            <mesh
-                                geometry={node.geometry}
-                                position={node.position}
-                                rotation={node.rotation}
-                                scale={node.scale}
-                                key={node.name}
-                                onClick={() => alert(`Mesa ${node.userData.number}`)}
-                                onPointerEnter={() =>
-                                    (document.body.style.cursor = 'pointer')
-                                }
-                                onPointerLeave={() =>
-                                    (document.body.style.cursor = 'default')
-                                }
-                            >
-                                <meshBasicMaterial
-                                    map={tablesTexture}
-                                    roughness={tablesRoughnessTexture}
-                                    normal={tablesNormalTexture}
-                                />
-                            </mesh>
-                        )
+                        if (node.name.startsWith('reservado')) return
+                        if (reservedTables.includes(node.name)) {
+                            const child = tables.scene.getObjectByName(
+                                'reservado' + node.name
+                            )
+                            return (
+                                <>
+                                    <mesh
+                                        geometry={node.geometry}
+                                        position={node.position}
+                                        rotation={node.rotation}
+                                        scale={node.scale}
+                                        key={node.name}
+                                    >
+                                        <meshBasicMaterial
+                                            map={tablesTexture}
+                                            roughness={tablesRoughnessTexture}
+                                            normal={tablesNormalTexture}
+                                        />
+                                    </mesh>
+                                    <mesh
+                                        geometry={child.geometry}
+                                        position={child.position}
+                                        rotation={child.rotation}
+                                        scale={child.scale}
+                                        key={child.name}
+                                    >
+                                        <meshBasicMaterial
+                                            map={reservadoTexture}
+                                        />
+                                    </mesh>
+                                </>
+                            )
+                        } else {
+                            return (
+                                <mesh
+                                    geometry={node.geometry}
+                                    position={node.position}
+                                    rotation={node.rotation}
+                                    scale={node.scale}
+                                    key={node.name}
+                                    onClick={() =>
+                                        alert(`Mesa ${node.userData.number}`)
+                                    }
+                                    onPointerEnter={() =>
+                                        (document.body.style.cursor = 'pointer')
+                                    }
+                                    onPointerLeave={() =>
+                                        (document.body.style.cursor = 'default')
+                                    }
+                                >
+                                    <meshBasicMaterial
+                                        map={tablesTexture}
+                                        roughness={tablesRoughnessTexture}
+                                        normal={tablesNormalTexture}
+                                    />
+                                </mesh>
+                            )
+                        }
                     }
                 })}
 
@@ -172,6 +195,7 @@ export default function Experience({ onProgressChange }) {
                                     reflectivity={1} // Reflectivity for glass-like effect
                                     clearcoat={1} // Extra layer on top for shine
                                     clearcoatRoughness={0}
+                                    side={DoubleSide}
                                 />
                             </mesh>
                         )

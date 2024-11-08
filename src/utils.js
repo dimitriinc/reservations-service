@@ -1,4 +1,5 @@
-[
+const colors = ['#718427', '#6F9940', '#3d6413', '#619c21', '#638a1b', '#4c7327', '#22421A', '#286F29']
+const reservas = [
     {
         "id": "1",
         "arrivalTimestamp": 12425234324,
@@ -9,7 +10,8 @@
         "comment": "lorem ipsum dolor sit amet",
         "date": "01/02/2024",
         "email": "example@gmail.com",
-        "confirmed": 1
+        "confirmed": 1,
+        "table": "10"
     },
     {
         "id": "2",
@@ -21,7 +23,8 @@
         "comment": "lorem ipsum dolor sit amet",
         "date": "01/02/2024",
         "email": "foobar@gmail.com",
-        "confirmed": 0
+        "confirmed": 0,
+        "table": "10"
     },
     {
         "id": "5",
@@ -33,7 +36,8 @@
         "comment": "lorem ipsum dolor sit amet",
         "date": "01/02/2024",
         "email": "foobar@gmail.com",
-        "confirmed": 0
+        "confirmed": 0,
+        "table": "10"
     },
     {
         "id": "3",
@@ -45,7 +49,8 @@
         "comment": "lorem ipsum dolor sit amet",
         "date": "01/02/2024",
         "email": "lorem@gmail.com",
-        "confirmed": 1
+        "confirmed": 1,
+        "table": "10"
     },
     {
         "id": "4",
@@ -57,6 +62,23 @@
         "comment": "lorem ipsum dolor sit amet",
         "date": "01/02/2024",
         "email": "token@gmail.com",
-        "confirmed": 0
+        "confirmed": 0,
+        "table": "11"
     }
 ]
+
+const getDummyReservas = (date, part, delay = 1000) => {
+    
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            reservas.sort((a, b) => {
+                if (a.confirmed < b.confirmed) return -1
+                if (a.confirmed > b.confirmed) return 1
+                return a.arrivalTimestamp - b.arrivalTimestamp
+            })
+            resolve(JSON.stringify(reservas))
+        }, delay)
+    })
+}
+
+export {colors, getDummyReservas}

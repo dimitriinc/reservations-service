@@ -1,12 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
-import dummyReservas from './reservas.json'
 import Reserva from './Reserva'
-
-dummyReservas.sort((a, b) => {
-    if (a.confirmed < b.confirmed) return -1
-    if (a.confirmed > b.confirmed) return 1
-    return a.arrivalTimestamp - b.arrivalTimestamp
-})
+import { getDummyReservas } from '../utils'
 
 const today = new Date()
 const tomorrow = new Date(today)
@@ -19,6 +13,7 @@ function Reservas() {
     const [specialButtonText, setSpecialButtonText] = useState('mañana')
     const [pendientesMode, setPendientesMode] = useState(false)
     const [hayReservas, setHayReservas] = useState(true)
+    const [dummyReservas, setDummyReservas] = useState([])
 
     const datePicker = useRef()
 
@@ -34,12 +29,18 @@ function Reservas() {
         loadReservas()
     }, [currentDate])
 
-    const loadReservas = () => {
-        // Dummy
-        setTimeout(() => {
+    const loadReservas = async () => {
+        try {
+            const reservas = await getDummyReservas()
+            const reservasArray = JSON.parse(reservas)
+            if (reservasArray.length) setHayReservas(true)
+            else setHayReservas(false)
+
+            setDummyReservas(reservasArray)
             setReservasLoading(false)
-            setHayReservas(true)
-        }, 3000)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const constructDate = (date) =>
@@ -77,18 +78,16 @@ function Reservas() {
         setCurrentDate(date)
     }
 
-    const handlePendientes = () => {
+    const handlePendientes = async () => {
         setPendientesMode(true)
         setReservasLoading(true)
         setSpecialButtonText('hoy')
 
-        //Dummy
-        setTimeout(() => {
-            dummyReservas.forEach((reserva) => {
-                reserva.date = constructDate(new Date(reserva.arrivalTimestamp))
-            })
-            setReservasLoading(false)
-        }, 3000)
+        await loadReservas()
+
+        dummyReservas.forEach((reserva) => {
+            reserva.date = constructDate(new Date(reserva.arrivalTimestamp))
+        })
     }
 
     return (
