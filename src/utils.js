@@ -1,4 +1,5 @@
 const colors = ['#718427', '#6F9940', '#3d6413', '#619c21', '#638a1b', '#4c7327', '#22421A', '#286F29']
+const glassTables = ['01', '02', '03', '04', '06', '10', '12']
 const reservas = [
     {
         "id": "1",
@@ -11,7 +12,7 @@ const reservas = [
         "date": "01/02/2024",
         "email": "example@gmail.com",
         "confirmed": 1,
-        "table": "10"
+        "table": "05"
     },
     {
         "id": "2",
@@ -37,7 +38,7 @@ const reservas = [
         "date": "01/02/2024",
         "email": "foobar@gmail.com",
         "confirmed": 0,
-        "table": "10"
+        "table": "03"
     },
     {
         "id": "3",
@@ -63,7 +64,7 @@ const reservas = [
         "date": "01/02/2024",
         "email": "token@gmail.com",
         "confirmed": 0,
-        "table": "11"
+        "table": "08"
     }
 ]
 
@@ -81,4 +82,4 @@ const getDummyReservas = (date, part, delay = 1000) => {
     })
 }
 
-export {colors, getDummyReservas}
+export {colors, getDummyReservas, glassTables}

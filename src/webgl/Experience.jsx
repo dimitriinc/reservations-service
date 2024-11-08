@@ -1,7 +1,7 @@
 import { Effects, useGLTF, useTexture, useProgress } from '@react-three/drei'
 import { useEffect, useRef } from 'react'
 import { Color, DoubleSide } from 'three'
-import { colors } from '/utils.js'
+import { colors, glassTables } from '/utils.js'
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
 
 function getRandomLeafColor(colors) {
@@ -70,41 +70,98 @@ export default function Experience({ onProgressChange, reservedTables }) {
                 </mesh>
 
                 {Object.values(tables.nodes).map((node) => {
-                    if (node.name.startsWith('tableRoundTop')) {
-                        return (
-                            <mesh
-                                geometry={node.geometry}
-                                position={node.position}
-                                rotation={node.rotation}
-                                scale={node.scale}
-                                key={node.uuid}
-                                onClick={() => alert(`Mesa ${node.name}`)}
-                                onPointerEnter={() =>
-                                    (document.body.style.cursor = 'pointer')
-                                }
-                                onPointerLeave={() =>
-                                    (document.body.style.cursor = 'default')
-                                }
-                            >
-                                <meshPhysicalMaterial
-                                    depthWrite={false}
-                                    color="#aaa"
-                                    transmission={1}
-                                    opacity={0.6}
-                                    transparent={true}
-                                    roughness={0.2}
-                                    metalness={0.1}
-                                    reflectivity={1}
-                                    clearcoat={1}
-                                    clearcoatRoughness={0}
-                                    emissive={'green'}
-                                    emissiveIntensity={1.5}
-                                    emissiveMap={tablesEmissionTexture}
-                                />
-                            </mesh>
-                        )
+                    if (glassTables.includes(node.name)) {
+                        if (reservedTables.includes(node.name)) {
+                            const child = tables.scene.getObjectByName(
+                                'reservado' + node.name
+                            )
+                            return (
+                                <>
+                                    <mesh
+                                        geometry={node.geometry}
+                                        position={node.position}
+                                        rotation={node.rotation}
+                                        scale={node.scale}
+                                        key={node.uuid}
+                                    >
+                                        <meshPhysicalMaterial
+                                            depthWrite={false}
+                                            color="#aaa"
+                                            transmission={1}
+                                            opacity={0.6}
+                                            transparent={true}
+                                            roughness={0.2}
+                                            metalness={0.1}
+                                            reflectivity={1}
+                                            clearcoat={1}
+                                            clearcoatRoughness={0}
+                                        />
+                                    </mesh>
+                                    <mesh
+                                        geometry={child.geometry}
+                                        position={child.position}
+                                        rotation={child.rotation}
+                                        scale={child.scale}
+                                        key={child.uuid}
+                                    >
+                                        <meshStandardMaterial
+                                            map={reservadoTexture}
+                                        />
+                                    </mesh>
+                                </>
+                            )
+                        } else {
+                            return (
+                                <mesh
+                                    geometry={node.geometry}
+                                    position={node.position}
+                                    rotation={node.rotation}
+                                    scale={node.scale}
+                                    key={node.uuid}
+                                    onClick={() => alert(`Mesa ${node.name}`)}
+                                    onPointerEnter={() =>
+                                        (document.body.style.cursor = 'pointer')
+                                    }
+                                    onPointerLeave={() =>
+                                        (document.body.style.cursor = 'default')
+                                    }
+                                >
+                                    <meshPhysicalMaterial
+                                        depthWrite={false}
+                                        color="#aaa"
+                                        transmission={1}
+                                        opacity={0.6}
+                                        transparent={true}
+                                        roughness={0.2}
+                                        metalness={0.1}
+                                        reflectivity={1}
+                                        clearcoat={1}
+                                        clearcoatRoughness={0}
+                                        emissive={new Color('#248500')}
+                                        emissiveIntensity={1.5}
+                                    />
+                                </mesh>
+                            )
+                        }
                     } else {
                         if (node.name.startsWith('reservado')) return
+                        if (node.name.endsWith('leg')) {
+                            return (
+                                <mesh
+                                    geometry={node.geometry}
+                                    position={node.position}
+                                    rotation={node.rotation}
+                                    scale={node.scale}
+                                    key={node.uuid}
+                                >
+                                    <meshBasicMaterial
+                                        map={tablesTexture}
+                                        roughness={tablesRoughnessTexture}
+                                        normal={tablesNormalTexture}
+                                    />
+                                </mesh>
+                            )
+                        }
                         if (reservedTables.includes(node.name)) {
                             const child = tables.scene.getObjectByName(
                                 'reservado' + node.name
@@ -157,7 +214,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                         map={tablesTexture}
                                         roughness={tablesRoughnessTexture}
                                         normal={tablesNormalTexture}
-                                        emissive={new Color('#0e6f00')}
+                                        emissive={new Color('#248500')}
                                         emissiveIntensity={50}
                                         emissiveMap={tablesEmissionTexture}
                                         envMapIntensity={1.4}
