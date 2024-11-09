@@ -154,7 +154,6 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                         emissive={new Color('#00c67f')}
                                         emissiveMap={tablesEmissionTexture}
                                         emissiveIntensity={3}
-                                        alphaMap={tablesEmissionTexture}
                                     />
                                 </mesh>
                             )
