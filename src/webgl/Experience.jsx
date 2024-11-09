@@ -144,15 +144,17 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                         depthWrite={false}
                                         color="#aaa"
                                         transmission={1}
-                                        opacity={0.6}
+                                        opacity={1}
                                         transparent={true}
                                         roughness={0.2}
                                         metalness={0.1}
                                         reflectivity={1}
                                         clearcoat={1}
                                         clearcoatRoughness={0}
-                                        emissive={new Color('#248500')}
-                                        emissiveIntensity={1.5}
+                                        emissive={new Color('#00c67f')}
+                                        emissiveMap={tablesEmissionTexture}
+                                        emissiveIntensity={3}
+                                        alphaMap={tablesEmissionTexture}
                                     />
                                 </mesh>
                             )
@@ -229,10 +231,10 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                         map={tablesTexture}
                                         roughness={tablesRoughnessTexture}
                                         normal={tablesNormalTexture}
-                                        emissive={new Color('#248500')}
-                                        emissiveIntensity={50}
+                                        emissive={new Color('#00c67f')}
+                                        emissiveIntensity={3}
                                         emissiveMap={tablesEmissionTexture}
-                                        envMapIntensity={1.4}
+                                        envMapIntensity={1.5}
                                     />
                                 </mesh>
                             )
