@@ -22,7 +22,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
     baseTexture.flipY = false
     const wallsTexture = useTexture('./textures/walls.jpg')
     wallsTexture.flipY = false
-    
+
     const promoTexture = useTexture('./textures/promo.jpg')
     promoTexture.flipY = false
     const bottlesTexture = useTexture('./textures/bottles.jpg')
@@ -38,13 +38,13 @@ export default function Experience({ onProgressChange, reservedTables }) {
     const alphaMap = useTexture('./textures/alpha.png')
 
     useEffect(() => {
-        reservedTables.forEach(tableNumber => {
+        reservedTables.forEach((tableNumber) => {
             reservadoRefs.current[tableNumber] = React.createRef()
         })
     }, [reservedTables.length])
 
     useFrame((_, delta) => {
-        Object.values(reservadoRefs.current).forEach(ref => {
+        Object.values(reservadoRefs.current).forEach((ref) => {
             if (ref.current) ref.current.rotation.y += delta / 3
         })
     })
@@ -133,41 +133,63 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 </>
                             )
                         } else {
+                            const cta = tables.scene.getObjectByName(
+                                'cta' + node.name
+                            )
                             return (
-                                <mesh
-                                    geometry={node.geometry}
-                                    position={node.position}
-                                    rotation={node.rotation}
-                                    scale={node.scale}
-                                    key={node.uuid}
-                                    onClick={() => alert(`Mesa ${node.name}`)}
-                                    onPointerEnter={() =>
-                                        (document.body.style.cursor = 'pointer')
-                                    }
-                                    onPointerLeave={() =>
-                                        (document.body.style.cursor = 'default')
-                                    }
-                                >
-                                    <meshPhysicalMaterial
-                                        depthWrite={false}
-                                        color="#aaa"
-                                        transmission={1}
-                                        opacity={.6}
-                                        transparent={true}
-                                        roughness={0.2}
-                                        metalness={0.1}
-                                        reflectivity={1}
-                                        clearcoat={1}
-                                        clearcoatRoughness={0}
-                                        // emissive={new Color('#00c67f')}
-                                        // emissiveMap={tablesEmissionTexture}
-                                        // emissiveIntensity={3}
-                                    />
-                                </mesh>
+                                <>
+                                    <mesh
+                                        geometry={node.geometry}
+                                        position={node.position}
+                                        rotation={node.rotation}
+                                        scale={node.scale}
+                                        key={node.uuid}
+                                        onClick={() =>
+                                            alert(`Mesa ${node.name}`)
+                                        }
+                                        onPointerEnter={() =>
+                                            (document.body.style.cursor =
+                                                'pointer')
+                                        }
+                                        onPointerLeave={() =>
+                                            (document.body.style.cursor =
+                                                'default')
+                                        }
+                                    >
+                                        <meshPhysicalMaterial
+                                            depthWrite={false}
+                                            color="#aaa"
+                                            transmission={1}
+                                            opacity={0.6}
+                                            transparent={true}
+                                            roughness={0.2}
+                                            metalness={0.1}
+                                            reflectivity={1}
+                                            clearcoat={1}
+                                            clearcoatRoughness={0}
+                                        />
+                                    </mesh>
+                                    <mesh
+                                        geometry={cta.geometry}
+                                        position={cta.position}
+                                        rotation={cta.rotation}
+                                        scale={cta.scale}
+                                        key={cta.uuid}
+                                    >
+                                        <meshStandardMaterial
+                                            emissive={new Color('#00c67f')}
+                                            emissiveIntensity={3}
+                                        />
+                                    </mesh>
+                                </>
                             )
                         }
                     } else {
-                        if (node.name.startsWith('reservado')) return
+                        if (
+                            node.name.startsWith('reservado') ||
+                            node.name.startsWith('cta')
+                        )
+                            return
                         if (node.name.endsWith('leg')) {
                             return (
                                 <mesh
@@ -177,9 +199,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                     scale={node.scale}
                                     key={node.uuid}
                                 >
-                                    <meshBasicMaterial
-                                        map={tablesTexture}
-                                    />
+                                    <meshBasicMaterial map={tablesTexture} />
                                 </mesh>
                             )
                         }
@@ -201,7 +221,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                         />
                                     </mesh>
                                     <mesh
-                                    ref={reservadoRefs.current[node.name]}
+                                        ref={reservadoRefs.current[node.name]}
                                         geometry={child.geometry}
                                         position={child.position}
                                         rotation={child.rotation}
@@ -215,30 +235,47 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 </>
                             )
                         } else {
+                            const cta = tables.scene.getObjectByName(
+                                'cta' + node.name
+                            )
+                            if (!cta) return
                             return (
-                                <mesh
-                                    geometry={node.geometry}
-                                    position={node.position}
-                                    rotation={node.rotation}
-                                    scale={node.scale}
-                                    key={node.uuid}
-                                    onClick={() => alert(`Mesa ${node.name}`)}
-                                    onPointerEnter={() =>
-                                        (document.body.style.cursor = 'pointer')
-                                    }
-                                    onPointerLeave={() =>
-                                        (document.body.style.cursor = 'default')
-                                    }
-                                >
-                                    <meshBasicMaterial
-                                        map={tablesTexture}
-                                        // emissive={new Color('#00c67f')}
-                                        // emissiveIntensity={3}
-                                        // emissiveMap={tablesEmissionTexture}
-                                        // envMapIntensity={1.5}
-                                        
-                                    />
-                                </mesh>
+                                <>
+                                    <mesh
+                                        geometry={node.geometry}
+                                        position={node.position}
+                                        rotation={node.rotation}
+                                        scale={node.scale}
+                                        key={node.uuid}
+                                        onClick={() =>
+                                            alert(`Mesa ${node.name}`)
+                                        }
+                                        onPointerEnter={() =>
+                                            (document.body.style.cursor =
+                                                'pointer')
+                                        }
+                                        onPointerLeave={() =>
+                                            (document.body.style.cursor =
+                                                'default')
+                                        }
+                                    >
+                                        <meshBasicMaterial
+                                            map={tablesTexture}
+                                        />
+                                    </mesh>
+                                    <mesh
+                                        geometry={cta.geometry}
+                                        position={cta.position}
+                                        rotation={cta.rotation}
+                                        scale={cta.scale}
+                                        key={cta.uuid}
+                                    >
+                                        <meshStandardMaterial
+                                            emissive={new Color('#00c67f')}
+                                            emissiveIntensity={3}
+                                        />
+                                    </mesh>
+                                </>
                             )
                         }
                     }
@@ -251,7 +288,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 geometry={node.geometry}
                                 position={node.position}
                                 rotation={node.rotation}
-                                key={node.name}
+                                key={node.uuid}
                             >
                                 <meshBasicMaterial color={'#ffffe5'} />
                             </mesh>
@@ -265,7 +302,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 position={node.position}
                                 rotation={node.rotation}
                                 scale={node.scale}
-                                key={node.name}
+                                key={node.uuid}
                             >
                                 <meshPhysicalMaterial
                                     depthWrite={false}
@@ -290,7 +327,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 geometry={node.geometry}
                                 position={node.position}
                                 rotation={node.rotation}
-                                key={node.name}
+                                key={node.uuid}
                                 scale={node.scale}
                             >
                                 <meshPhysicalMaterial
@@ -315,7 +352,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 geometry={node.geometry}
                                 position={node.position}
                                 rotation={node.rotation}
-                                key={node.name}
+                                key={node.uuid}
                                 scale={node.scale}
                             >
                                 <meshStandardMaterial
@@ -333,7 +370,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 geometry={node.geometry}
                                 position={node.position}
                                 rotation={node.rotation}
-                                key={node.name}
+                                key={node.uuid}
                                 scale={node.scale}
                             >
                                 <meshStandardMaterial
@@ -351,7 +388,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 geometry={node.geometry}
                                 position={node.position}
                                 rotation={node.rotation}
-                                key={node.name}
+                                key={node.uuid}
                                 scale={node.scale}
                             >
                                 <meshStandardMaterial
@@ -369,7 +406,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 geometry={node.geometry}
                                 position={node.position}
                                 rotation={node.rotation}
-                                key={node.name}
+                                key={node.uuid}
                                 scale={node.scale}
                             >
                                 <meshStandardMaterial
@@ -387,7 +424,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 geometry={node.geometry}
                                 position={node.position}
                                 rotation={node.rotation}
-                                key={node.name}
+                                key={node.uuid}
                                 scale={node.scale}
                             >
                                 {/* <primitive attach='material' object={new GradientMaterial()}/> */}
@@ -408,7 +445,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 geometry={node.geometry}
                                 position={node.position}
                                 rotation={node.rotation}
-                                key={node.name}
+                                key={node.uuid}
                                 scale={node.scale}
                             >
                                 <meshStandardMaterial
@@ -428,7 +465,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 geometry={node.geometry}
                                 position={node.position}
                                 rotation={node.rotation}
-                                key={node.name}
+                                key={node.uuid}
                                 scale={node.scale}
                             >
                                 <meshStandardMaterial
@@ -449,7 +486,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 geometry={node.geometry}
                                 position={node.position}
                                 rotation={node.rotation}
-                                key={node.name}
+                                key={node.uuid}
                                 scale={node.scale}
                             >
                                 <meshStandardMaterial
