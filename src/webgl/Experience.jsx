@@ -20,20 +20,21 @@ export default function Experience({ onProgressChange, reservedTables }) {
 
     const baseTexture = useTexture('./textures/base.jpg')
     baseTexture.flipY = false
+    const wallsTexture = useTexture('./textures/walls.jpg')
+    wallsTexture.flipY = false
+    
     const promoTexture = useTexture('./textures/promo.jpg')
     promoTexture.flipY = false
     const bottlesTexture = useTexture('./textures/bottles.jpg')
     bottlesTexture.flipY = false
+
     const tablesTexture = useTexture('./textures/tables.jpg')
     tablesTexture.flipY = false
-    const tablesRoughnessTexture = useTexture('./textures/tablesRoughness.jpg')
-    tablesRoughnessTexture.flipY = false
-    const tablesNormalTexture = useTexture('./textures/tablesNormal.jpg')
-    tablesNormalTexture.flipY = false
     const tablesEmissionTexture = useTexture('./textures/tablesEmission.jpg')
     tablesEmissionTexture.flipY = false
     const reservadoTexture = useTexture('./textures/reservado.jpg')
     reservadoTexture.flipY = false
+
     const alphaMap = useTexture('./textures/alpha.png')
 
     useEffect(() => {
@@ -66,6 +67,13 @@ export default function Experience({ onProgressChange, reservedTables }) {
                     rotation={baked.nodes.master.rotation}
                 >
                     <meshBasicMaterial map={baseTexture} />
+                </mesh>
+                <mesh
+                    geometry={baked.nodes.walls.geometry}
+                    position={baked.nodes.walls.position}
+                    rotation={baked.nodes.walls.rotation}
+                >
+                    <meshBasicMaterial map={wallsTexture} />
                 </mesh>
                 <mesh
                     geometry={baked.nodes.promoBooth.geometry}
@@ -171,8 +179,6 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 >
                                     <meshBasicMaterial
                                         map={tablesTexture}
-                                        roughness={tablesRoughnessTexture}
-                                        normal={tablesNormalTexture}
                                     />
                                 </mesh>
                             )
@@ -192,8 +198,6 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                     >
                                         <meshBasicMaterial
                                             map={tablesTexture}
-                                            roughness={tablesRoughnessTexture}
-                                            normal={tablesNormalTexture}
                                         />
                                     </mesh>
                                     <mesh
@@ -228,8 +232,6 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 >
                                     <meshStandardMaterial
                                         map={tablesTexture}
-                                        roughness={tablesRoughnessTexture}
-                                        normal={tablesNormalTexture}
                                         emissive={new Color('#00c67f')}
                                         emissiveIntensity={3}
                                         emissiveMap={tablesEmissionTexture}
