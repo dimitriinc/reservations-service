@@ -236,6 +236,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                         emissiveIntensity={3}
                                         emissiveMap={tablesEmissionTexture}
                                         envMapIntensity={1.5}
+                                        
                                     />
                                 </mesh>
                             )
@@ -356,6 +357,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 <meshStandardMaterial
                                     color={getRandomLeafColor(colors)}
                                     side={DoubleSide}
+                                    roughness={1}
                                 />
                             </mesh>
                         )
