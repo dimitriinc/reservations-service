@@ -1,5 +1,11 @@
-import { Effects, useGLTF, useTexture, useProgress } from '@react-three/drei'
-import React, { useEffect, useRef } from 'react'
+import {
+    Effects,
+    useGLTF,
+    useTexture,
+    useProgress,
+    Html,
+} from '@react-three/drei'
+import React, { useEffect, useRef, useState } from 'react'
 import { Color, DoubleSide } from 'three'
 import { colors, glassTables } from '/utils.js'
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
@@ -10,9 +16,14 @@ function getRandomLeafColor(colors) {
     return colors[index]
 }
 
-export default function Experience({ onProgressChange, reservedTables }) {
+export default function Experience({ reservedTables }) {
+
     const sceneRef = useRef()
     const reservadoRefs = useRef({})
+
+    const [chosenTables, setChosenTables] = useState([])
+    const [unavailableTables, setUnavailableTables] = useState(reservedTables)
+    const [selectedTable, setSelectedTable] = useState('')
 
     const baked = useGLTF('/models/baked.glb')
     const normal = useGLTF('/models/normal.glb')
@@ -37,6 +48,9 @@ export default function Experience({ onProgressChange, reservedTables }) {
 
     const alphaMap = useTexture('./textures/alpha.png')
 
+    const leafTexture = useTexture('./textures/leafTest.png')
+    leafTexture.flipY = false
+
     useEffect(() => {
         reservedTables.forEach((tableNumber) => {
             reservadoRefs.current[tableNumber] = React.createRef()
@@ -49,17 +63,34 @@ export default function Experience({ onProgressChange, reservedTables }) {
         })
     })
 
-    function handleTableClick(event) {
-        // console.log(event)
-        // alert(`Mesa ${event.target.userData.number}`)
+    function handleTableClick(tableObj) {
+        if (selectedTable) {
+            setSelectedTable('')
+            return
+        }
+        setSelectedTable(tableObj.name)
+    }
+
+    function handleConfirmar() {
+        setUnavailableTables(prev => [...prev, selectedTable])
+        setSelectedTable('')
+    }
+
+    function handleDialogExit() {
+        if (selectedTable) setSelectedTable('')
     }
 
     return (
         <>
+            {/* {dialogPosition && (
+                
+            )} */}
+
             <group
                 ref={sceneRef}
                 position={[0, 0, -8]}
                 rotation-y={-Math.PI / 2.5}
+                onClick={handleDialogExit}
             >
                 <mesh
                     geometry={baked.nodes.master.geometry}
@@ -92,7 +123,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
 
                 {Object.values(tables.nodes).map((node) => {
                     if (glassTables.includes(node.name)) {
-                        if (reservedTables.includes(node.name)) {
+                        if (unavailableTables.includes(node.name)) {
                             const child = tables.scene.getObjectByName(
                                 'reservado' + node.name
                             )
@@ -144,9 +175,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                         rotation={node.rotation}
                                         scale={node.scale}
                                         key={node.uuid}
-                                        onClick={() =>
-                                            alert(`Mesa ${node.name}`)
-                                        }
+                                        onClick={() => handleTableClick(node)}
                                         onPointerEnter={() =>
                                             (document.body.style.cursor =
                                                 'pointer')
@@ -168,6 +197,22 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                             clearcoat={1}
                                             clearcoatRoughness={0}
                                         />
+                                         {node.name === selectedTable ? (
+                                            <Html>
+                                                <div
+                                                    className="gl-dialog"
+                                                >
+                                                    <p>Mesa {selectedTable}</p>
+                                                    <p>To be continued.</p>
+                                                    <div
+                                                        className="gl-dialog-btn"
+                                                        onClick={handleConfirmar}
+                                                    >
+                                                        Confirmar
+                                                    </div>
+                                                </div>
+                                            </Html>
+                                        ) : null}
                                     </mesh>
                                     <mesh
                                         geometry={cta.geometry}
@@ -177,7 +222,11 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                         key={cta.uuid}
                                     >
                                         <meshStandardMaterial
-                                            emissive={new Color('#00c67f')}
+                                            emissive={
+                                                chosenTables.includes(node.name)
+                                                    ? new Color('#dcabff')
+                                                    : new Color('#09ff9c')
+                                            }
                                             emissiveIntensity={3}
                                         />
                                     </mesh>
@@ -203,7 +252,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                 </mesh>
                             )
                         }
-                        if (reservedTables.includes(node.name)) {
+                        if (unavailableTables.includes(node.name)) {
                             const child = tables.scene.getObjectByName(
                                 'reservado' + node.name
                             )
@@ -247,9 +296,7 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                         rotation={node.rotation}
                                         scale={node.scale}
                                         key={node.uuid}
-                                        onClick={() =>
-                                            alert(`Mesa ${node.name}`)
-                                        }
+                                        onClick={() => handleTableClick(node)}
                                         onPointerEnter={() =>
                                             (document.body.style.cursor =
                                                 'pointer')
@@ -262,6 +309,22 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                         <meshBasicMaterial
                                             map={tablesTexture}
                                         />
+                                        {node.name === selectedTable ? (
+                                            <Html>
+                                                <div
+                                                    className="gl-dialog"
+                                                >
+                                                    <p>Mesa {selectedTable}</p>
+                                                    <p>To be continued.</p>
+                                                    <div
+                                                        className="gl-dialog-btn"
+                                                        onClick={handleConfirmar}
+                                                    >
+                                                        Confirmar
+                                                    </div>
+                                                </div>
+                                            </Html>
+                                        ) : null}
                                     </mesh>
                                     <mesh
                                         geometry={cta.geometry}
@@ -271,7 +334,11 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                         key={cta.uuid}
                                     >
                                         <meshStandardMaterial
-                                            emissive={new Color('#00c67f')}
+                                            emissive={
+                                                chosenTables.includes(node.name)
+                                                    ? new Color('#dcabff')
+                                                    : new Color('#09ff9c')
+                                            }
                                             emissiveIntensity={3}
                                         />
                                     </mesh>
@@ -396,6 +463,20 @@ export default function Experience({ onProgressChange, reservedTables }) {
                                     side={DoubleSide}
                                     roughness={1}
                                 />
+                            </mesh>
+                        )
+                    }
+
+                    if (node.name.startsWith('test')) {
+                        return (
+                            <mesh
+                                geometry={node.geometry}
+                                position={node.position}
+                                rotation={node.rotation}
+                                key={node.uuid}
+                                scale={node.scale}
+                            >
+                                <meshBasicMaterial map={leafTexture} />
                             </mesh>
                         )
                     }

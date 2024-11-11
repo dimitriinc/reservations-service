@@ -13,12 +13,7 @@ import { getDummyReservas } from '../utils'
 
 function WebGL({ disableWebgl, date, part }) {
     const [isLoading, setIsLoading] = useState(true)
-    const [progress, setProgress] = useState(0)
     const [dummyReservas, setDummyReservas] = useState([])
-
-    function handleProgressChange(progress) {
-        setProgress(progress)
-    }
 
     useEffect(() => {
         const fetchReservas = async () => {
@@ -42,7 +37,6 @@ function WebGL({ disableWebgl, date, part }) {
                     <div className="webgl-container">
                         <Loader
                             isLoading={isLoading}
-                            progress={progress}
                         />
                         {dummyReservas.length && (
                             <Canvas
@@ -104,7 +98,6 @@ function WebGL({ disableWebgl, date, part }) {
                                     }}
                                 >
                                     <Experience
-                                        onProgressChange={handleProgressChange}
                                         reservedTables={dummyReservas.map(
                                             (reserva) => reserva.table
                                         )}
