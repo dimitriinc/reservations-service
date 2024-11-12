@@ -76,6 +76,7 @@ function WebGL({ disableWebgl, date, part }) {
                                     args={['#241a1a']}
                                     attach="background"
                                 />
+                                {/* <directionalLight position={[5, 5, 5]} intensity={1 } color={new THREE.Color('#5d6f00')} /> */}
                                 {/* <ambientLight intensity={0.3} /> */}
 
                                 {/* <Effects>

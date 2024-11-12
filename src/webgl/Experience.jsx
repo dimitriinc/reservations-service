@@ -4,12 +4,26 @@ import {
     useTexture,
     useProgress,
     Html,
+    useNormalTexture
 } from '@react-three/drei'
 import React, { useEffect, useRef, useState } from 'react'
-import { Color, DoubleSide } from 'three'
+import { Color, DoubleSide, MeshToonMaterial } from 'three'
 import { colors, glassTables } from '/utils.js'
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
 import { useFrame } from '@react-three/fiber'
+
+let leafIndex = 0
+
+function getLeafColor() {
+    const index = leafIndex
+    if (leafIndex === colors.length - 1) leafIndex = 0
+    else leafIndex++
+    return colors[index]
+}
+
+function getLeafMaterial() {
+    return new MeshToonMaterial({color: getLeafColor()})
+}
 
 function getRandomLeafColor(colors) {
     const index = Math.floor(Math.random() * colors.length)
@@ -17,6 +31,8 @@ function getRandomLeafColor(colors) {
 }
 
 export default function Experience({ reservedTables }) {
+
+    leafIndex = 0
 
     const sceneRef = useRef()
     const reservadoRefs = useRef({})
@@ -47,6 +63,8 @@ export default function Experience({ reservedTables }) {
     reservadoTexture.flipY = false
 
     const alphaMap = useTexture('./textures/alpha.png')
+
+    const [normalMap] = useNormalTexture(1, { repeat: [2, 2] })
 
 
     useEffect(() => {
@@ -451,9 +469,10 @@ export default function Experience({ reservedTables }) {
                                 rotation={node.rotation}
                                 key={node.uuid}
                                 scale={node.scale}
+                                // material={getLeafMaterial()}
                             >
                                 <meshStandardMaterial
-                                    color={getRandomLeafColor(colors)}
+                                    color={getLeafColor()}
                                     side={DoubleSide}
                                     roughness={1}
                                 />
