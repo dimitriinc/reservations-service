@@ -48,10 +48,6 @@ export default function Experience({ reservedTables }) {
 
     const alphaMap = useTexture('./textures/alpha.png')
 
-    const leafTexture = useTexture('./textures/leafTest.png')
-    leafTexture.flipY = false
-    const vinesTexture = useTexture('./textures/vines.png')
-    vinesTexture.flipY = false
 
     useEffect(() => {
         reservedTables.forEach((tableNumber) => {
@@ -118,14 +114,7 @@ export default function Experience({ reservedTables }) {
                 >
                     <meshBasicMaterial map={bottlesTexture} />
                 </mesh>
-                <mesh
-                    geometry={baked.nodes.vines.geometry}
-                    position={baked.nodes.vines.position}
-                    rotation={baked.nodes.vines.rotation}
-                >
-                    <meshBasicMaterial map={vinesTexture} />
-                </mesh>
-
+             
                 {Object.values(tables.nodes).map((node) => {
                     if (glassTables.includes(node.name)) {
                         if (unavailableTables.includes(node.name)) {
@@ -472,19 +461,6 @@ export default function Experience({ reservedTables }) {
                         )
                     }
 
-                    if (node.name.startsWith('test')) {
-                        return (
-                            <mesh
-                                geometry={node.geometry}
-                                position={node.position}
-                                rotation={node.rotation}
-                                key={node.uuid}
-                                scale={node.scale}
-                            >
-                                <meshBasicMaterial map={leafTexture} />
-                            </mesh>
-                        )
-                    }
 
                     if (node.name.startsWith('trunk')) {
                         return (

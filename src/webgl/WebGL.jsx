@@ -35,9 +35,7 @@ function WebGL({ disableWebgl, date, part }) {
             >
                 <div className="webgl-screen">
                     <div className="webgl-container">
-                        <Loader
-                            isLoading={isLoading}
-                        />
+                        <Loader isLoading={isLoading} />
                         {dummyReservas.length && (
                             <Canvas
                                 className="canvas"
