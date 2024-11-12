@@ -50,6 +50,8 @@ export default function Experience({ reservedTables }) {
 
     const leafTexture = useTexture('./textures/leafTest.png')
     leafTexture.flipY = false
+    const vinesTexture = useTexture('./textures/vines.png')
+    vinesTexture.flipY = false
 
     useEffect(() => {
         reservedTables.forEach((tableNumber) => {
@@ -82,10 +84,6 @@ export default function Experience({ reservedTables }) {
 
     return (
         <>
-            {/* {dialogPosition && (
-                
-            )} */}
-
             <group
                 ref={sceneRef}
                 position={[0, 0, -8]}
@@ -119,6 +117,13 @@ export default function Experience({ reservedTables }) {
                     rotation={baked.nodes.bottles.rotation}
                 >
                     <meshBasicMaterial map={bottlesTexture} />
+                </mesh>
+                <mesh
+                    geometry={baked.nodes.vines.geometry}
+                    position={baked.nodes.vines.position}
+                    rotation={baked.nodes.vines.rotation}
+                >
+                    <meshBasicMaterial map={vinesTexture} />
                 </mesh>
 
                 {Object.values(tables.nodes).map((node) => {

@@ -56,12 +56,13 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    font-family: 'FuturaRg';
     position: absolute;
     color: $overlay;
     padding: 8px;
     border: 1px solid;
     border-radius: 5px;
-    background: #000000aa;
+    background: #000000bb;
     transform: translate(-50%, -50%);
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
     font-size: 14px;
