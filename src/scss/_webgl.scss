@@ -73,4 +73,12 @@
         border-radius: 5px;
         cursor: pointer;
     }
+
+    select {
+        color: $overlay;
+        border: 1px solid;
+        border-radius: 5px;
+        padding: 3px 6px;
+        background: transparent;
+    }
 }

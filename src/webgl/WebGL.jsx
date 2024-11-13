@@ -6,6 +6,7 @@ import {
     OrbitControls,
     Environment,
     PresentationControls,
+    Sky,
 } from '@react-three/drei'
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
 import Loader from './Loader'
@@ -14,6 +15,12 @@ import { getDummyReservas } from '../utils'
 function WebGL({ disableWebgl, date, part }) {
     const [isLoading, setIsLoading] = useState(true)
     const [dummyReservas, setDummyReservas] = useState([])
+
+    const [controlsEnabled, setControlsEnabled] = useState(true)
+
+    function handleControlsEnabled(enabled) {
+        setControlsEnabled(enabled)
+    }
 
     useEffect(() => {
         const fetchReservas = async () => {
@@ -59,10 +66,6 @@ function WebGL({ disableWebgl, date, part }) {
                                     position: [0, 18, 25],
                                 }}
                             >
-                                <Environment
-                                    background={false}
-                                    preset="sunset"
-                                />
                                 {/* <OrbitControls
                                     minPolarAngle={0}
                                     maxPolarAngle={Math.PI / 2.8}
@@ -76,18 +79,23 @@ function WebGL({ disableWebgl, date, part }) {
                                     args={['#241a1a']}
                                     attach="background"
                                 />
-                                {/* <directionalLight position={[5, 5, 5]} intensity={1 } color={new THREE.Color('#5d6f00')} /> */}
-                                {/* <ambientLight intensity={0.3} /> */}
-
-                                {/* <Effects>
-                        <Bloom
-                            luminanceThreshold={0}
-                            luminanceSmoothing={0.9}
-                            height={300}
-                        />
-                    </Effects> */}
-
+                                <directionalLight
+                                    position={[-10, 20, 4]}
+                                    scale={[5, 5, 5]}
+                                    intensity={0.5}
+                                />
+                                <ambientLight intensity={0.25} />
+                                <Sky
+                                    position={[0, 0, 0]}
+                                    scale={[60, 60, 60]}
+                                    distance={0}
+                                    sunPosition={[0, 1, 0]} // Position of the sun
+                                    turbidity={0.8} // Makes the sky appear more or less clear
+                                    rayleigh={0.5} // Makes the sky more or less blue
+                                    mieCoefficient={0.1} // Scattering factor, affects sky brightness
+                                />
                                 <PresentationControls
+                                    enabled={controlsEnabled}
                                     global
                                     cursor={false}
                                     zoom={0.8}
@@ -100,6 +108,7 @@ function WebGL({ disableWebgl, date, part }) {
                                         reservedTables={dummyReservas.map(
                                             (reserva) => reserva.table
                                         )}
+                                        onControlsEnabled={handleControlsEnabled}
                                     />
                                 </PresentationControls>
                             </Canvas>
