@@ -217,7 +217,7 @@ export default function Experience({ reservedTables, onControlsEnabled }) {
                                             clearcoatRoughness={0}
                                         />
                                         {node.name === selectedTable ? (
-                                            <Html position={[4, 4, 4]}>
+                                            <Html center>
                                                 <div className="gl-dialog">
                                                     <p>Personas</p>
                                                     <select
@@ -343,7 +343,7 @@ export default function Experience({ reservedTables, onControlsEnabled }) {
                                             map={tablesTexture}
                                         />
                                         {node.name === selectedTable ? (
-                                            <Html position={[4, 4, 4]}>
+                                            <Html center>
                                                 <div className="gl-dialog">
                                                     <p>Personas</p>
                                                     {node.name === '05' ||
