@@ -76,16 +76,17 @@ function WebGL({ disableWebgl, date, part }) {
                                     rotateSpeed={0.7}
                                 /> */}
                                 <color
-                                    args={['#241a1a']}
+                                    args={['#0d1015']}
                                     attach="background"
                                 />
                                 <directionalLight
                                     position={[-10, 20, 4]}
                                     scale={[5, 5, 5]}
-                                    intensity={0.5}
+                                    intensity={0.25}
+                                    color={new THREE.Color('#A8B4EB')}
                                 />
-                                <ambientLight intensity={0.25} />
-                                <Sky
+                                <ambientLight intensity={0.05} color={new THREE.Color('#A8B4EB')}/>
+                                {/* <Sky
                                     position={[0, 0, 0]}
                                     scale={[60, 60, 60]}
                                     distance={0}
@@ -93,7 +94,7 @@ function WebGL({ disableWebgl, date, part }) {
                                     turbidity={0.8} // Makes the sky appear more or less clear
                                     rayleigh={0.5} // Makes the sky more or less blue
                                     mieCoefficient={0.1} // Scattering factor, affects sky brightness
-                                />
+                                /> */}
                                 <PresentationControls
                                     enabled={controlsEnabled}
                                     global
@@ -108,7 +109,9 @@ function WebGL({ disableWebgl, date, part }) {
                                         reservedTables={dummyReservas.map(
                                             (reserva) => reserva.table
                                         )}
-                                        onControlsEnabled={handleControlsEnabled}
+                                        onControlsEnabled={
+                                            handleControlsEnabled
+                                        }
                                     />
                                 </PresentationControls>
                             </Canvas>

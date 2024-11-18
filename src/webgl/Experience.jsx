@@ -48,17 +48,17 @@ export default function Experience({ reservedTables, onControlsEnabled }) {
     const normal = useGLTF('/models/normal.glb')
     const tables = useGLTF('/models/tables.glb')
 
-    const baseTexture = useTexture('./textures/base.jpg')
+    const baseTexture = useTexture('./textures/night/base.jpg')
     baseTexture.flipY = false
-    const wallsTexture = useTexture('./textures/walls.jpg')
+    const wallsTexture = useTexture('./textures/night/walls.jpg')
     wallsTexture.flipY = false
 
-    const promoTexture = useTexture('./textures/promo.jpg')
+    const promoTexture = useTexture('./textures/night/promo.jpg')
     promoTexture.flipY = false
-    const bottlesTexture = useTexture('./textures/bottles.jpg')
+    const bottlesTexture = useTexture('./textures/night/bottles.jpg')
     bottlesTexture.flipY = false
 
-    const tablesTexture = useTexture('./textures/tables.jpg')
+    const tablesTexture = useTexture('./textures/night/tables.jpg')
     tablesTexture.flipY = false
     const reservadoTexture = useTexture('./textures/reservado.jpg')
     reservadoTexture.flipY = false
