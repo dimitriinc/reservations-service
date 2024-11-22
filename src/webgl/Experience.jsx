@@ -32,7 +32,11 @@ function getRandomLeafColor(colors) {
     return colors[index]
 }
 
-export default function Experience({ reservedTables, onControlsEnabled }) {
+export default function Experience({
+    reservedTables,
+    onControlsEnabled,
+    partOfDay,
+}) {
     leafIndex = 0
 
     const sceneRef = useRef()
@@ -48,22 +52,30 @@ export default function Experience({ reservedTables, onControlsEnabled }) {
     const normal = useGLTF('/models/normal.glb')
     const tables = useGLTF('/models/tables.glb')
 
-    const baseTexture = useTexture('./textures/night/base.jpg')
-    baseTexture.flipY = false
-    const wallsTexture = useTexture('./textures/night/walls.jpg')
-    wallsTexture.flipY = false
+    let baseTexture, wallsTexture, promoTexture, bottlesTexture, tablesTexture
 
-    const promoTexture = useTexture('./textures/night/promo.jpg')
-    promoTexture.flipY = false
-    const bottlesTexture = useTexture('./textures/night/bottles.jpg')
-    bottlesTexture.flipY = false
-
-    const tablesTexture = useTexture('./textures/night/tables.jpg')
-    tablesTexture.flipY = false
     const reservadoTexture = useTexture('./textures/reservado.jpg')
     reservadoTexture.flipY = false
-
     const alphaMap = useTexture('./textures/alpha.png')
+
+    getTextures(partOfDay)
+
+    function getTextures(part) {
+        baseTexture = useTexture(`./textures/${part}/base.jpg`)
+        baseTexture.flipY = false
+
+        wallsTexture = useTexture(`./textures/${part}/walls.jpg`)
+        wallsTexture.flipY = false
+
+        promoTexture = useTexture(`./textures/${part}/promo.jpg`)
+        promoTexture.flipY = false
+
+        bottlesTexture = useTexture(`./textures/${part}/bottles.jpg`)
+        bottlesTexture.flipY = false
+
+        tablesTexture = useTexture(`./textures/${part}/tables.jpg`)
+        tablesTexture.flipY = false
+    }
 
     useEffect(() => {
         reservedTables.forEach((tableNumber) => {

@@ -112,6 +112,7 @@ function WebGL({ disableWebgl, date, part }) {
                                         onControlsEnabled={
                                             handleControlsEnabled
                                         }
+                                        partOfDay={'night'}
                                     />
                                 </PresentationControls>
                             </Canvas>
