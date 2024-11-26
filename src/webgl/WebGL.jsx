@@ -18,7 +18,7 @@ function StarryBackground() {
     return (
         <mesh
             position={[0, -15, -20]}
-            scale={[180, 120, 1]}
+            scale={[220, 147, 1]}
             rotation={[-Math.PI / 5, 0, 0]}
         >
             <planeGeometry args={[1, 1]} />
