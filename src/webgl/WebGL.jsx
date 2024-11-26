@@ -7,10 +7,25 @@ import {
     Environment,
     PresentationControls,
     Sky,
+    useTexture,
 } from '@react-three/drei'
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
 import Loader from './Loader'
 import { getDummyReservas } from '../utils'
+
+function StarryBackground() {
+    const nightTexture = useTexture('./textures/starryNight.jpg')
+    return (
+        <mesh
+            position={[0, -15, -20]}
+            scale={[180, 120, 1]}
+            rotation={[-Math.PI / 5, 0, 0]}
+        >
+            <planeGeometry args={[1, 1]} />
+            <meshBasicMaterial map={nightTexture} />
+        </mesh>
+    )
+}
 
 function WebGL({ disableWebgl, date, part }) {
     const [isLoading, setIsLoading] = useState(true)
@@ -85,7 +100,10 @@ function WebGL({ disableWebgl, date, part }) {
                                     intensity={0.25}
                                     color={new THREE.Color('#A8B4EB')}
                                 />
-                                <ambientLight intensity={0.05} color={new THREE.Color('#A8B4EB')}/>
+                                <ambientLight
+                                    intensity={0.05}
+                                    color={new THREE.Color('#A8B4EB')}
+                                />
                                 {/* <Sky
                                     position={[0, 0, 0]}
                                     scale={[60, 60, 60]}
@@ -95,6 +113,9 @@ function WebGL({ disableWebgl, date, part }) {
                                     rayleigh={0.5} // Makes the sky more or less blue
                                     mieCoefficient={0.1} // Scattering factor, affects sky brightness
                                 /> */}
+
+                                <StarryBackground />
+
                                 <PresentationControls
                                     enabled={controlsEnabled}
                                     global
