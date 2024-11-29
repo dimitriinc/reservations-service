@@ -19,7 +19,7 @@ function StarryBackground() {
     return (
         <mesh
             position={[0, -15, -20]}
-            scale={[220, 147, 1]}
+            scale={[220, 180, 1]}
             rotation={[-Math.PI / 5, 0, 0]}
         >
             <planeGeometry args={[1, 1]} />
@@ -92,7 +92,7 @@ function WebGL({ disableWebgl, date, part }) {
                                     rotateSpeed={0.7}
                                 /> */}
                                 <color
-                                    args={['#0d1015']}
+                                    args={['#222']}
                                     attach="background"
                                 />
                                 <directionalLight

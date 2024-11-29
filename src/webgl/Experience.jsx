@@ -491,7 +491,7 @@ export default function Experience({
                             >
                                 <meshPhysicalMaterial
                                     // depthWrite={false}
-                                    color="#aaa"
+                                    color="#888"
                                     // transmission={1} // For glass transparency
                                     // opacity={.9}  transparency level
                                     // transparent={true} /// Adjust/ Allow transparency
