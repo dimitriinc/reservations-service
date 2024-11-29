@@ -8,6 +8,7 @@ import {
     PresentationControls,
     Sky,
     useTexture,
+    Sparkles,
 } from '@react-three/drei'
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
 import Loader from './Loader'
@@ -115,6 +116,14 @@ function WebGL({ disableWebgl, date, part }) {
                                 /> */}
 
                                 <StarryBackground />
+
+                                {/* <Sparkles
+                                    size={10}
+                                    scale={[40, 2, 40]}
+                                    position={[-10, 20, 4]}
+                                    count={900}
+                                    speed={0.9}
+                                /> */}
 
                                 <PresentationControls
                                     enabled={controlsEnabled}

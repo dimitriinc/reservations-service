@@ -4,6 +4,7 @@ import {
     useTexture,
     useProgress,
     Html,
+    Sparkles,
 } from '@react-three/drei'
 import React, { useEffect, useRef, useState } from 'react'
 import { Color, DoubleSide, MeshToonMaterial } from 'three'
@@ -117,6 +118,7 @@ export default function Experience({
 
     return (
         <>
+           
             <group
                 ref={sceneRef}
                 position={[0, 0, -8]}
@@ -219,7 +221,7 @@ export default function Experience({
                                         <meshPhysicalMaterial
                                             depthWrite={false}
                                             color="#ddd"
-                                            transmission={1}
+                                            // transmission={1}
                                             opacity={0.6}
                                             transparent={true}
                                             roughness={0.2}
@@ -489,11 +491,11 @@ export default function Experience({
                             >
                                 <meshPhysicalMaterial
                                     // depthWrite={false}
-                                    color="#fff"
-                                    transmission={1} // For glass transparency
-                                    opacity={0.9} // Adjust transparency level
-                                    transparent={true} // Allow transparency
-                                    roughness={0.9} // Smooth surface
+                                    color="#aaa"
+                                    // transmission={1} // For glass transparency
+                                    // opacity={.9}  transparency level
+                                    // transparent={true} /// Adjust/ Allow transparency
+                                    roughness={0.8} // Smooth surface
                                     metalness={0.1} // Slight metallic sheen
                                     reflectivity={1} // Reflectivity for glass-like effect
                                     clearcoat={1} // Extra layer on top for shine
