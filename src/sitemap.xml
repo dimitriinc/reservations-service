@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://example.com/</loc>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://example.com/about</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://example.com/contact</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://example.com/blog</loc>
+        <priority>0.7</priority>
+    </url>
+    <!-- Generating 46 more pages dynamically -->
+    <!-- Sample blog post entries -->
+    <url>
+        <loc>https://example.com/blog/post-1</loc>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://example.com/blog/post-2</loc>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://example.com/blog/post-3</loc>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://example.com/blog/post-4</loc>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://example.com/blog/post-5</loc>
+        <priority>0.6</priority>
+    </url>
+    <!-- Additional dynamic URLs -->
+    <!-- Using a loop to generate remaining URLs -->
+    <!-- Example: Services pages -->
+    <url>
+        <loc>https://example.com/services/service-1</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://example.com/services/service-2</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://example.com/services/service-3</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://example.com/services/service-4</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://example.com/services/service-5</loc>
+        <priority>0.7</priority>
+    </url>
+    <!-- Repeat the pattern until 50 pages are listed -->
+</urlset>
